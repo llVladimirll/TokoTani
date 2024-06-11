@@ -1,0 +1,57 @@
+body{
+    font-family: "Manrope", sans-serif;
+}
+
+.container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+}
+
+.logininput{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    flex:1;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+
+}
+
+.loginimage{
+    flex: 1;
+    background-color: #7F9F21;
+
+}
+
+.loginlabel{
+    font-size: larger;
+    font-weight: 700;
+}
+
+input{
+    width: 300px;
+    height: 40px;
+    padding: 9px;
+    box-shadow: 0px 0px 0px 0px rgba(113, 113, 113, 0.1); /* Adjust the values as needed */
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    background-color: #f3fcdb;
+    border: none;
+}
+
+button{
+    color: aliceblue;
+    background-color: #7F9F21;
+    padding: 5px 15px;
+    font-size: 15px;
+    border-radius: 7px;
+    border: none;
+}

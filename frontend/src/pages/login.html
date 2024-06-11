@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../styles/login.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        
+        <div class="logininput">
+            <form action="loginproses.php" method="post"> 
+                <p class="loginlabel">Login</p>
+                <div class="text-field">               
+                        <input type="email" id="email" name="email" autocomplete="off" placeholder="Your Email"
+                            required>
+                    </label>
+                </div>
+                <br>
+                <div class="text-field">                     
+                        <input id="password" type="password" name="password" placeholder="Your Password" title="Minimum 6 characters at 
+                                                        least 1 Alphabet and 1 Number"
+                            pattern="^(?=.[A-Za-z])(?=.\d)[A-Za-z\d]{6,}$" required>
+                    </label>
+                </div>
+                <br><br>
+                <div class="button">
+                    <button id="login" name="submit" type="submit">Sign In</button>
+                </div>
+            </form>
+            <div class="sign_up">
+                <p>Don't have an account yet? <a href="signup.html" class="signup-link">Sign up</a>.</p>
+            </div>
+            <div class="login2">
+                <div class="line"></div>
+                <p><strong>Login</strong>with others</p>
+                <div class="line"></div>
+            </div>
+        </div>
+  cc
+    </div>
+</body>
+</html>
