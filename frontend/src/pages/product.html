@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Toko Tini</title>
+    <title>TokoTani || Product</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="" name="keywords" />
     <meta content="" name="description" />
@@ -211,9 +211,14 @@
                 <div class="col-lg-9">
                   <div
                     class="row g-4 justify-content-center"
-                    id="fruits-container"
+                    id="products-container"
                   >
                     <!-- Product items will be dynamically added here -->
+                  </div>
+                  <div class="col-12">
+                    <div class="pagination d-flex justify-content-center mt-5">
+                      <!-- Add additional page links dynamically here -->
+                    </div>
                   </div>
                 </div>
               </div>
@@ -236,37 +241,52 @@
     <script src="./script.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        // Fetch products from the Node.js server
-        fetch("http://localhost:3330/api/products/data")
-          .then((response) => response.json())
-          .then((products) => {
-            const productsContainer =
-              document.getElementById("fruits-container");
-            const itemsPerPage = 20;
-            let currentPage = 1;
+        const itemsPerPage = 9;
+        let currentPage = 1;
 
-            // Function to render products based on page number
-            function renderProducts(page) {
-              // Clear previous content
-              productsContainer.innerHTML = "";
+        function handlePaginationClick(event) {
+          event.preventDefault();
+          const target = event.target;
+          if (target.classList.contains("prev")) {
+            currentPage = Math.max(1, currentPage - 1);
+          } else if (target.classList.contains("next")) {
+            currentPage++;
+          } else if (target.classList.contains("rounded")) {
+            currentPage = parseInt(target.textContent);
+          }
 
-              // Calculate start and end index for the current page
-              const startIndex = (page - 1) * itemsPerPage;
-              const endIndex = startIndex + itemsPerPage;
+          fetchProducts(currentPage);
+        }
 
-              // Slice the products array to get products for the current page
-              const pageProducts = products.slice(startIndex, endIndex);
+        // Pagination event listener
+        const paginationContainer = document.querySelector(".pagination");
+        paginationContainer.addEventListener("click", handlePaginationClick);
 
-              // Render products for the current page
-              pageProducts.forEach((product) => {
-                const productElement = document.createElement("div");
-                productElement.classList.add(
-                  "col-md-6",
-                  "col-lg-6",
-                  "col-xl-4"
-                );
-                productElement.innerHTML = `
-                        <a href="product-detail.html?id=${product.id}" class="product-card-link">
+        // Function to fetch products for the specified page
+        function fetchProducts(page) {
+          fetch(
+            `http://localhost:3330/api/products/?page=${page}&limit=${itemsPerPage}`
+          )
+            .then((response) => response.json())
+            .then(({ products, totalPages }) => {
+              renderProducts(products);
+              renderPagination(totalPages);
+            })
+            .catch((error) => console.error("Error fetching products:", error));
+        }
+
+        // Function to render products
+        function renderProducts(products) {
+          const productsContainer =
+            document.getElementById("products-container");
+          productsContainer.innerHTML = ""; // Clear previous content
+
+          products.forEach((product) => {
+            // Render each product
+            const productElement = document.createElement("div");
+            productElement.classList.add("col-md-6", "col-lg-6", "col-xl-4");
+            productElement.innerHTML = `
+                    <a href="product-detail.html?id=${product.id}" class="product-card-link">
                         <div class="rounded position-relative fruite-item">
                             <div class="fruite-img">
                                 <img src="${product.image_url}" class="img-fluid w-100 rounded-top" style="max-height: 200px;" alt="">
@@ -279,25 +299,46 @@
                                 <div><p>${product.location}</p></div>
                             </div>
                         </div>
-                        </a>
-                    `;
-                productsContainer.appendChild(productElement);
-              });
+                    </a>
+                `;
+            productsContainer.appendChild(productElement);
+          });
+        }
+
+        // Function to render pagination
+        function renderPagination(totalPages) {
+          const paginationContainer = document.querySelector(".pagination");
+          paginationContainer.innerHTML = ""; // Clear previous content
+
+          // Add previous button
+          const prevButton = document.createElement("a");
+          prevButton.href = "#";
+          prevButton.classList.add("rounded", "prev");
+          prevButton.innerHTML = "&laquo;";
+          paginationContainer.appendChild(prevButton);
+
+          // Add page links
+          for (let i = 1; i <= totalPages; i++) {
+            const pageButton = document.createElement("a");
+            pageButton.href = "#";
+            pageButton.classList.add("rounded");
+            if (i === currentPage) {
+              pageButton.classList.add("active");
             }
+            pageButton.textContent = i;
+            paginationContainer.appendChild(pageButton);
+          }
 
-            // Initial rendering of products (first page)
-            renderProducts(currentPage);
+          // Add next button
+          const nextButton = document.createElement("a");
+          nextButton.href = "#";
+          nextButton.classList.add("rounded", "next");
+          nextButton.innerHTML = "&raquo;";
+          paginationContainer.appendChild(nextButton);
+        }
 
-            // Pagination event listeners
-            document.querySelectorAll(".pagination a").forEach((pageLink) => {
-              pageLink.addEventListener("click", function (event) {
-                event.preventDefault();
-                currentPage = parseInt(this.textContent);
-                renderProducts(currentPage);
-              });
-            });
-          })
-          .catch((error) => console.error("Error fetching products:", error));
+        // Initial fetch for the first page
+        fetchProducts(currentPage);
       });
     </script>
   </body>
