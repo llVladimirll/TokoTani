@@ -1,181 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toko Tani</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        
-        header {
-            background-color: #f0f0f0;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        header h1 {
-            font-size: 24px;
-            margin: 0;
-        }
-        
-        .search-bar {
-            display: flex;
-            align-items: center;
-        }
-        
-        .search-bar input[type="text"] {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-right: 10px;
-        }
-        
-        .search-bar button[type="button"] {
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        
-        .user-info {
-            text-align: right;
-        }
-        
-        nav {
-            background-color: #ccc;
-            padding: 10px;
-        }
-        
-        nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-        }
-        
-        nav li {
-            margin-right: 20px;
-        }
-        
-        nav a {
-            text-decoration: none;
-            color: black;
-        }
-        
-        nav a:hover {
-            color: #4CAF50;
-        }
-        
-        main {
-            padding: 20px;
-        }
-        
-        .product-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-        }
-        
-        .product-item {
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            overflow: hidden;
-            padding: 10px;
-            text-align: center;
-        }
-        
-        .product-item img {
-            max-width: 100%;
-            height: auto;
-        }
-        
-        .product-info {
-            margin-top: 10px;
-        }
-        
-        .product-info p {
-            margin: 5px 0;
-        }
-        
-        .product-info button[type="button"] {
-            padding: 5px 10px;
-            background-color: #f44336;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        
-        @media (max-width: 600px) {
-            .search-bar input[type="text"], .search-bar button[type="button"] {
-                padding: 5px;
-            }
-            
-            .product-item {
-                padding: 5px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>Toko Tani</h1>
-        <div class="search-bar">
-            <input type="text" placeholder="Cari nama produk...">
-            <button type="button">Search</button>
-        </div>
-        <div class="user-info">
-            <p>Vladimir</p>
-        </div>
-    </header>
-    <nav>
-        <ul>
-            <li><a href="#">Produk</a></li>
-            <li><a href="#">Pesanan</a></li>
-            <li><a href="#">Keuangan</a></li>
-            <li><a href="#">Data</a></li>
-        </ul>
-    </nav>
-    <main>
-        <section class="product-list">
-            <h2>Produk Saya</h2>
-            <article class="product-item">
-                <img src="product-1.jpg" alt="Apel Malang">
-                <div class="product-info">
-                    <p>Apel Malang</p>
-                    <p>Rp 50.000</p>
-                    <p>100</p>
-                    <button type="button">Hapus</button>
-                </div>
-            </article>
-            <article class="product-item">
-                <img src="product-2.jpg" alt="Pisang Raja">
-                <div class="product-info">
-                    <p>Pisang Raja</p>
-                    <p>Rp 50.000</p>
-                    <p>100</p>
-                    <button type="button">Hapus</button>
-                </div>
-            </article>
-            <article class="product-item">
-                <img src="product-3.jpg" alt="Mangga">
-                <div class="product-info">
-                    <p>Mangga</p>
-                    <p>Rp 50.000</p>
-                    <p>100</p>
-                    <button type="button">Hapus</button>
-                </div>
-            </article>
-            <a href="#">Tambahkan produk baru</a>
-        </section>
-    </main>
-</body>
+<!DOCTYPE html> 
+<html lang="en"> 
+
+<head> 
+	<meta charset="utf-8"> 
+	<title> 
+		Custom Price Range Slider--GFG 
+	</title> 
+	<link rel="stylesheet"
+		href="./style.css"> 
+	<meta name="viewport"
+		content="width=device-width, 
+				initial-scale=1.0"> 
+</head> 
+
+<body> 
+	<div class="main"> 
+		<div class="gfg"> 
+			<p>GeeksForGeeks</p> 
+		</div> 
+		<div class="custom-wrapper"> 
+
+			<div class="header"> 
+				<h2 class="projtitle"> 
+					Price Range Slider 
+				</h2> 
+			</div> 
+
+			<div class="price-input-container"> 
+				<div class="price-input"> 
+					<div class="price-field"> 
+						<span>Minimum Price</span> 
+						<input type="number"
+							class="min-input"
+							value="2500"> 
+					</div> 
+					<div class="price-field"> 
+						<span>Maximum Price</span> 
+						<input type="number"
+							class="max-input"
+							value="8500"> 
+					</div> 
+				</div> 
+				<div class="slider-container"> 
+					<div class="price-slider"> 
+					</div> 
+				</div> 
+			</div> 
+
+			<!-- Slider -->
+			<div class="range-input"> 
+				<input type="range"
+					class="min-range"
+					min="0"
+					max="10000"
+					value="2500"
+					step="1"> 
+				<input type="range"
+					class="max-range"
+					min="0"
+					max="10000"
+					value="8500"
+					step="1"> 
+			</div> 
+		</div> 
+	</div> 
+	<script src="./script.js"></script> 
+</body> 
+
 </html>
