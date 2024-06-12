@@ -265,7 +265,7 @@
         // Function to fetch products for the specified page
         function fetchProducts(page) {
           fetch(
-            `http://localhost:3330/api/products/?page=${page}&limit=${itemsPerPage}`
+            `https://toko-tani-server-2.vercel.app/api/products/?page=${page}&limit=${itemsPerPage}`
           )
             .then((response) => response.json())
             .then(({ products, totalPages }) => {
