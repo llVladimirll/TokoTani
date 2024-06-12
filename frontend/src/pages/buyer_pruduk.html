@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
     <meta charset="utf-8" />
     <title>Toko Tini</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -34,437 +35,270 @@
     <!-- Template Stylesheet -->
     <link href="style.css" rel="stylesheet" />
   </head>
-<body>
-          <!-- Spinner Start -->
-          <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
-            <div class="spinner-grow text-primary" role="status"></div>
-        </div>
-        <!-- Spinner End --> 
+  <body>
+    <!-- Spinner Start -->
+    <div
+      id="spinner"
+      class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50 d-flex align-items-center justify-content-center"
+    >
+      <div class="spinner-grow text-primary" role="status"></div>
+    </div>
+    <!-- Spinner End -->
 
-        <div class="container-fluid fixed-top">
-            <div class="container px-0">
-              <nav class="navbar navbar-light bg-M navbar-expand-xl">
-
-                <a href="index.html" class="navbar-brand"
-                  >
-                  
-                  <h1 class="text-primary display-6">TokoTani ></h1></a>
-
-                <button
-                  class="navbar-toggler py-2 px-3"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#navbarCollapse"
-                >
-                  <span class="fa fa-bars text-primary"></span>
-                </button>
-                <div class="collapse navbar-collapse bg-M" id="navbarCollapse">
-                 <!--
-            <div class="navbar-nav mx-auto">
-                    <a href="index.html" class="nav-item nav-link active">Home</a>
-                    <a href="shop.html" class="nav-item nav-link">Shop</a>
-                    <a href="shop-detail.html" class="nav-item nav-link"
-                    >Shop Detail</a
-                    >
-                    <div class="nav-item dropdown">
-                    <a
-                        href="#"
-                        class="nav-link dropdown-toggle"
-                        data-bs-toggle="dropdown"
-                        >Pages</a
-                      >
-                      <div class="dropdown-menu m-0 bg-secondary rounded-0">
-                        <a href="cart.html" class="dropdown-item">Cart</a>
-                        <a href="chackout.html" class="dropdown-item">Chackout</a>
-                        <a href="testimonial.html" class="dropdown-item"
-                          >Testimonial</a
-                        >
-                        <a href="404.html" class="dropdown-item">404 Page</a>
-                      </div>
-                    </div>
-                    <a href="contact.html" class="nav-item nav-link">Contact</a>
-                    <div class="input-group">
-                      <input type="search" name="search" id="" placeholder="Search Anything Here..." class="form-control">
-                      <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-                  </div>
-                  </div>
-                 -->
-      
-                  <div class="d-flex ms-auto m-3 me-0">
-                    <button
-                    class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
-                      data-bs-toggle="modal"
-                      data-bs-target="#searchModal"
-                    >
-                      <i class="fas fa-search text-primary"></i>
-                    </button>
-                    <a href="#" class="position-relative me-4 my-auto">
-                      <i class="fa fa-shopping-bag fa-2x"></i>
-                    </a>
-                    <a href="#" class="my-auto">
-                      <i class="fas fa-user fa-2x"></i>
-                    </a>
-                  </div>
-                </div>
-              </nav>
+    <div class="container-fluid fixed-top">
+      <div class="container px-0">
+        <nav class="navbar navbar-light bg-M navbar-expand-xl">
+          <a href="index.html" class="navbar-brand">
+            <h1 class="text-primary display-6">TokoTani ></h1>
+          </a>
+          <button
+            class="navbar-toggler py-2 px-3"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarCollapse"
+          >
+            <span class="fa fa-bars text-primary"></span>
+          </button>
+          <div class="collapse navbar-collapse bg-M" id="navbarCollapse">
+            <div class="d-flex ms-auto m-3 me-0">
+              <button
+                class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
+                data-bs-toggle="modal"
+                data-bs-target="#searchModal"
+              >
+                <i class="fas fa-search text-primary"></i>
+              </button>
+              <a href="#" class="position-relative me-4 my-auto">
+                <i class="fa fa-shopping-bag fa-2x"></i>
+              </a>
+              <a href="#" class="my-auto">
+                <i class="fas fa-user fa-2x"></i>
+              </a>
             </div>
           </div>
-          <!-- Navbar End -->
-
-               <!-- Modal Search Start -->
-        <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-fullscreen">
-                <div class="modal-content rounded-0">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body d-flex align-items-center">
-                        <div class="input-group w-75 mx-auto d-flex">
-                            <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
-                            <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-      <script src="lib/easing/easing.min.js"></script>
-      <script src="lib/waypoints/waypoints.min.js"></script>
-      <script src="lib/lightbox/js/lightbox.min.js"></script>
-      <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-      <script src="./main"></script>
-
-<!-- Fruits Shop Start-->
-<div class="container-fluid fruite py-5">
-    <div class="container py-5">
-        <div class="row g-4">
-            <div class="col-lg-12">
-                
-
-
-                <div class="row g-4">
-                    <div class="col-lg-3">
-                        <div class="row g-4">
-                            <div class="col-lg-12">
-                                <div class="mb-3">
-                                    <h4>Lokasi </h4>
-                                    <ul class="list-unstyled fruite-categorie">
-                                       
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <label><input type="checkbox"> Sleman</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <label><input type="checkbox"> Bantul</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <label><input type="checkbox"> Yogyakarta kota</label>
-                                            
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <label><input type="checkbox"> Sleman</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <label><input type="checkbox"> Bantul</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <label><input type="checkbox"> Yogyakarta kota</label>
-                                            
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <label><input type="checkbox"> Sleman</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <label><input type="checkbox"> Bantul</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <label><input type="checkbox"> Yogyakarta kota</label>
-                                            
-                                            </div>
-                                        </li>
-                                        
-                                    </ul>
-
-                                    <h4>Price Range</h4>
-                                    <div class="custom-wrapper"> 
-
-                                      
-                            
-                                        <div class="price-input-container"> 
-                                            <div class="price-input"> 
-                                                <div class="price-field"> 
-                                                    <span>Minimum Price</span> 
-                                                    <input type="number"
-                                                        class="min-input"
-                                                        value="2500"> 
-                                                </div> 
-                                                <div class="price-field"> 
-                                                    <span>Maximum Price</span> 
-                                                    <input type="number"
-                                                        class="max-input"
-                                                        value="8500"> 
-                                                </div> 
-                                            </div> 
-                                            <div class="slider-container"> 
-                                                <div class="price-slider"> 
-                                                </div> 
-                                            </div> 
-                                        </div> 
-                            
-                                        <!-- Slider -->
-                                        <div class="range-input"> 
-                                            <input type="range"
-                                                class="min-range"
-                                                min="0"
-                                                max="10000"
-                                                value="2500"
-                                                step="1"> 
-                                            <input type="range"
-                                                class="max-range"
-                                                min="0"
-                                                max="10000"
-                                                value="8500"
-                                                step="1"> 
-                                        </div> 
-                                    </div> 
-
-                                   
-
-                                    <h4>Data</h4>
-                                    <ul class="list-unstyled fruite-categorie">
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-apple-alt me-2"></i>Profil Toko</a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-apple-alt me-2"></i>Performa Toko</a>
-                                            
-                                            </div>
-                                        </li>
-
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-apple-alt me-2"></i>Bantul</a>
-                                            
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-
-
-
-                          
-                        </div>
-                    </div>
-
-
-
-
-
-
-                    <div class="col-lg-9">
-
-
-
-
-
-
-                        <div class="col-lg-9">
-                            <div class="row g-4 justify-content-center">
-                                <div class="col-md-6 col-lg-6 col-xl-4">
-                                    <div class="rounded position-relative fruite-item">
-                                        <div class="fruite-img">
-                                            <img src="../../public/matheus-cenali-wXuzS9xR49M-unsplash.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>Raspberries</h4>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">150,000 / kg</p>
-                                            </div>
-                                            <div ><p >Bantul</p></div>
-                                            
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-6 col-xl-4">
-                                    <div class="rounded position-relative fruite-item">
-                                        <div class="fruite-img">
-                                            <img src="../../public/husain-akram-IDq81z9wuKc-unsplash.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>Raspberries</h4>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">150,000 / kg</p>
-                                            </div>
-                                            <div ><p >Bantul</p></div>
-                                            
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-6 col-xl-4">
-                                    <div class="rounded position-relative fruite-item">
-                                        <div class="fruite-img">
-                                            <img src="../../public/matheus-cenali-wXuzS9xR49M-unsplash.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                       <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>Raspberries</h4>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">150,000 / kg</p>
-                                            </div>
-                                            <div ><p >Bantul</p></div>
-                                            
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-6 col-xl-4">
-                                    <div class="rounded position-relative fruite-item">
-                                        <div class="fruite-img">
-                                            <img src="../../public/nisonco-pr-and-seo-H4QpChoce7I-unsplash.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>Raspberries</h4>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">150,000 / kg</p>
-                                            </div>
-                                            <div ><p >Bantul</p></div>
-                                            
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-6 col-xl-4">
-                                    <div class="rounded position-relative fruite-item">
-                                        <div class="fruite-img">
-                                            <img src="../../public/juno-jo-HrdNNoG_y-A-unsplash.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>Raspberries</h4>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">150,000 / kg</p>
-                                            </div>
-                                            <div ><p >Bantul</p></div>
-                                            
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-6 col-xl-4">
-                                    <div class="rounded position-relative fruite-item">
-                                        <div class="fruite-img">
-                                            <img src="../../public/alexander-schimmeck-9YVh9yQvvvk-unsplash.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>Raspberries</h4>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">150,000 / kg</p>
-                                            </div>
-                                            <div ><p >Bantul</p></div>
-                                            
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-6 col-xl-4">
-                                    <div class="rounded position-relative fruite-item">
-                                        <div class="fruite-img">
-                                            <img src="../../public/maksim-shutov-R_6WSLe1pDs-unsplash.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>Raspberries</h4>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">150,000 / kg</p>
-                                            </div>
-                                            <div ><p >Bantul</p></div>
-                                            
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-6 col-xl-4">
-                                    <div class="rounded position-relative fruite-item">
-                                        <div class="fruite-img">
-                                            <img src="../../public/alexander-schimmeck-9YVh9yQvvvk-unsplash.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>Raspberries</h4>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">150,000 / kg</p>
-                                            </div>
-                                            <div ><p >Bantul</p></div>
-                                            
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-6 col-xl-4">
-                                    <div class="rounded position-relative fruite-item">
-                                        <div class="fruite-img">
-                                            <img src="../../public/nisonco-pr-and-seo-H4QpChoce7I-unsplash.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>Raspberries</h4>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">150,000 / kg</p>
-                                            </div>
-                                            <div ><p >Bantul</p></div>
-                                            
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="pagination d-flex justify-content-center mt-5">
-                                        <a href="#" class="rounded">&laquo;</a>
-                                        <a href="#" class="active rounded">1</a>
-                                        <a href="#" class="rounded">2</a>
-                                        <a href="#" class="rounded">3</a>
-                                        <a href="#" class="rounded">4</a>
-                                        <a href="#" class="rounded">5</a>
-                                        <a href="#" class="rounded">6</a>
-                                        <a href="#" class="rounded">&raquo;</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                </div>
-            </div>
-        </div>
+        </nav>
+      </div>
     </div>
-</div>
-<!-- Fruits Shop End-->
+    <!-- Navbar End -->
 
-<script src="./script.js">
+    <!-- Modal Search Start -->
+    <div
+      class="modal fade"
+      id="searchModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content rounded-0">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Search by keyword
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body d-flex align-items-center">
+            <div class="input-group w-75 mx-auto d-flex">
+              <input
+                type="search"
+                class="form-control p-3"
+                placeholder="keywords"
+                aria-describedby="search-icon-1"
+              />
+              <span id="search-icon-1" class="input-group-text p-3"
+                ><i class="fa fa-search"></i
+              ></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-</script>
-</body>
+    <!-- Fruits Shop Start -->
+    <div class="container-fluid fruite py-5">
+      <div class="container py-5">
+        <div class="row g-4">
+          <div class="col-lg-12">
+            <div class="row g-4">
+              <div class="col-lg-3">
+                <div class="row g-4">
+                  <div class="col-lg-12">
+                    <div class="mb-3">
+                      <h4>Lokasi</h4>
+                      <ul
+                        class="list-unstyled fruite-categorie"
+                        style="
+                          max-height: 150px;
+                          overflow-y: auto;
+                          padding-left: 0;
+                        "
+                      >
+                        <li style="margin-bottom: 5px">
+                          <div
+                            class="d-flex justify-content-between fruite-name"
+                          >
+                            <label style="margin-bottom: 0"
+                              ><input type="checkbox" /> Jakarta</label
+                            >
+                          </div>
+                        </li>
+                        <li style="margin-bottom: 5px">
+                          <div
+                            class="d-flex justify-content-between fruite-name"
+                          >
+                            <label style="margin-bottom: 0"
+                              ><input type="checkbox" /> Bandung</label
+                            >
+                          </div>
+                        </li>
+                        <!-- Add more cities here -->
+                        <li style="margin-bottom: 5px">
+                          <div
+                            class="d-flex justify-content-between fruite-name"
+                          >
+                            <label style="margin-bottom: 0"
+                              ><input type="checkbox" /> Surabaya</label
+                            >
+                          </div>
+                        </li>
+                        <li style="margin-bottom: 5px">
+                          <div
+                            class="d-flex justify-content-between fruite-name"
+                          >
+                            <label style="margin-bottom: 0"
+                              ><input type="checkbox" /> Medan</label
+                            >
+                          </div>
+                        </li>
+                        <li style="margin-bottom: 5px">
+                          <div
+                            class="d-flex justify-content-between fruite-name"
+                          >
+                            <label style="margin-bottom: 0"
+                              ><input type="checkbox" /> Semarang</label
+                            >
+                          </div>
+                        </li>
+                        <li style="margin-bottom: 5px">
+                          <div
+                            class="d-flex justify-content-between fruite-name"
+                          >
+                            <label style="margin-bottom: 0"
+                              ><input type="checkbox" /> Yogyakarta</label
+                            >
+                          </div>
+                        </li>
+                        <!-- End of added cities -->
+                      </ul>
+                      <h4>Price Range</h4>
+                      <div class="custom-wrapper">
+                        <!-- Add price range inputs and sliders -->
+                      </div>
+                      <h4>Data</h4>
+                      <ul class="list-unstyled fruite-categorie">
+                        <!-- Add more data options -->
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-9">
+                <div class="col-lg-9">
+                  <div
+                    class="row g-4 justify-content-center"
+                    id="fruits-container"
+                  >
+                    <!-- Product items will be dynamically added here -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Fruits Shop End -->
+
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/lightbox/js/lightbox.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <!-- Main script -->
+    <script src="./main"></script>
+    <script src="./script.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Fetch products from the Node.js server
+        fetch("http://localhost:3330/api/products/data")
+          .then((response) => response.json())
+          .then((products) => {
+            const productsContainer =
+              document.getElementById("fruits-container");
+            const itemsPerPage = 20;
+            let currentPage = 1;
+
+            // Function to render products based on page number
+            function renderProducts(page) {
+              // Clear previous content
+              productsContainer.innerHTML = "";
+
+              // Calculate start and end index for the current page
+              const startIndex = (page - 1) * itemsPerPage;
+              const endIndex = startIndex + itemsPerPage;
+
+              // Slice the products array to get products for the current page
+              const pageProducts = products.slice(startIndex, endIndex);
+
+              // Render products for the current page
+              pageProducts.forEach((product) => {
+                const productElement = document.createElement("div");
+                productElement.classList.add(
+                  "col-md-6",
+                  "col-lg-6",
+                  "col-xl-4"
+                );
+                productElement.innerHTML = `
+                        <a href="product-detail.html?id=${product.id}" class="product-card-link">
+                        <div class="rounded position-relative fruite-item">
+                            <div class="fruite-img">
+                                <img src="${product.image_url}" class="img-fluid w-100 rounded-top" style="max-height: 200px;" alt="">
+                            </div>
+                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
+                                <h4>${product.name}</h4>
+                                <div class="d-flex justify-content-between flex-lg-wrap">
+                                    <p class="text-dark fs-5 fw-bold mb-0">${product.price} / kg</p>
+                                </div>
+                                <div><p>${product.location}</p></div>
+                            </div>
+                        </div>
+                        </a>
+                    `;
+                productsContainer.appendChild(productElement);
+              });
+            }
+
+            // Initial rendering of products (first page)
+            renderProducts(currentPage);
+
+            // Pagination event listeners
+            document.querySelectorAll(".pagination a").forEach((pageLink) => {
+              pageLink.addEventListener("click", function (event) {
+                event.preventDefault();
+                currentPage = parseInt(this.textContent);
+                renderProducts(currentPage);
+              });
+            });
+          })
+          .catch((error) => console.error("Error fetching products:", error));
+      });
+    </script>
+  </body>
 </html>
