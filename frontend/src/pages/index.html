@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Toko Tini</title>
+    <title>TokoTani</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="" name="keywords" />
     <meta content="" name="description" />
@@ -74,9 +74,9 @@
                 <i class="fa fa-shopping-bag fa-2x"></i>
               
               </a>
-              <a href="./login.html" class="my-auto">
-                <i class="fas fa-user fa-2x"></i>
-              </a>
+              <div class="d-flex ms-auto m-3 me-0" id="profile">
+                
+              </div>
             </div>
           </div>
         </nav>
@@ -161,4 +161,22 @@
       <script src="lib/owlcarousel/owl.carousel.min.js"></script>
       <script src="./main"></script>
   </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const userToken = localStorage.getItem("userToken");
+      const profile = document.getElementById("profile");
+
+      if(userToken){
+        profile.innerHTML = '<a href="./profile.html" class="my-auto">'+
+                            '<i class="fas fa-user fa-2x"></i>'+
+                            '</a>'
+      }else{
+        profile.innerHTML=  '<a href="./login.html" class="my-auto">'+
+                            '<i class="fas fa-sign-in-alt fa-2x"></i>'+
+                            '</a>'
+      }
+
+      console.log(userToken);
+    })
+  </script>
 </html>

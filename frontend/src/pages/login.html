@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>TokoTani||Login</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -71,7 +72,14 @@
             const data = await response.json();
             console.log(data); // Response from the server
 
-            // Optionally, redirect to another page or show a success message
+            if (data.userToken){
+                localStorage.setItem("userToken", data.userToken);
+            }
+            if(data.sellerToken){
+                localStorage.setItem("sellerToken", data.sellerToken);
+            }
+
+            window.location.href = "index.html";
           } catch (error) {
             console.error("There was a problem with the registration:", error);
             // Handle error - Show error message to the user, etc.
