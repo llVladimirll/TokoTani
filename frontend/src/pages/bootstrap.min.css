@@ -232,7 +232,8 @@ th{
 thead,tbody,tfoot,tr,td,th{
     border-color:inherit;
     border-style:solid;
-    border-width:0
+    border-width:0;
+    width : 100%;
 }
 label{
     display:inline-block
@@ -496,7 +497,6 @@ progress{
     --bs-gutter-y: 0;
     display:flex;
     flex-wrap:wrap;
-    margin-top:calc(var(--bs-gutter-y)*-1);
     margin-right:calc(var(--bs-gutter-x)/-2);
     margin-left:calc(var(--bs-gutter-x)/-2)
 }
