@@ -81,41 +81,43 @@
 
     <!-- Modal Search Start -->
     <div
-      class="modal fade"
-      id="searchModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-fullscreen">
-        <div class="modal-content rounded-0">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">
-              Search by keyword
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body d-flex align-items-center">
-            <div class="input-group w-75 mx-auto d-flex">
-              <input
-                type="search"
-                class="form-control p-3"
-                placeholder="keywords"
-                aria-describedby="search-icon-1"
-              />
-              <span id="search-icon-1" class="input-group-text p-3"
-                ><i class="fa fa-search"></i
-              ></span>
-            </div>
-          </div>
+  class="modal fade"
+  id="searchModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content rounded-0">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body d-flex align-items-center">
+        <div class="input-group w-75 mx-auto d-flex">
+          <input
+            type="search"
+            id="search-input"
+            class="form-control p-3"
+            placeholder="keywords"
+            aria-describedby="search-icon-1"
+          />
+          <span
+            id="search-icon-1"
+            class="input-group-text p-3"
+            onclick="handleSearch()"
+            ><i class="fa fa-search"></i
+          ></span>
         </div>
       </div>
     </div>
+  </div>
+</div>
 
     <!-- Fruits Shop Start -->
     <div class="container-fluid fruite py-5">
@@ -239,78 +241,76 @@
     <script src="./script.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        const userToken = localStorage.getItem("userToken");
-        const profile = document.getElementById("profile");
+    const userToken = localStorage.getItem("userToken");
+    const profile = document.getElementById("profile");
 
-        if (userToken) {
-          profile.innerHTML =
-            '<a href="./profile.html" class="my-auto">' +
-            '<i class="fas fa-user fa-2x"></i>' +
-            "</a>";
-        } else {
-          profile.innerHTML =
-            '<a href="./login.html" class="my-auto">' +
-            '<i class="fas fa-sign-in-alt fa-2x"></i>' +
-            "</a>";
-        }
+    if (userToken) {
+      profile.innerHTML =
+        '<a href="./profile.html" class="my-auto">' +
+        '<i class="fas fa-user fa-2x"></i>' +
+        "</a>";
+    } else {
+      profile.innerHTML =
+        '<a href="./login.html" class="my-auto">' +
+        '<i class="fas fa-sign-in-alt fa-2x"></i>' +
+        "</a>";
+    }
 
-        const itemsPerPage = 9;
-        let currentPage = 1;
+    const itemsPerPage = 9;
+    let currentPage = 1;
 
-        function handlePaginationClick(event) {
-          event.preventDefault();
-          const target = event.target;
-          if (target.classList.contains("prev")) {
-            currentPage = Math.max(1, currentPage - 1);
-          } else if (target.classList.contains("next")) {
-            currentPage++;
-          } else if (target.classList.contains("rounded")) {
-            currentPage = parseInt(target.textContent);
-          }
+    function handlePaginationClick(event) {
+      event.preventDefault();
+      const target = event.target;
+      if (target.classList.contains("prev")) {
+        currentPage = Math.max(1, currentPage - 1);
+      } else if (target.classList.contains("next")) {
+        currentPage++;
+      } else if (target.classList.contains("rounded")) {
+        currentPage = parseInt(target.textContent);
+      }
 
-          fetchProducts(currentPage);
-        }
+      fetchProducts(currentPage);
+    }
 
-        // Pagination event listener
-        const paginationContainer = document.querySelector(".pagination");
-        paginationContainer.addEventListener("click", handlePaginationClick);
+    // Pagination event listener
+    const paginationContainer = document.querySelector(".pagination");
+    paginationContainer.addEventListener("click", handlePaginationClick);
 
-       
-        function fetchProducts(page) {
-  const params = new URLSearchParams(window.location.search);
-  const category = params.get('category');
-  const search = params.get('search');
-  const url = `http://localhost:3330/api/products/?page=${page}&limit=${itemsPerPage}`;
-  
-  // Construct the fetch URL with category and search parameters if they exist
-  let fetchUrl = url;
-  if (category) {
-    fetchUrl += `&category=${category}`;
-  }
-  if (search) {
-    fetchUrl += `&search=${encodeURIComponent(search)}`;
-  }
+    function fetchProducts(page) {
+      const params = new URLSearchParams(window.location.search);
+      const category = params.get("category");
+      const search = params.get("search");
+      const url = `https://toko-tani-server-2.vercel.app/api/products/?page=${page}&limit=${itemsPerPage}`;
 
-  fetch(fetchUrl)
-    .then((response) => response.json())
-    .then(({ products, totalPages }) => {
-      renderProducts(products);
-      renderPagination(totalPages);
-    })
-    .catch((error) => console.error("Error fetching products:", error));
-}
+      // Construct the fetch URL with category and search parameters if they exist
+      let fetchUrl = url;
+      if (category) {
+        fetchUrl += `&category=${category}`;
+      }
+      if (search) {
+        fetchUrl += `&search=${encodeURIComponent(search)}`;
+      }
 
-        // Function to render products
-        function renderProducts(products) {
-          const productsContainer =
-            document.getElementById("products-container");
-          productsContainer.innerHTML = ""; // Clear previous content
+      fetch(fetchUrl)
+        .then((response) => response.json())
+        .then(({ products, totalPages }) => {
+          renderProducts(products);
+          renderPagination(totalPages);
+        })
+        .catch((error) => console.error("Error fetching products:", error));
+    }
 
-          products.forEach((product) => {
-            // Render each product
-            const productElement = document.createElement("div");
-            productElement.classList.add("col-md-6", "col-lg-6", "col-xl-4");
-            productElement.innerHTML = `
+    // Function to render products
+    function renderProducts(products) {
+      const productsContainer = document.getElementById("products-container");
+      productsContainer.innerHTML = ""; // Clear previous content
+
+      products.forEach((product) => {
+        // Render each product
+        const productElement = document.createElement("div");
+        productElement.classList.add("col-md-6", "col-lg-6", "col-xl-4");
+        productElement.innerHTML = `
                     <a href="product-detail.html?id=${product.id}" class="product-card-link">
                         <div class="rounded position-relative fruite-item">
                             <div class="fruite-img">
@@ -326,45 +326,77 @@
                         </div>
                     </a>
                 `;
-            productsContainer.appendChild(productElement);
-          });
-        }
-
-        // Function to render pagination
-        function renderPagination(totalPages) {
-          const paginationContainer = document.querySelector(".pagination");
-          paginationContainer.innerHTML = ""; // Clear previous content
-
-          // Add previous button
-          const prevButton = document.createElement("a");
-          prevButton.href = "#";
-          prevButton.classList.add("rounded", "prev");
-          prevButton.innerHTML = "&laquo;";
-          paginationContainer.appendChild(prevButton);
-
-          // Add page links
-          for (let i = 1; i <= totalPages; i++) {
-            const pageButton = document.createElement("a");
-            pageButton.href = "#";
-            pageButton.classList.add("rounded");
-            if (i === currentPage) {
-              pageButton.classList.add("active");
-            }
-            pageButton.textContent = i;
-            paginationContainer.appendChild(pageButton);
-          }
-
-          // Add next button
-          const nextButton = document.createElement("a");
-          nextButton.href = "#";
-          nextButton.classList.add("rounded", "next");
-          nextButton.innerHTML = "&raquo;";
-          paginationContainer.appendChild(nextButton);
-        }
-
-        // Initial fetch for the first page
-        fetchProducts(currentPage);
+        productsContainer.appendChild(productElement);
       });
+    }
+
+    // Function to render pagination
+    function renderPagination(totalPages) {
+      const paginationContainer = document.querySelector(".pagination");
+      paginationContainer.innerHTML = ""; // Clear previous content
+
+      // Add previous button
+      const prevButton = document.createElement("a");
+      prevButton.href = "#";
+      prevButton.classList.add("rounded", "prev");
+      prevButton.innerHTML = "&laquo;";
+      paginationContainer.appendChild(prevButton);
+
+      // Add page links
+      for (let i = 1; i <= totalPages; i++) {
+        const pageButton = document.createElement("a");
+        pageButton.href = "#";
+        pageButton.classList.add("rounded");
+        if (i === currentPage) {
+          pageButton.classList.add("active");
+        }
+        pageButton.textContent = i;
+        paginationContainer.appendChild(pageButton);
+      }
+
+      // Add next button
+      const nextButton = document.createElement("a");
+      nextButton.href = "#";
+      nextButton.classList.add("rounded", "next");
+      nextButton.innerHTML = "&raquo;";
+      paginationContainer.appendChild(nextButton);
+    }
+
+    // Function to handle search
+    window.handleSearch = function() {
+      const searchInput = document.getElementById("search-input").value;
+      const params = new URLSearchParams(window.location.search);
+
+      // Replace the search query if it exists, or add a new one
+      if (searchInput) {
+        params.set("search", searchInput);
+      } else {
+        params.delete("search");
+      }
+
+      // Update the URL with the new search query
+      window.history.replaceState({}, "", `${window.location.pathname}?${params.toString()}`);
+
+      // Close the search modal
+      const searchModal = new bootstrap.Modal(document.getElementById('searchModal'));
+      searchModal.hide();
+
+      // Reload the page to apply the new search query
+      window.location.reload();
+    }
+
+    // Add event listener for the Enter key on the search input field
+    const searchInputElement = document.getElementById("search-input");
+    searchInputElement.addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        handleSearch();
+      }
+    });
+
+
+    // Initial fetch for the first page
+    fetchProducts(currentPage);
+  });
     </script>
   </body>
 </html>

@@ -85,22 +85,44 @@
     <!-- Navbar End -->
 
         <!-- Modal Search Start -->
-        <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-fullscreen">
-              <div class="modal-content rounded-0">
-                  <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body d-flex align-items-center">
-                      <div class="input-group w-75 mx-auto d-flex">
-                          <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
-                          <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
-                      </div>
-                  </div>
-              </div>
-          </div>
+        <div
+  class="modal fade"
+  id="searchModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content rounded-0">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
+      <div class="modal-body d-flex align-items-center">
+        <div class="input-group w-75 mx-auto d-flex">
+          <input
+            type="search"
+            id="search-input"
+            class="form-control p-3"
+            placeholder="keywords"
+            aria-describedby="search-icon-1"
+          />
+          <span
+            id="search-icon-1"
+            class="input-group-text p-3"
+            onclick="handleSearch()"
+            ><i class="fa fa-search"></i
+          ></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
       <!-- Modal Search End -->
     <div
       class="hero-header"
@@ -175,6 +197,27 @@
                             '</a>'
       }
 
+    });
+    window.handleSearch = function() {
+    const searchInput = document.getElementById("search-input").value.trim(); // Trim to remove leading/trailing whitespace
+    const baseUrl = `${window.location.origin}/frontend/src/pages/product.html`;
+    const params = new URLSearchParams(window.location.search);
+
+    if (searchInput) {
+      params.set("search", searchInput);
+    } else {
+      params.delete("search");
+    }
+
+    const newUrl = `${baseUrl}?${params.toString()}`;
+
+    window.location.href = newUrl;
+  }
+    const searchInputElement = document.getElementById("search-input");
+    searchInputElement.addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        handleSearch();
+      }
     });
 
     function logout(){
