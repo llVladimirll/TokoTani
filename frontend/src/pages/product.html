@@ -71,9 +71,7 @@
               <a href="#" class="position-relative me-4 my-auto">
                 <i class="fa fa-shopping-bag fa-2x"></i>
               </a>
-              <a href="#" class="my-auto">
-                <i class="fas fa-user fa-2x"></i>
-              </a>
+              <div class="d-flex ms-auto m-3 me-0" id="profile">
             </div>
           </div>
         </nav>
@@ -241,6 +239,21 @@
     <script src="./script.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
+        const userToken = localStorage.getItem("userToken");
+        const profile = document.getElementById("profile");
+
+        if (userToken) {
+          profile.innerHTML =
+            '<a href="./profile.html" class="my-auto">' +
+            '<i class="fas fa-user fa-2x"></i>' +
+            "</a>";
+        } else {
+          profile.innerHTML =
+            '<a href="./login.html" class="my-auto">' +
+            '<i class="fas fa-sign-in-alt fa-2x"></i>' +
+            "</a>";
+        }
+
         const itemsPerPage = 9;
         let currentPage = 1;
 
@@ -262,11 +275,14 @@
         const paginationContainer = document.querySelector(".pagination");
         paginationContainer.addEventListener("click", handlePaginationClick);
 
-        // Function to fetch products for the specified page
-        function fetchProducts(page) {
-          fetch(
-            `https://toko-tani-server-2.vercel.app/api/products/?page=${page}&limit=${itemsPerPage}`
-          )
+       
+        function fetchProducts(page){
+        const params = new URLSearchParams(window.location.search);
+          const category = params.get('category');
+          const url = `https://toko-tani-server-2.vercel.app/api/products/?page=${page}&limit=${itemsPerPage}`;
+          const fetchUrl = category ? `${url}&category=${category}` : url;
+
+          fetch(fetchUrl)
             .then((response) => response.json())
             .then(({ products, totalPages }) => {
               renderProducts(products);
