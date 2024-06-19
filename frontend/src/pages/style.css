@@ -690,7 +690,7 @@ aside .menu a {
 }
 
 .section {
-  background-color: #fff;
+  
   padding: 20px;
   margin-bottom: 20px;
   border-radius: 10px;
@@ -708,6 +708,7 @@ aside .menu a {
 }
 
 .order-select {
+  background-color: #FAF5E2;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -754,21 +755,21 @@ aside .menu a {
   justify-content: space-between;
   align-items: center;
   padding: 15px 0;
-  border-bottom: 1px solid #eee;
+  border-radius: 18px;
 }
 
 .single-order .order-info,
 .multi-order .order-info {
   display: flex;
   align-items: center;
-  flex: 3;
+  flex: 0;
 }
 
 .order-user-photo {
   border-radius: 50%;
   width: 50px;
   height: 50px;
-  margin-right: 15px;
+  margin: 15px;
 }
 
 .single-order .order-details,
@@ -1127,6 +1128,9 @@ input[type="range"]::-webkit-slider-thumb {
     margin-bottom: 0;
 }
 /*** Facts End ***/
+
+
+
 
 
 /*** testimonial Start ***/
