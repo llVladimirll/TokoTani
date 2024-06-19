@@ -136,7 +136,7 @@
         const params = new URLSearchParams(window.location.search);
         const productId = params.get("id");
 
-        const fetchUrl = `http://localhost:3330/api/products/${productId}`;
+        const fetchUrl = `https://toko-tani-server-2.vercel.app/api/products/${productId}`;
 
         // Function to generate star rating icons based on rating value
         function generateStarRating(rating) {
@@ -261,7 +261,7 @@
                                 <p class="mb-0">${product.weight}</p>
                               </div>
                             </div>
-                            <div class="row bg-light                             text-center align-items-center justify-content-center py-2">
+                            <div class="row bg-light text-center align-items-center justify-content-center py-2">
                               <div class="col-6">
                                 <p class="mb-0">City of Origin</p>
                               </div>
@@ -284,50 +284,6 @@
                       </div>
                       <!-- Review Form -->
                       <div id="review" >
-                      <form id="reviewForm" class="mt-4">
-                          <h5 class="mb-3">Leave a Review</h5>
-                          <div class="mb-3">
-                            <label for="reviewName" class="form-label">Name</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="reviewName"
-                              placeholder="Your Name"
-                              required
-                            />
-                          </div>
-                          <div class="mb-3">
-                            <label for="reviewEmail" class="form-label">Email</label>
-                            <input
-                              type="email"
-                              class="form-control"
-                              id="reviewEmail"
-                              placeholder="Your Email"
-                              required
-                            />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label">Rating</label>
-                            <div class="star-rating">
-                              <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 stars">&#9733;</label>
-                              <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 stars">&#9733;</label>
-                              <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 stars">&#9733;</label>
-                              <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 stars">&#9733;</label>
-                              <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star">&#9733;</label>
-                            </div>
-                          </div>
-                          <div class="mb-3">
-                            <label for="reviewComment" class="form-label">Comment</label>
-                            <textarea
-                              class="form-control"
-                              id="reviewComment"
-                              rows="3"
-                              placeholder="Your Review Comment"
-                              required
-                            ></textarea>
-                          </div>
-                          <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
                         </div>
                       <!-- End Review Form -->
                     </div>
@@ -457,6 +413,61 @@
           }
 
           return starsHTML;
+        }
+
+        const review = document.getElementById("review");
+
+        if (userToken) {
+          review.innerHTML = `
+          <form id="reviewForm" class="mt-4">
+                          <h5 class="mb-3">Leave a Review</h5>
+                          <div class="mb-3">
+                            <label for="reviewName" class="form-label">Name</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="reviewName"
+                              placeholder="Your Name"
+                              required
+                            />
+                          </div>
+                          <div class="mb-3">
+                            <label for="reviewEmail" class="form-label">Email</label>
+                            <input
+                              type="email"
+                              class="form-control"
+                              id="reviewEmail"
+                              placeholder="Your Email"
+                              required
+                            />
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Rating</label>
+                            <div class="star-rating">
+                              <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 stars">&#9733;</label>
+                              <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 stars">&#9733;</label>
+                              <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 stars">&#9733;</label>
+                              <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 stars">&#9733;</label>
+                              <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star">&#9733;</label>
+                            </div>
+                          </div>
+                          <div class="mb-3">
+                            <label for="reviewComment" class="form-label">Comment</label>
+                            <textarea
+                              class="form-control"
+                              id="reviewComment"
+                              rows="3"
+                              placeholder="Your Review Comment"
+                              required
+                            ></textarea>
+                          </div>
+                          <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                        `;
+        } else {
+          review.innerHTML = `
+              <p>Logged in first to leave a review.</p>
+          `;
         }
       });
 
