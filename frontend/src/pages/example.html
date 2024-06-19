@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TokoTani - Pesanan Saya</title>
+<style>body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #8bc34a;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.header-left .logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-photo {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.user-name {
+    font-size: 16px;
+    color: white;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 20px;
+}
+
+.section {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.text-address h2 {
+    margin: 0;
+    color: #6d6d6d;
+}
+
+.search-select {
+    display: flex;
+    align-items: center;
+}
+
+.order-select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.search-select input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    flex-grow: 1;
+}
+
+.search-button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    background-color: #8bc34a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    padding: 10px 0;
+    border-bottom: 2px solid #eee;
+    color: #6d6d6d;
+}
+
+.table-header div {
+    flex: 1;
+    text-align: center;
+}
+
+.orders {
+    padding: 0;
+}
+
+.order {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.single-order .order-info,
+.multi-order .order-info {
+    display: flex;
+    align-items: center;
+    flex: 3;
+}
+
+.order-user-photo {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+}
+
+.single-order .order-details,
+.multi-order .order-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.single-order .product-name {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.multi-order .product-name {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.order-amount {
+    flex: 2;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+}
+
+.order-status {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.status {
+    color: #4caf50;
+}
+
+.order-action {
+    flex: 1;
+    text-align: center;
+}
+
+.order-link {
+    color: #1e88e5;
+    text-decoration: none;
+}
+
+.order-link:hover {
+    text-decoration: underline;
+}
+
+.order-number {
+    flex: 2;
+    text-align: right;
+    font-size: 12px;
+    color: #666;
+}
+</style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-left">
+                <div class="logo">TokoTani</div>
+            </div>
+            <div class="header-right">
+                <div class="user-info">
+                    <img src="user-photo.jpg" alt="Vladimir" class="user-photo">
+                    <span class="user-name">Vladimir</span>
+                </div>
+            </div>
+        </header>
+        <div class="main-content">
+            <div class="section text-address">
+                <h2>Pesanan Saya</h2>
+            </div>
+            <div class="section search-select">
+                <select class="order-select">
+                    <option>No. Pesanan</option>
+                </select>
+                <input type="text" placeholder="Masukkan no. pesanan">
+                <button class="search-button">Cari</button>
+            </div>
+            <div class="section table-header">
+                <div>Produk</div>
+                <div>Jumlah Harus Dibayar</div>
+                <div>Status</div>
+                <div>Aksi</div>
+            </div>
+            <div class="section orders">
+                <div class="order single-order">
+                    <div class="order-info">
+                        <img src="user1.jpg" alt="Aji" class="order-user-photo">
+                        <div class="order-details">
+                            <span class="product-name">Apel Malang</span>
+                        </div>
+                    </div>
+                    <div class="order-amount">Rp20.000.000 (COD)</div>
+                    <div class="order-status">
+                        <span class="status">Selesai</span>
+                    </div>
+                    <div class="order-action">
+                        <a href="#" class="order-link">Periksa Rincian</a>
+                    </div>
+                    <div class="order-number">No. Pesanan 210909RTQ90CTS</div>
+                </div>
+                <div class="order multi-order">
+                    <div class="order-info">
+                        <img src="user2.jpg" alt="Vladimir" class="order-user-photo">
+                        <div class="order-details">
+                            <span class="product-name">Mangga</span>
+                            <span class="product-name">Apel Malang</span>
+                        </div>
+                    </div>
+                    <div class="order-amount">Rp50.000.000 (Bank Transfer)</div>
+                    <div class="order-status">
+                        <span class="status">Selesai</span>
+                    </div>
+                    <div class="order-action">
+                        <a href="#" class="order-link">Periksa Rincian</a>
+                    </div>
+                    <div class="order-number">No. Pesanan 310909RTQ90CTS</div>
+                </div>
+                <!-- Add more orders as needed -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>
