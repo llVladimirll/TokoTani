@@ -922,5 +922,27 @@ input[type="range"]::-webkit-slider-thumb {
 .footer .footer-item p.mb-4 {
     line-height: 35px;
 }
+
+.star-rating {
+  direction: rtl;
+  display: inline-flex;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.star-rating input {
+  display: none;
+}
+
+.star-rating label {
+  color: #ddd;
+}
+
+.star-rating input:checked ~ label,
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color: #ffc107;
+}
+
 /*** Footer End ***/
 
