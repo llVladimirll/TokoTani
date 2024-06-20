@@ -52,9 +52,9 @@
     <div class="container-fluid fixed-top">
       <div class="container px-0">
         <nav class="navbar navbar-light bg-M navbar-expand-xl">
-          <a href="index.html" class="navbar-brand"
-            ><h1 class="text-primary display-6">TokoTani</h1></a
-          >
+          <a href="index.html" class="navbar-brand">
+            <h1 class="text-primary display-6">TokoTani</h1>
+          </a>
           <div class="modal-body d-flex align-items-center">
             <div class="input-group w-75 mx-auto d-flex">
               <input
@@ -85,7 +85,12 @@
               <a href="#" class="position-relative me-4 my-auto">
                 <i class="fa fa-shopping-bag fa-2x"></i>
               </a>
-              <div class="d-flex ms-auto m-3 me-0" id="profile"></div>
+              <!-- Chat Icon Start -->
+              <a href="#" class="position-relative me-4 my-auto">
+                <i class="fas fa-comments fa-2x"></i>
+              </a>
+              <!-- Chat Icon End -->
+              <div class="dropdown my-auto" id="profile"></div>
             </div>
           </div>
         </nav>
@@ -379,23 +384,23 @@
           window.location.href = `./product.html?${params.toString()}`;
         }
 
-        if (userToken) {
-          const isAuthenticated = decodedToken !== null;
-          const userId = isAuthenticated ? decodedToken.userId : null; // Replace 'userId' with the actual field name in your JWT payload
+        const profile = document.getElementById("profile");
 
-          profile.innerHTML = `
-      <a href="${
-        isAuthenticated ? "./profile.html" : "./login.html"
-      }" class="my-auto">
-        <i class="fas ${
-          isAuthenticated ? "fa-user" : "fa-sign-in-alt"
-        } fa-2x"></i>
-      </a>`;
+        if (userToken) {
+          profile.innerHTML =
+            '<a href="#" class="my-auto" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">' +
+            '<i class="fas fa-user fa-2x"></i>' +
+            "</a>" +
+            '<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">' +
+            '<li><a class="dropdown-item" href="./profile.html">Profile</a></li>' +
+            '<li><a class="dropdown-item" href="#">Information</a></li>' +
+            '<li><a class="dropdown-item" href="#" onclick="logout()">Log Out</a></li>' +
+            "</ul>";
         } else {
-          profile.innerHTML = `
-      <a href="./login.html" class="my-auto">
-        <i class="fas fa-sign-in-alt fa-2x"></i>
-      </a>`;
+          profile.innerHTML =
+            '<a href="./login.html" class="my-auto">' +
+            '<i class="fas fa-sign-in-alt fa-2x"></i>' +
+            "</a>";
         }
       });
 
