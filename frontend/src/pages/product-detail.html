@@ -67,7 +67,7 @@
               <span
                 id="search-icon-1"
                 class="input-group-text p-3"
-                onclick="handleSearch()"
+                onclick="handleSearch('search-input')"
                 ><i class="fa fa-search"></i
               ></span>
             </div>
@@ -110,21 +110,65 @@
 
     <!-- Script to handle product details rendering -->
     <script>
+      function decodeJwt(token) {
+        try {
+          const base64Url = token.split(".")[1];
+          const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+          const jsonPayload = decodeURIComponent(
+            atob(base64)
+              .split("")
+              .map(function (c) {
+                return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+              })
+              .join("")
+          );
+          return JSON.parse(jsonPayload);
+        } catch (error) {
+          console.error("Error decoding JWT:", error);
+          return null;
+        }
+      }
+
+      function checkJwtExpiration(token) {
+        if (!token) {
+          // Token not present, handle accordingly (e.g., log out user)
+          console.log("JWT not found.");
+          removeTokenAndRefresh();
+          return;
+        }
+
+        const decodedToken = decodeJwt(token);
+        if (!decodedToken || !decodedToken.exp) {
+          // Unable to decode token or no expiration time found
+          console.error("Invalid JWT or no expiration time found.");
+          removeTokenAndRefresh();
+          return;
+        }
+
+        const currentTime = Date.now() / 1000; // Convert current time to seconds
+        if (currentTime > decodedToken.exp) {
+          // Token expired, remove it from storage and refresh page
+          console.log("JWT expired. Removing token from storage...");
+          localStorage.removeItem("userToken"); // Remove token from localStorage
+          removeTokenAndRefresh();
+        } else {
+          // Token valid, continue with user session
+          console.log("JWT is valid. Continuing user session...");
+          // You can optionally perform additional session handling here
+        }
+      }
+
+      // Function to remove token from localStorage and refresh page
+      function removeTokenAndRefresh() {
+        localStorage.removeItem("userToken"); // Remove token from localStorage
+        location.reload(); // Reload the current page
+      }
+
       document.addEventListener("DOMContentLoaded", function () {
         const userToken = localStorage.getItem("userToken");
-        const profile = document.getElementById("profile");
+        checkJwtExpiration(userToken);
+        const decodedToken = decodeJwt(userToken);
 
-        if (userToken) {
-          profile.innerHTML =
-            '<a href="./profile.html" class="my-auto">' +
-            '<i class="fas fa-user fa-2x"></i>' +
-            "</a>";
-        } else {
-          profile.innerHTML =
-            '<a href="./login.html" class="my-auto">' +
-            '<i class="fas fa-sign-in-alt fa-2x"></i>' +
-            "</a>";
-        }
         document
           .getElementById("search-input")
           .addEventListener("keydown", function (event) {
@@ -135,7 +179,6 @@
 
         const params = new URLSearchParams(window.location.search);
         const productId = params.get("id");
-
         const fetchUrl = `https://toko-tani-server-2.vercel.app/api/products/${productId}`;
 
         // Function to generate star rating icons based on rating value
@@ -147,10 +190,10 @@
 
           let starsHTML = "";
           for (let i = 0; i < fullStars; i++) {
-            starsHTML += '<i class="fa fa-star"></i>';
+            starsHTML += '<i class="fa fa-star text-primary"></i>';
           }
           if (halfStars) {
-            starsHTML += '<i class="fa fa-star-half-alt"></i>';
+            starsHTML += '<i class="fa fa-star-half-alt text-primary"></i>';
           }
           for (let i = 0; i < emptyStars; i++) {
             starsHTML += '<i class="fa fa-star text-muted"></i>';
@@ -164,134 +207,86 @@
           const productContainer = document.getElementById("productContainer");
 
           productContainer.innerHTML = `
-            <div class="col-lg-8 col-xl-9">
-              <div class="row g-4">
-                <div class="col-lg-6">
-                  <div class="border rounded">
-                    <a href="#">
-                      <img
-                        src="${product.image_url}"
-                        class="img-fluid rounded"
-                        alt="Image"
-                      />
-                    </a>
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <h4 class="fw-bold mb-3">${product.name}</h4>
-                  <p class="mb-3">Category: ${product.category}</p>
-                  <h5 class="fw-bold mb-3">${product.price}</h5>
-                  <p class="mb-4">${product.description}</p>
-                  <div class="input-group quantity mb-5" style="width: 100px;">
-                    <div class="input-group-btn">
-                      <button
-                        class="btn btn-sm btn-minus rounded-circle bg-light border"
-                      >
-                        <i class="fa fa-minus"></i>
-                      </button>
-                    </div>
-                    <input
-                      type="text"
-                      class="form-control form-control-sm text-center border-0"
-                      value="1"
-                    />
-                    <div class="input-group-btn">
-                      <button
-                        class="btn btn-sm btn-plus rounded-circle bg-light border"
-                      >
-                        <i class="fa fa-plus"></i>
-                      </button>
-                    </div>
-                  </div>
-                  <a
-                    href="#"
-                    class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"
-                  >
-                    <i class="fa fa-shopping-bag me-2 text-primary"></i> Add
-                    to cart
-                  </a>
-                  <a
-                    href="#"
-                    class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"
-                  >
-                    <i></i> Buy Now
+          <div class="col-lg-8 col-xl-9">
+            <div class="row g-4">
+              <div class="col-lg-6">
+                <div class="border rounded">
+                  <a href="#">
+                    <img src="${product.image_url}" class="img-fluid rounded" alt="Product Image" />
                   </a>
                 </div>
-                <div class="col-lg-12">
-                  <nav>
-                    <div class="nav nav-tabs mb-3">
-                      <button
-                        class="nav-link active border-white border-bottom-0"
-                        type="button"
-                        data-bs-toggle="tab"
-                        data-bs-target="#nav-about"
-                        aria-controls="nav-about"
-                        aria-selected="true"
-                      >
-                        Description
-                      </button>
-                      <button
-                        class="nav-link border-white border-bottom-0"
-                        type="button"
-                        data-bs-toggle="tab"
-                        data-bs-target="#nav-reviews"
-                        aria-controls="nav-reviews"
-                        aria-selected="false"
-                      >
-                        Reviews
-                      </button>
-                    </div>
-                  </nav>
-                  <div class="tab-content mb-5">
-                    <div
-                      class="tab-pane active"
-                      id="nav-about"
-                      role="tabpanel"
-                      aria-labelledby="nav-about-tab"
-                    >
-                      <p>${product.description}</p>
-                      <div class="px-2">
-                        <div class="row g-4">
-                          <div class="col-6">
-                            <div class="row bg-light align-items-center text-center justify-content-center py-2">
-                              <div class="col-6">
-                                <p class="mb-0">Weight</p>
-                              </div>
-                              <div class="col-6">
-                                <p class="mb-0">${product.weight}</p>
-                              </div>
+              </div>
+              <div class="col-lg-6">
+                <h4 class="fw-bold mb-3">${product.name}</h4>
+                <p class="mb-3">Category: ${product.category}</p>
+                <h5 class="fw-bold mb-3">${product.price}</h5>
+                <p class="mb-4">${product.description}</p>
+                <div class="input-group quantity mb-3" style="max-width: 150px;">
+  <button class="btn btn-sm btn-minus rounded-circle bg-light border" onclick="decrementQuantity(this)">
+    <i class="fa fa-minus"></i>
+  </button>
+  <input type="text" class="form-control form-control-sm text-center border-0" value="1" id="quantityInput">
+  <button class="btn btn-sm btn-plus rounded-circle bg-light border" onclick="incrementQuantity(this)">
+    <i class="fa fa-plus"></i>
+  </button>
+</div>
+
+<button class="btn btn-primary rounded-pill px-4 py-2 mb-4 text-white" onclick="addToCart('${productId}', '${userToken}', '${decodedToken.userID}')">
+    <i class="fa fa-shopping-cart me-2"></i> Add to Cart
+</button>
+
+
+
+
+
+                <a href="#" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i></i> Buy Now</a>
+              </div>
+              <div class="col-lg-12">
+                <nav>
+                  <div class="nav nav-tabs mb-3">
+                    <button class="nav-link active border-white border-bottom-0" type="button" data-bs-toggle="tab" data-bs-target="#nav-about" aria-controls="nav-about" aria-selected="true">Description</button>
+                    <button class="nav-link border-white border-bottom-0" type="button" data-bs-toggle="tab" data-bs-target="#nav-reviews" aria-controls="nav-reviews" aria-selected="false">Reviews</button>
+                  </div>
+                </nav>
+                <div class="tab-content mb-5">
+                  <div class="tab-pane active" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
+                    <p>${product.description}</p>
+                    <div class="px-2">
+                      <div class="row g-4">
+                        <div class="col-6">
+                          <div class="row bg-light align-items-center text-center justify-content-center py-2">
+                            <div class="col-6">
+                              <p class="mb-0">Weight</p>
                             </div>
-                            <div class="row bg-light text-center align-items-center justify-content-center py-2">
-                              <div class="col-6">
-                                <p class="mb-0">City of Origin</p>
-                              </div>
-                              <div class="col-6">
-                                <p class="mb-0">${product.seller.location}</p>
-                              </div>
+                            <div class="col-6">
+                              <p class="mb-0">${product.weight}</p>
+                            </div>
+                          </div>
+                          <div class="row bg-light text-center align-items-center justify-content-center py-2">
+                            <div class="col-6">
+                              <p class="mb-0">City of Origin</p>
+                            </div>
+                            <div class="col-6">
+                              <p class="mb-0">${product.seller.location}</p>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div
-                      class="tab-pane"
-                      id="nav-reviews"
-                      role="tabpanel"
-                      aria-labelledby="nav-reviews-tab"
-                    >
-                      <div id="reviewsContainer">
-                        <!-- Reviews will be dynamically inserted here -->
-                      </div>
-                      <!-- Review Form -->
-                      <div id="review" >
-                        </div>
-                      <!-- End Review Form -->
+                  </div>
+                  <div class="tab-pane" id="nav-reviews" role="tabpanel" aria-labelledby="nav-reviews-tab">
+                    <div id="reviewsContainer">
+                      <!-- Reviews will be dynamically inserted here -->
                     </div>
+                    <div id="formContainer">
+                    </div>
+                    <!-- End Review Form -->
                   </div>
                 </div>
               </div>
             </div>
-          `;
+          </div>
+        `;
         }
 
         // Function to render reviews
@@ -318,24 +313,24 @@
               .padStart(2, "0")}`;
 
             const reviewHTML = `
-              <div class="d-flex mb-4">
-                <div class="flex-shrink-0 me-3">
-                  <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
-                    <i class="fa fa-user text-light"></i>
-                  </div>
-                </div>
-                <div class="flex-grow-1">
-                  <div class="d-flex justify-content-between">
-                    <h6 class="mb-0">${review.user.name}</h6>
-                    <small class="text-muted">${formattedDate}</small>
-                  </div>
-                  <div class="d-flex align-items-center mb-2">
-                    ${starsHTML}
-                  </div>
-                  <p class="mb-0">${review.comment}</p>
-                </div>
-              </div>
-            `;
+                    <div class="d-flex mb-4">
+                      <div class="flex-shrink-0 me-3">
+                        <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                          <i class="fa fa-user text-light"></i>
+                        </div>
+                      </div>
+                      <div class="flex-grow-1">
+                        <div class="d-flex justify-content-between">
+                          <h6 class="mb-0">${review.user.name}</h6>
+                          <small class="text-muted">${formattedDate}</small>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                          ${starsHTML}
+                        </div>
+                        <p class="mb-0">${review.comment}</p>
+                      </div>
+                    </div>
+                  `;
 
             // Append the reviewHTML to reviewsContainer
             reviewsContainer.innerHTML += reviewHTML;
@@ -346,148 +341,187 @@
         fetch(fetchUrl)
           .then((response) => response.json())
           .then((product) => {
-            renderProduct(product); // Render product details
-            renderReviews(product.feedback); // Render reviews
+            renderProduct(product); //
+            renderReviews(product.feedback);
 
             // Remove spinner once content is loaded
-            const spinner = document.getElementById("spinner");
-            spinner.style.display = "none";
+            if (userToken) {
+              createReviewForm(userToken, decodedToken, productId);
+            }
+            console.log(decodedToken);
           })
           .catch((error) => {
             console.error("Error fetching product:", error);
             const productContainer =
               document.getElementById("productContainer");
-            productContainer.innerHTML = `<p>Error fetching product details.</p>`;
+            if (productContainer) {
+              productContainer.innerHTML = `<p>Error fetching product details.</p>`;
+            }
             const spinner = document.getElementById("spinner");
-            spinner.style.display = "none";
+            if (spinner) {
+              spinner.style.display = "none";
+            }
           });
 
-        // Function to handle form submission for leaving a review
+        // Function to handle search input
+        function handleSearch(inputId) {
+          const searchInput = document.getElementById(inputId).value;
+          const params = new URLSearchParams(window.location.search);
 
-        const reviewForm = document.getElementById("reviewForm");
-        reviewForm.addEventListener("submit", function (event) {
-          event.preventDefault(); // Prevent default form submission
-
-          // Retrieve form data
-          const name = document.getElementById("reviewName").value;
-          const email = document.getElementById("reviewEmail").value;
-          const rating = parseInt(
-            document.getElementById("reviewRating").value
-          );
-          const comment = document.getElementById("reviewComment").value;
-
-          // Create new review object
-          const newReview = {
-            user: { name: name, email: email },
-            rating: rating,
-            comment: comment,
-            created_at: new Date().toISOString(), // Use ISO string for consistency
-          };
-
-          // For demo purposes, simulate adding the new review locally (not affecting backend)
-          product.feedback.push(newReview);
-
-          // Clear form fields
-          reviewForm.reset();
-
-          // Re-render reviews section
-          renderReviews(product.feedback);
-        });
-
-        // Function to generate star rating icons based on rating value
-        function generateStarRating(rating) {
-          const maxStars = 5;
-          const fullStars = Math.floor(rating);
-          const halfStars = rating % 1 !== 0 ? 1 : 0;
-          const emptyStars = maxStars - fullStars - halfStars;
-
-          let starsHTML = "";
-          for (let i = 0; i < fullStars; i++) {
-            starsHTML += '<i class="fa fa-star text-primary"></i>';
-          }
-          if (halfStars) {
-            starsHTML += '<i class="fa fa-star-half-alt text-primary"></i>';
-          }
-          for (let i = 0; i < emptyStars; i++) {
-            starsHTML += '<i class="fa fa-star text-muted"></i>';
+          // Replace the search query if it exists, or add a new one
+          if (searchInput) {
+            params.set("search", searchInput);
+          } else {
+            params.delete("search");
           }
 
-          return starsHTML;
+          // Update the URL with the new search query
+          window.location.href = `./product.html?${params.toString()}`;
         }
 
-        const review = document.getElementById("review");
-
         if (userToken) {
-          review.innerHTML = `
-          <form id="reviewForm" class="mt-4">
-                          <h5 class="mb-3">Leave a Review</h5>
-                          <div class="mb-3">
-                            <label for="reviewName" class="form-label">Name</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="reviewName"
-                              placeholder="Your Name"
-                              required
-                            />
-                          </div>
-                          <div class="mb-3">
-                            <label for="reviewEmail" class="form-label">Email</label>
-                            <input
-                              type="email"
-                              class="form-control"
-                              id="reviewEmail"
-                              placeholder="Your Email"
-                              required
-                            />
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label">Rating</label>
-                            <div class="star-rating">
-                              <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 stars">&#9733;</label>
-                              <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 stars">&#9733;</label>
-                              <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 stars">&#9733;</label>
-                              <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 stars">&#9733;</label>
-                              <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star">&#9733;</label>
-                            </div>
-                          </div>
-                          <div class="mb-3">
-                            <label for="reviewComment" class="form-label">Comment</label>
-                            <textarea
-                              class="form-control"
-                              id="reviewComment"
-                              rows="3"
-                              placeholder="Your Review Comment"
-                              required
-                            ></textarea>
-                          </div>
-                          <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
-                        `;
+          const isAuthenticated = decodedToken !== null;
+          const userId = isAuthenticated ? decodedToken.userId : null; // Replace 'userId' with the actual field name in your JWT payload
+
+          profile.innerHTML = `
+      <a href="${
+        isAuthenticated ? "./profile.html" : "./login.html"
+      }" class="my-auto">
+        <i class="fas ${
+          isAuthenticated ? "fa-user" : "fa-sign-in-alt"
+        } fa-2x"></i>
+      </a>`;
         } else {
-          review.innerHTML = `
-              <p>Logged in first to leave a review.</p>
-          `;
+          profile.innerHTML = `
+      <a href="./login.html" class="my-auto">
+        <i class="fas fa-sign-in-alt fa-2x"></i>
+      </a>`;
         }
       });
 
-      function handleSearch(inputId) {
-        const searchInput = document.getElementById(inputId).value;
-        const params = new URLSearchParams(window.location.search);
+      function addToCart(productId, userToken, decodedToken) {
+        const quantityInput = document.getElementById("quantityInput");
+        const quantity = parseInt(quantityInput.value, 10);
 
-        // Replace the search query if it exists, or add a new one
-        if (searchInput) {
-          params.set("search", searchInput);
-        } else {
-          params.delete("search");
-        }
-
-        // Update the URL with the new search query
-        window.location.href = `./product.html?${params.toString()}`;
+        fetch("http://localhost:3330/api/products/cart", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userToken}`,
+          },
+          body: JSON.stringify({
+            product_id: productId,
+            user_id: decodedToken,
+            quantity: quantity, // Example quantity
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Product added to cart:", data);
+            // Handle success or update UI
+          })
+          .catch((error) => {
+            console.error("Error adding product to cart:", error);
+            // Handle error or show error message
+          });
       }
 
-      function logout() {
-        localStorage.removeItem("userToken");
+      function decrementQuantity(button) {
+        const input = button.parentNode.querySelector('input[type="text"]');
+        let value = parseInt(input.value, 10);
+        value = isNaN(value) ? 1 : value;
+        if (value > 1) {
+          input.value = value - 1;
+        }
+      }
+
+      function incrementQuantity(button) {
+        const input = button.parentNode.querySelector('input[type="text"]');
+        let value = parseInt(input.value, 10);
+        value = isNaN(value) ? 1 : value;
+        input.value = value + 1;
+      }
+
+      function createReviewForm(userToken, decodedToken, productId) {
+        var formContainer = document.getElementById("formContainer");
+        formContainer.innerHTML = `
+          <!-- Review Form -->
+          <form id="review-form" class="mt-4">
+              <h5 class="mb-3">Leave a Review</h5>
+
+              <!-- Star Rating Input -->
+              <div class="mb-3">
+                  <label class="form-label">Rating</label>
+                  <div class="star-rating">
+                      <input type="radio" id="rating5" name="rating" value="5" />
+                      <label for="rating5"><i class="fa fa-star"></i></label>
+                      <input type="radio" id="rating4" name="rating" value="4" />
+                      <label for="rating4"><i class="fa fa-star"></i></label>
+                      <input type="radio" id="rating3" name="rating" value="3" />
+                      <label for="rating3"><i class="fa fa-star"></i></label>
+                      <input type="radio" id="rating2" name="rating" value="2" />
+                      <label for="rating2"><i class="fa fa-star"></i></label>
+                      <input type="radio" id="rating1" name="rating" value="1" />
+                      <label for="rating1"><i class="fa fa-star"></i></label>
+                  </div>
+              </div>
+
+              <!-- Review Comment Input -->
+              <div class="mb-3">
+                  <label for="reviewComment" class="form-label">Comment</label>
+                  <textarea class="form-control" id="reviewComment" rows="3" placeholder="Your Review Comment" required></textarea>
+              </div>
+
+              <!-- Submit Button -->
+              <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+      `;
+
+        // Add event listener for form submission
+        document
+          .getElementById("review-form")
+          .addEventListener("submit", async function (event) {
+            event.preventDefault(); // Prevent default form submission behavior
+
+            // Get selected rating
+            const selectedRating = document.querySelector(
+              'input[name="rating"]:checked'
+            );
+            if (!selectedRating) {
+              alert("Please select a rating.");
+              return;
+            }
+
+            // Form data to send in the POST request
+            const formData = {
+              user_id: decodedToken.userID, // Accessing decodedToken here
+              product_id: productId, // Assuming productId is from outer scope
+              rating: parseInt(selectedRating.value),
+              comment: document.getElementById("reviewComment").value,
+            };
+
+            try {
+              const response = await fetch(
+                "http://localhost:3330/api/products/feedback",
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(formData),
+                }
+              );
+
+              const data = await response.json();
+              console.log(data);
+              window.location.reload();
+            } catch (error) {
+              console.error(
+                "There was a problem with the registration:",
+                error
+              );
+            }
+          });
       }
     </script>
   </body>

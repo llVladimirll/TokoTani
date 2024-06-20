@@ -11,36 +11,46 @@
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
+  <div class="container">
+    <div class="container1">
         
-        <div class="logininput">
-            <form id="loginForm"> 
-                <p class="loginlabel">Login</p>
-                <div class="text-field">               
-                        <input type="email" id="email" name="email" autocomplete="off" placeholder="Your Email"
-                            required>
-                    </label>
-                </div>
-                <br>
-                <div class="text-field">                     
-                        <input id="password" type="password" name="password" placeholder="Your Password">
-                    </label>
-                </div>
-                <br><br>
-                <div class="button">
-                    <button id="login" name="submit" type="submit">Sign In</button>
-                </div>
-            </form>
-            <div class="sign_up">
-                <p>Don't have an account yet? <a href="signup.html" class="signup-link">Sign up</a>.</p>
-            </div>
-            <div class="login2">
-                <div class="line"></div>
-                <p><strong>Login</strong>with others</p>
-                <div class="line"></div>
-            </div>
-        </div>
-    </div>
+      <div class="logininput">
+          <form id="loginForm"> 
+              <p class="loginlabel">Login</p>
+              <div class="text-field">               
+                      <input type="email" id="email" name="email" autocomplete="off" placeholder="Your Email"
+                          required>
+                  </label>
+              </div>
+              <br>
+              <div class="text-field">                     
+                      <input id="password" type="password" name="password" placeholder="Your Password">
+                  </label>
+              </div>
+              <br><br>
+              <div class="button">
+                  <button id="login" name="submit" type="submit">Sign In</button>
+              </div>
+          </form>
+          <div class="sign_up">
+              <p>Don't have an account yet? <a href="./register.html" class="signup-link">Sign up</a>.</p>
+          </div>
+          <div class="login2">
+              <div class="line"></div>
+              <p><strong>Login</strong>with others</p>
+              <div class="line"></div>
+          </div>
+          <div class="loginwith">
+            <button class="acc1" id="googleSignInBtn">Login with Google</button>
+            <button class="acc2" onclick="openFacebookLogin()">Login with Facebook</button>
+          </div>
+      </div>
+  </div>
+  <div class="container2">
+    <div></div>
+  </div>
+  </div>
+    
 </body>
 <script>
     document
@@ -85,5 +95,9 @@
             // Handle error - Show error message to the user, etc.
           }
         });
+        // ------------------------------------------------------------------------------
+        function openFacebookLogin() {
+            window.open('https://www.facebook.com/login', '_blank', 'width=800,height=600');
+        }
 </script>
 </html>

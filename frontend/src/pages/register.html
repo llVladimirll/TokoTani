@@ -87,7 +87,8 @@
             }
 
             const data = await response.json();
-            console.log(data); // Response from the server
+            console.log(data);
+            window.location.href = './login.html' // Response from the server
 
             // Optionally, redirect to another page or show a success message
           } catch (error) {
