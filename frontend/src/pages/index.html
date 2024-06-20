@@ -38,9 +38,9 @@
     <div class="container-fluid fixed-top">
       <div class="container px-0">
         <nav class="navbar navbar-light bg-M navbar-expand-xl">
-          <a href="index.html" class="navbar-brand"
-            ><h1 class="text-primary display-6">TokoTani</h1></a
-          >
+          <a href="index.html" class="navbar-brand">
+            <h1 class="text-primary display-6">TokoTani</h1>
+          </a>
           <div class="modal-body d-flex align-items-center">
             <div class="input-group w-75 mx-auto d-flex">
               <input
@@ -71,6 +71,11 @@
               <a href="#" class="position-relative me-4 my-auto">
                 <i class="fa fa-shopping-bag fa-2x"></i>
               </a>
+              <!-- Chat Icon Start -->
+              <a href="#" class="position-relative me-4 my-auto">
+                <i class="fas fa-comments fa-2x"></i>
+              </a>
+              <!-- Chat Icon End -->
               <div class="dropdown my-auto" id="profile"></div>
             </div>
           </div>
@@ -171,6 +176,7 @@
     document.addEventListener("DOMContentLoaded", function () {
       const userToken = localStorage.getItem("userToken");
       const profile = document.getElementById("profile");
+      console.log(userToken);
 
       if (userToken) {
         profile.innerHTML =
@@ -217,7 +223,5 @@
       localStorage.removeItem("userToken");
       window.location.reload();
     }
-
-    console.log(userToken);
   </script>
 </html>
