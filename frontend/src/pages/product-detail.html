@@ -197,7 +197,7 @@
 
         const params = new URLSearchParams(window.location.search);
         const productId = params.get("id");
-        const fetchUrl = `http://localhost:3330/api/products/${productId}`;
+        const fetchUrl = `https://toko-tani-server-2.vercel.app/api/products/${productId}`;
 
         // Function to generate star rating icons based on rating value
         function generateStarRating(rating) {
@@ -361,10 +361,11 @@
             .then((response) => response.json())
             .then((product) => {
               renderProduct(product); // Rendering product details
+              console.log(productId);
 
               renderReviews(product.feedback); // Rendering product reviews
-              cartButton(userToken, decodedToken, product.productId);
-              createReviewForm(userToken, decodedToken, product.productId);
+              cartButton(userToken, decodedToken, productId);
+              createReviewForm(userToken, decodedToken, productId);
               console.log(decodedToken);
             })
             .catch((error) => {
@@ -420,7 +421,9 @@
         const quantityInput = document.getElementById("quantityInput");
         const quantity = parseInt(quantityInput.value, 10);
 
-        fetch("http://localhost:3330/api/products/cart", {
+        console.log(productId, quantity, userToken, decodedToken);
+
+        fetch("https://toko-tani-server-2.vercel.app/api/products/cart", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -519,7 +522,7 @@
 
             try {
               const response = await fetch(
-                "http://localhost:3330/api/products/feedback",
+                "https://toko-tani-server-2.vercel.app/api/products/feedback",
                 {
                   method: "POST",
                   headers: {
