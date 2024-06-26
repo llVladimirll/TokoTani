@@ -885,6 +885,134 @@ aside .menu a {
 /*** service End ***/
 
 
+/*** SELLER REGISTER Start ***/
+
+.wrp-cntr {
+  width: 100%;
+  max-width: 500px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.rgstr-bx {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  text-align: center;
+}
+
+.rgstr-bx h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.rgstr-bx p {
+  margin-bottom: 30px;
+  color: #777;
+}
+
+.frm-cntr {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ipt-bx {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.ipt-bx label {
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.ipt-bx input[type="text"],
+.ipt-bx input[type="file"],
+.ipt-bx select {
+  width: 90%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #FAFFED;
+  font-size: 16px;
+}
+
+.btn-smt {
+  padding: 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #7F9F21;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-smt:hover {
+  background-color: #5ca232;
+}
+
+@media (max-width: 768px) {
+  .rgstr-bx {
+      padding: 20px;
+  }
+
+  .rgstr-bx h2 {
+      font-size: 20px;
+  }
+
+  .rgstr-bx p {
+      font-size: 14px;
+  }
+
+  .ipt-bx input[type="text"],
+  .ipt-bx input[type="file"],
+  .ipt-bx select {
+      font-size: 14px;
+      padding: 8px;
+  }
+
+  .btn-smt {
+      font-size: 16px;
+      padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .wrp-cntr {
+      padding: 10px;
+  }
+
+  .rgstr-bx {
+      padding: 10px;
+  }
+
+  .rgstr-bx h2 {
+      font-size: 18px;
+  }
+
+  .rgstr-bx p {
+      font-size: 12px;
+  }
+
+  .ipt-bx input[type="text"],
+  .ipt-bx input[type="file"],
+  .ipt-bx select {
+      font-size: 12px;
+      padding: 6px;
+  }
+
+  .btn-smt {
+      font-size: 14px;
+      padding: 10px;
+  }
+}
+/*** SELLER REGISTER end ***/
+
 /*** Fruits Start ***/
 .fruite .tab-class .nav-item a.active {
     background: var(--bs-secondary) !important;
