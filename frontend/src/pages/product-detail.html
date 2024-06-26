@@ -28,8 +28,6 @@
     />
 
     <!-- Libraries Stylesheet -->
-    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet" />
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="bootstrap.min.css" rel="stylesheet" />
@@ -39,15 +37,6 @@
   </head>
 
   <body>
-    <!-- Spinner Start -->
-    <div
-      id="spinner"
-      class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50 d-flex align-items-center justify-content-center"
-    >
-      <div class="spinner-grow text-primary" role="status"></div>
-    </div>
-    <!-- Spinner End -->
-
     <!-- Navbar start -->
     <div class="container-fluid fixed-top">
       <div class="container px-0">
@@ -138,7 +127,6 @@
         if (!token) {
           // Token not present, handle accordingly (e.g., log out user)
           console.log("JWT not found.");
-          removeTokenAndRefresh();
           return;
         }
 
@@ -146,7 +134,6 @@
         if (!decodedToken || !decodedToken.exp) {
           // Unable to decode token or no expiration time found
           console.error("Invalid JWT or no expiration time found.");
-          removeTokenAndRefresh();
           return;
         }
 
@@ -155,7 +142,6 @@
           // Token expired, remove it from storage and refresh page
           console.log("JWT expired. Removing token from storage...");
           localStorage.removeItem("userToken"); // Remove token from localStorage
-          removeTokenAndRefresh();
         } else {
           // Token valid, continue with user session
           console.log("JWT is valid. Continuing user session...");
@@ -163,17 +149,44 @@
         }
       }
 
-      // Function to remove token from localStorage and refresh page
-      function removeTokenAndRefresh() {
-        localStorage.removeItem("userToken"); // Remove token from localStorage
-        location.reload(); // Reload the current page
+      function sendWhatsAppMessage(sellerName, sellerPhoneNumber) {
+        const currentUrl = window.location.href;
+        // Format the message text
+        const message = `Hi ${sellerName}, I'm interested in your product . Here is the product link: ${currentUrl}`;
+
+        // Encode message for URL
+        const encodedMessage = encodeURIComponent(message);
+
+        // Construct the WhatsApp URL with the formatted message and recipient phone number
+        const whatsappUrl = `https://api.whatsapp.com/send?phone=+6285729029164&text=${encodedMessage}`;
+
+        // Open WhatsApp in a new tab/window
+        window.open(whatsappUrl, "_blank");
       }
 
       document.addEventListener("DOMContentLoaded", function () {
         const userToken = localStorage.getItem("userToken");
-        checkJwtExpiration(userToken);
+        const profile = document.getElementById("profile");
         const decodedToken = decodeJwt(userToken);
 
+        if (userToken) {
+          profile.innerHTML =
+            '<a href="#" class="my-auto" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">' +
+            '<i class="fas fa-user fa-2x"></i>' +
+            "</a>" +
+            '<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">' +
+            '<li><a class="dropdown-item" href="./profile.html">Profile</a></li>' +
+            '<li><a class="dropdown-item" href="#">Information</a></li>' +
+            '<li><a class="dropdown-item" href="#" onclick="logout()">Log Out</a></li>' +
+            "</ul>";
+        } else {
+          profile.innerHTML =
+            '<a href="./login.html" class="my-auto">' +
+            '<i class="fas fa-sign-in-alt fa-2x"></i>' +
+            "</a>";
+        }
+
+        checkJwtExpiration(userToken);
         document
           .getElementById("search-input")
           .addEventListener("keydown", function (event) {
@@ -236,15 +249,16 @@
   </button>
 </div>
 
-<button class="btn btn-primary rounded-pill px-4 py-2 mb-4 text-white" onclick="addToCart('${productId}', '${userToken}', '${decodedToken.userID}')">
-    <i class="fa fa-shopping-cart me-2"></i> Add to Cart
-</button>
+<div id="cartButton">
+  </div>
 
 
 
 
 
-                <a href="#" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i></i> Buy Now</a>
+<a href="#" id="whatsappChatLink" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary" onclick="sendWhatsAppMessage('${product.seller.name}', 'Seller Phone Number')"><i></i> Chat with seller</a>
+
+
               </div>
               <div class="col-lg-12">
                 <nav>
@@ -342,31 +356,42 @@
           });
         }
 
-        // Fetch product details and reviews
-        fetch(fetchUrl)
-          .then((response) => response.json())
-          .then((product) => {
-            renderProduct(product); //
-            renderReviews(product.feedback);
+        if (userToken) {
+          fetch(fetchUrl)
+            .then((response) => response.json())
+            .then((product) => {
+              renderProduct(product); // Rendering product details
+              console.log(productId);
 
-            // Remove spinner once content is loaded
-            if (userToken) {
+              renderReviews(product.feedback); // Rendering product reviews
+              cartButton(userToken, decodedToken, productId);
               createReviewForm(userToken, decodedToken, productId);
-            }
-            console.log(decodedToken);
-          })
-          .catch((error) => {
-            console.error("Error fetching product:", error);
-            const productContainer =
-              document.getElementById("productContainer");
-            if (productContainer) {
-              productContainer.innerHTML = `<p>Error fetching product details.</p>`;
-            }
-            const spinner = document.getElementById("spinner");
-            if (spinner) {
-              spinner.style.display = "none";
-            }
-          });
+              console.log(decodedToken);
+            })
+            .catch((error) => {
+              console.error("Error fetching product:", error);
+              const productContainer =
+                document.getElementById("productContainer");
+              if (productContainer) {
+                productContainer.innerHTML = `<p>Error fetching product details.</p>`;
+              }
+            });
+        } else {
+          fetch(fetchUrl)
+            .then((response) => response.json())
+            .then((product) => {
+              renderProduct(product); // Rendering product details
+              renderReviews(product.feedback); // Rendering product reviews
+            })
+            .catch((error) => {
+              console.error("Error fetching product:", error);
+              const productContainer =
+                document.getElementById("productContainer");
+              if (productContainer) {
+                productContainer.innerHTML = `<p>Error fetching product details.</p>`;
+              }
+            });
+        }
 
         // Function to handle search input
         function handleSearch(inputId) {
@@ -383,32 +408,22 @@
           // Update the URL with the new search query
           window.location.href = `./product.html?${params.toString()}`;
         }
-
-        const profile = document.getElementById("profile");
-
-        if (userToken) {
-          profile.innerHTML =
-            '<a href="#" class="my-auto" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">' +
-            '<i class="fas fa-user fa-2x"></i>' +
-            "</a>" +
-            '<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">' +
-            '<li><a class="dropdown-item" href="./profile.html">Profile</a></li>' +
-            '<li><a class="dropdown-item" href="#">Information</a></li>' +
-            '<li><a class="dropdown-item" href="#" onclick="logout()">Log Out</a></li>' +
-            "</ul>";
-        } else {
-          profile.innerHTML =
-            '<a href="./login.html" class="my-auto">' +
-            '<i class="fas fa-sign-in-alt fa-2x"></i>' +
-            "</a>";
-        }
       });
+
+      function cartButton(userToken, decodedToken, productId) {
+        const button = document.getElementById("cartButton");
+        button.innerHTML = `<button class="btn btn-primary rounded-pill px-4 py-2 mb-4 text-white" onclick="addToCart('${productId}', '${userToken}', '${decodedToken.userID}')">
+    <i class="fa fa-shopping-cart me-2"></i> Add to Cart
+</button>`;
+      }
 
       function addToCart(productId, userToken, decodedToken) {
         const quantityInput = document.getElementById("quantityInput");
         const quantity = parseInt(quantityInput.value, 10);
 
-        fetch("http://localhost:3330/api/products/cart", {
+        console.log(productId, quantity, userToken, decodedToken);
+
+        fetch("https://toko-tani-server-2.vercel.app/api/products/cart", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -507,7 +522,7 @@
 
             try {
               const response = await fetch(
-                "http://localhost:3330/api/products/feedback",
+                "https://toko-tani-server-2.vercel.app/api/products/feedback",
                 {
                   method: "POST",
                   headers: {
@@ -527,6 +542,10 @@
               );
             }
           });
+        function logout() {
+          localStorage.removeItem("userToken");
+          window.location.reload();
+        }
       }
     </script>
   </body>
