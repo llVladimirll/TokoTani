@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TokoTani Dashboard</title>
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+.container {
+    display: grid;
+    grid-template-areas:
+        "header header"
+        "sidebar main";
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: auto 1fr;
+    width: 100%;
+}
+
+.header {
+    grid-area: header;
+    background-color: #A3C250;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.logo h1 {
+    font-size: 1.5em;
+}
+
+.header-icons {
+    display: flex;
+}
+
+.icon {
+    margin: 0 10px;
+}
+
+.profile-pic img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.sidebar {
+    grid-area: sidebar;
+    background-color: #D8EBC2;
+    padding: 20px;
+}
+
+.sidebar nav ul {
+    list-style-type: none;
+}
+
+.sidebar nav ul li {
+    margin-bottom: 10px;
+}
+
+.main-content {
+    grid-area: main;
+    padding: 20px;
+    background-color: #F5F5F5;
+}
+
+.earnings-info {
+    background-color: #fdf8e2;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    font-family: Arial, sans-serif;
+}
+
+.earnings-info h2 {
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    color: #4a4a4a;
+}
+
+.earnings-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2em;
+    color: #4a4a4a;
+}
+
+.earnings-details div {
+    text-align: center;
+}
+
+.earnings-details .pending {
+    flex: 1;
+}
+
+.earnings-details .released {
+    flex: 3;
+    display: flex;
+    justify-content: space-between;
+}
+
+.earnings-details p {
+    margin: 5px 0;
+}
+
+.earnings-details .released p {
+    margin-right: 20px;
+}
+
+.earnings-details .released div {
+    flex: 1;
+    text-align: center;
+}
+
+.earnings-details .vertical-line {
+    width: 1px;
+    height: 50px;
+    background-color: #4a4a4a;
+    margin: 0 20px;
+    align-self: center;
+}
+
+.earnings-chart,
+.sales-volume-chart {
+    background-color: #fdf8e2;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    border: 2px solid #A3C250;
+}
+
+.earnings-chart h2,
+.sales-volume-chart h2 {
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    color: #4a4a4a;
+}
+
+.chart-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.chart-period {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.chart-period button {
+    margin-right: 10px;
+    padding: 5px 10px;
+    border: 1px solid #A3C250;
+    background-color: transparent;
+    border-radius: 5px;
+    font-size: 1em;
+    color: #4a4a4a;
+    cursor: pointer;
+}
+
+.chart-period .active {
+    background-color: #A3C250;
+    color: white;
+    border: none;
+}
+
+.chart-legend {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.chart-legend span {
+    margin-right: 20px;
+    font-size: 1em;
+    color: #4a4a4a;
+}
+
+.legend-color {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+
+/* Desktop View */
+@media (min-width: 1024px) {
+    .container {
+        grid-template-columns: 1fr 3fr;
+    }
+
+    .header {
+        padding: 20px;
+    }
+
+    .logo h1 {
+        font-size: 2em;
+    }
+
+    .header-icons .icon {
+        margin: 0 15px;
+    }
+
+    .profile-pic img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .sidebar {
+        padding: 30px;
+    }
+
+    .main-content {
+        padding: 30px;
+    }
+
+    .earnings-info, .earnings-chart, .sales-volume-chart {
+        padding: 30px;
+    }
+
+    .chart-period button {
+        margin-right: 15px;
+        padding: 10px 15px;
+    }
+
+    .chart-period .active {
+        padding: 10px 15px;
+    }
+}
+
+/* Phone View */
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "header"
+            "main"
+            "sidebar";
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    .main-content {
+        padding: 10px;
+    }
+
+    .earnings-details {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .earnings-details .pending, .earnings-details .released {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .chart-container {
+        max-width: 100%;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header-icons {
+        margin-top: 10px;
+    }
+
+    .header .logo h1 {
+        font-size: 1.2em;
+    }
+
+    .earnings-info, .earnings-chart, .sales-volume-chart {
+        padding: 10px;
+    }
+
+    .chart-period button {
+        margin-right: 5px;
+        padding: 5px;
+    }
+
+    .header .logo h1 {
+        font-size: 1em;
+    }
+
+    .icon {
+        margin: 0 5px;
+    }
+
+    .profile-pic img {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <h1>TokoTani</h1>
+                <span>Pesanan Saya</span>
+            </div>
+            <div class="header-icons">
+                <div class="icon">Cart</div>
+                <div class="icon">Chat</div>
+                <div class="icon">Profile</div>
+            </div>
+            <div class="profile-pic">
+                <img src="profile.jpg" alt="Vladimir">
+            </div>
+        </div>
+        <div class="sidebar">
+            <nav>
+                <ul>
+                    <li>Produk</li>
+                    <li>Produk saya</li>
+                    <li>Tambahkan produk baru</li>
+                    <li>Pesanan</li>
+                    <li>Pesanan Saya</li>
+                    <li>Pembatalan</li>
+                    <li>Pengembalian</li>
+                    <li>Keuangan</li>
+                    <li>Penghasilan Saya</li>
+                    <li>Saldo Saya</li>
+                    <li>Rekening Bank</li>
+                    <li>Data</li>
+                    <li>Profil Toko</li>
+                    <li>Performa Toko</li>
+                    <li>Bantul</li>
+                </ul>
+            </nav>
+        </div>
+        
+        <div class="main-content">
+            <div class="earnings-info">
+                <h2>Informasi Penghasilan</h2>
+                <div class="earnings-details">
+                    <div class="pending">
+                        <p>Pending</p>
+                        <p>Total</p>
+                        <p>Rp 13.540.000</p>
+                    </div>
+                    <div class="vertical-line"></div>
+                    <div class="released">
+                        <div>
+                            <p>Sudah Dilepas</p>
+                            <p>Minggu ini</p>
+                            <p>Rp 32.340.000</p>
+                        </div>
+                        <div>
+                            <p>&nbsp;</p>
+                            <p>Bulan ini</p>
+                            <p>Rp 98.000.000</p>
+                        </div>
+                        <div>
+                            <p>&nbsp;</p>
+                            <p>Total</p>
+                            <p>Rp 130.340.000</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="earnings-chart">
+                <h2>Rincian Penghasilan</h2>
+                <div class="chart-period">
+                    <button>Periode Data</button>
+                    <button class="active">7 hari terakhir</button>
+                </div>
+                <div class="chart-container">
+                    <canvas id="earningsChart"></canvas>
+                </div>
+            </div>
+            <div class="sales-volume-chart">
+                <h2>Sales Volume</h2>
+                <div class="chart-period">
+                    <button>Periode Data</button>
+                    <button class="active">7 hari terakhir</button>
+                </div>
+                <div class="chart-legend">
+                    <span><span class="legend-color" style="background-color: #A3C250;"></span> Pisang Raja</span>
+                    <span><span class="legend-color" style="background-color: #FFD700;"></span> Mangga</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="salesVolumeChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="scripts1.js"></script>
+</body>
+</html>
