@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
     <meta charset="utf-8" />
     <title>Toko Tini</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -34,456 +35,557 @@
     <!-- Template Stylesheet -->
     <link href="style.css" rel="stylesheet" />
     <style>
-        .main-content {
-            border-radius: 1%;
-            background-color: #E8E3D1;
-    grid-area: main;
-    padding: 20px;
-}
+      .main-content {
+        border-radius: 1%;
+        background-color: #e8e3d1;
+        grid-area: main;
+        padding: 20px;
+      }
 
-.earnings-info {
-    background-color: #fdf8e2;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    font-family: Arial, sans-serif;
-}
+      .earnings-info {
+        background-color: #fdf8e2;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        font-family: Arial, sans-serif;
+      }
 
-.earnings-info h2 {
-    margin-bottom: 20px;
-    font-size: 1.5em;
-    color: #4a4a4a;
-}
+      .earnings-info h2 {
+        margin-bottom: 20px;
+        font-size: 1.5em;
+        color: #4a4a4a;
+      }
 
-.earnings-details {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 1.2em;
-    color: #4a4a4a;
-}
-
-.earnings-details div {
-    text-align: center;
-}
-
-.earnings-details .pending {
-    flex: 1;
-}
-
-.earnings-details .released {
-    flex: 3;
-    display: flex;
-    justify-content: space-between;
-}
-
-.earnings-details p {
-    margin: 5px 0;
-}
-
-.earnings-details .released p {
-    margin-right: 20px;
-}
-
-.earnings-details .released div {
-    flex: 1;
-    text-align: center;
-}
-
-.earnings-details .vertical-line {
-    width: 1px;
-    height: 50px;
-    background-color: #4a4a4a;
-    margin: 0 20px;
-    align-self: center;
-}
-
-.earnings-chart,
-.sales-volume-chart {
-    background-color: #fdf8e2;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
-    border: 2px solid #A3C250;
-}
-
-.earnings-chart h2,
-.sales-volume-chart h2 {
-    margin-bottom: 20px;
-    font-size: 1.5em;
-    color: #4a4a4a;
-}
-
-.chart-container {
-    width: 100%;
-    max-width: 500px;
-    margin: 0 auto;
-}
-
-.chart-period {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 10px;
-}
-
-.chart-period button {
-    margin-right: 10px;
-    padding: 5px 10px;
-    border: 1px solid #A3C250;
-    background-color: transparent;
-    border-radius: 5px;
-    font-size: 1em;
-    color: #4a4a4a;
-    cursor: pointer;
-}
-
-.chart-period .active {
-    background-color: #A3C250;
-    color: white;
-    border: none;
-}
-
-.chart-legend {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 10px;
-}
-
-.chart-legend span {
-    margin-right: 20px;
-    font-size: 1em;
-    color: #4a4a4a;
-}
-
-.legend-color {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    margin-right: 5px;
-}
-
-/* Desktop View */
-@media (min-width: 1024px) {
-    .main-content {
-        padding: 30px;
-    }
-
-    .earnings-info, .earnings-chart, .sales-volume-chart {
-        padding: 30px;
-    }
-
-    .chart-period button {
-        margin-right: 15px;
-        padding: 10px 15px;
-    }
-
-    .chart-period .active {
-        padding: 10px 15px;
-    }
-}
-
-/* Phone View */
-@media (max-width: 768px) {
-    .main-content {
-        padding: 10px;
-    }
-
-    .earnings-details {
-        flex-direction: column;
+      .earnings-details {
+        display: flex;
+        justify-content: space-between;
         align-items: center;
-    }
+        font-size: 1.2em;
+        color: #4a4a4a;
+      }
 
-    .earnings-details .pending, .earnings-details .released {
-        width: 100%;
+      .earnings-details div {
         text-align: center;
+      }
+
+      .earnings-details .pending {
+        flex: 1;
+      }
+
+      .earnings-details .released {
+        flex: 3;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .earnings-details p {
+        margin: 5px 0;
+      }
+
+      .earnings-details .released p {
+        margin-right: 20px;
+      }
+
+      .earnings-details .released div {
+        flex: 1;
+        text-align: center;
+      }
+
+      .earnings-details .vertical-line {
+        width: 1px;
+        height: 50px;
+        background-color: #4a4a4a;
+        margin: 0 20px;
+        align-self: center;
+      }
+
+      .earnings-chart,
+      .sales-volume-chart {
+        background-color: #fdf8e2;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        border: 2px solid #a3c250;
+      }
+
+      .earnings-chart h2,
+      .sales-volume-chart h2 {
+        margin-bottom: 20px;
+        font-size: 1.5em;
+        color: #4a4a4a;
+      }
+
+      .chart-container {
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      .chart-period {
+        display: flex;
+        justify-content: center;
         margin-bottom: 10px;
-    }
+      }
 
-    .chart-container {
-        max-width: 100%;
-    }
+      .chart-period button {
+        margin-right: 10px;
+        padding: 5px 10px;
+        border: 1px solid #a3c250;
+        background-color: transparent;
+        border-radius: 5px;
+        font-size: 1em;
+        color: #4a4a4a;
+        cursor: pointer;
+      }
 
-    .earnings-info, .earnings-chart, .sales-volume-chart {
-        padding: 10px;
-    }
+      .chart-period .active {
+        background-color: #a3c250;
+        color: white;
+        border: none;
+      }
 
-    .chart-period button {
+      .chart-legend {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
+      }
+
+      .chart-legend span {
+        margin-right: 20px;
+        font-size: 1em;
+        color: #4a4a4a;
+      }
+
+      .legend-color {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
         margin-right: 5px;
-        padding: 5px;
-    }
-}
+      }
 
+      /* Desktop View */
+      @media (min-width: 1024px) {
+        .main-content {
+          padding: 30px;
+        }
+
+        .earnings-info,
+        .earnings-chart,
+        .sales-volume-chart {
+          padding: 30px;
+        }
+
+        .chart-period button {
+          margin-right: 15px;
+          padding: 10px 15px;
+        }
+
+        .chart-period .active {
+          padding: 10px 15px;
+        }
+      }
+
+      /* Phone View */
+      @media (max-width: 768px) {
+        .main-content {
+          padding: 10px;
+        }
+
+        .earnings-details {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .earnings-details .pending,
+        .earnings-details .released {
+          width: 100%;
+          text-align: center;
+          margin-bottom: 10px;
+        }
+
+        .chart-container {
+          max-width: 100%;
+        }
+
+        .earnings-info,
+        .earnings-chart,
+        .sales-volume-chart {
+          padding: 10px;
+        }
+
+        .chart-period button {
+          margin-right: 5px;
+          padding: 5px;
+        }
+      }
     </style>
   </head>
-<body>
-          <!-- Spinner Start -->
-          <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
-            <div class="spinner-grow text-primary" role="status"></div>
-        </div>
-        <!-- Spinner End --> 
+  <body>
+    <!-- Spinner Start -->
+    <div
+      id="spinner"
+      class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50 d-flex align-items-center justify-content-center"
+    >
+      <div class="spinner-grow text-primary" role="status"></div>
+    </div>
+    <!-- Spinner End -->
 
-          <!-- Navbar start -->
+    <!-- Navbar start -->
     <div class="container-fluid fixed-top">
-        <div class="container px-0">
-          <nav class="navbar navbar-light bg-M navbar-expand-xl">
-            <a href="index.html" class="navbar-brand">
-              <h1 class="text-primary display-6">TokoTani</h1>
-            </a>
-            <div class="modal-body d-flex align-items-center">
-              <div class="input-group w-75 mx-auto d-flex">
-                <input
-                  type="search"
-                  class="form-control p-3"
-                  placeholder="keywords"
-                  aria-describedby="search-icon-1"
-                  id="search-input"
-                />
-                <span
-                  id="search-icon-1"
-                  class="input-group-text p-3"
-                  onclick="handleSearch('search-input')"
-                  ><i class="fa fa-search"></i
-                ></span>
-              </div>
+      <div class="container px-0">
+        <nav class="navbar navbar-light bg-M navbar-expand-xl">
+          <a href="index.html" class="navbar-brand">
+            <h1 class="text-primary display-6">TokoTani</h1>
+          </a>
+          <div class="modal-body d-flex align-items-center">
+            <div class="input-group w-75 mx-auto d-flex">
+              <input
+                type="search"
+                class="form-control p-3"
+                placeholder="keywords"
+                aria-describedby="search-icon-1"
+                id="search-input"
+              />
+              <span
+                id="search-icon-1"
+                class="input-group-text p-3"
+                onclick="handleSearch('search-input')"
+                ><i class="fa fa-search"></i
+              ></span>
             </div>
+          </div>
+          <button
+            class="navbar-toggler py-2 px-3"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarCollapse"
+          >
+            <span class="fa fa-bars text-primary"></span>
+          </button>
+          <div class="collapse navbar-collapse bg-M" id="navbarCollapse">
+            <div class="d-flex ms-auto m-3 me-0">
+              <a href="#" class="position-relative me-4 my-auto">
+                <i class="fa fa-shopping-bag fa-2x"></i>
+              </a>
+              <!-- Chat Icon Start -->
+              <a href="#" class="position-relative me-4 my-auto">
+                <i class="fas fa-comments fa-2x"></i>
+              </a>
+              <!-- Chat Icon End -->
+              <div class="dropdown my-auto" id="profile"></div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <!-- Navbar End -->
+
+    <!-- Modal Search Start -->
+    <div
+      class="modal fade"
+      id="searchModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content rounded-0">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Search by keyword
+            </h5>
             <button
-              class="navbar-toggler py-2 px-3"
               type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarCollapse"
-            >
-              <span class="fa fa-bars text-primary"></span>
-            </button>
-            <div class="collapse navbar-collapse bg-M" id="navbarCollapse">
-              <div class="d-flex ms-auto m-3 me-0">
-                <a href="#" class="position-relative me-4 my-auto">
-                  <i class="fa fa-shopping-bag fa-2x"></i>
-                </a>
-                <!-- Chat Icon Start -->
-                <a href="#" class="position-relative me-4 my-auto">
-                  <i class="fas fa-comments fa-2x"></i>
-                </a>
-                <!-- Chat Icon End -->
-                <div class="dropdown my-auto" id="profile"></div>
-              </div>
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body d-flex align-items-center">
+            <div class="input-group w-75 mx-auto d-flex">
+              <input
+                type="search"
+                class="form-control p-3"
+                placeholder="keywords"
+                aria-describedby="search-icon-1"
+              />
+              <span id="search-icon-1" class="input-group-text p-3"
+                ><i class="fa fa-search"></i
+              ></span>
             </div>
-          </nav>
+          </div>
         </div>
       </div>
-      <!-- Navbar End -->
-          <!-- Navbar End -->
-
-               <!-- Modal Search Start -->
-        <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-fullscreen">
-                <div class="modal-content rounded-0">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body d-flex align-items-center">
-                        <div class="input-group w-75 mx-auto d-flex">
-                            <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
-                            <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-      <script src="lib/easing/easing.min.js"></script>
-      <script src="lib/waypoints/waypoints.min.js"></script>
-      <script src="lib/lightbox/js/lightbox.min.js"></script>
-      <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-      <script src="./main"></script>
-
-<!-- Fruits Shop Start-->
-<div class="container-fluid fruite py-5">
-    <div class="container py-5">
-        <div class="row g-4">
-            <div class="col-lg-12">
-                
-
-
-                <div class="row g-4">
-
-
-                    <div class="col-lg-3">
-                        <div class="row g-4">
-                            <div class="col-lg-12">
-                                <div class="mb-3">
-                                    <h4>Produk </h4>
-                                    <ul class="list-unstyled fruite-categorie">
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-apple-alt me-2"></i>Produk saya</a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-apple-alt me-2"></i>Tambahkan produk baru</a>
-                                            
-                                            </div>
-                                        </li>
-                                    </ul>
-
-                                    <h4>Pesanan</h4>
-                                    <ul class="list-unstyled fruite-categorie">
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-apple-alt me-2"></i>Pesanan Saya</a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-apple-alt me-2"></i>Pembatalan</a>
-                                            
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-apple-alt me-2"></i>Pengembalian</a>
-                                            
-                                            </div>
-                                        </li>
-                                    </ul>
-
-                                    <h4>Keuangan</h4>
-                                    <ul class="list-unstyled fruite-categorie">
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-apple-alt me-2"></i>Penghasilan saya</a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-apple-alt me-2"></i>Saldo Saya</a>
-                                            
-                                            </div>
-                                        </li>
-
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-apple-alt me-2"></i>Rekening Bank</a>
-                                            
-                                            </div>
-                                        </li>
-                                    </ul>
-
-                                    <h4>Data</h4>
-                                    <ul class="list-unstyled fruite-categorie">
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-apple-alt me-2"></i>Profil Toko</a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-apple-alt me-2"></i>Performa Toko</a>
-                                            
-                                            </div>
-                                        </li>
-
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-apple-alt me-2"></i>Bantul</a>
-                                            
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-
-
-                    <div class="col-lg-9">
-
-
-
-
-
-
-                        <div class="row g-4 justify-content-center">
-                            
-                            <div class="main-content">
-                                <div class="earnings-info">
-                                    <h2>Informasi Penghasilan</h2>
-                                    <div class="earnings-details">
-                                        <div class="pending">
-                                            <p>Pending</p>
-                                            <p>Total</p>
-                                            <p>Rp 13.540.000</p>
-                                        </div>
-                                        <div class="vertical-line"></div>
-                                        <div class="released">
-                                            <div>
-                                                <p>Sudah Dilepas</p>
-                                                <p>Minggu ini</p>
-                                                <p>Rp 32.340.000</p>
-                                            </div>
-                                            <div>
-                                                <p>&nbsp;</p>
-                                                <p>Bulan ini</p>
-                                                <p>Rp 98.000.000</p>
-                                            </div>
-                                            <div>
-                                                <p>&nbsp;</p>
-                                                <p>Total</p>
-                                                <p>Rp 130.340.000</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="earnings-chart">
-                                    <h2>Rincian Penghasilan</h2>
-                                    <div class="chart-period">
-                                        <button>Periode Data</button>
-                                        <button class="active">7 hari terakhir</button>
-                                    </div>
-                                    <div class="chart-container">
-                                        <canvas id="earningsChart"></canvas>
-                                    </div>
-                                </div>
-                                <div class="sales-volume-chart">
-                                    <h2>Sales Volume</h2>
-                                    <div class="chart-period">
-                                        <button>Periode Data</button>
-                                        <button class="active">7 hari terakhir</button>
-                                    </div>
-                                    <div class="chart-legend">
-                                        <span><span class="legend-color" style="background-color: #A3C250;"></span> Pisang Raja</span>
-                                        <span><span class="legend-color" style="background-color: #FFD700;"></span> Mangga</span>
-                                    </div>
-                                    <div class="chart-container">
-                                        <canvas id="salesVolumeChart"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="scripts1.js"></script>
+    <!-- Modal Search End -->
 
-</body>
+    <!-- Earnings Overview Start -->
+    <div class="main-content">
+      <div class="main-content">
+        <div class="earnings-info">
+          <h2>Earnings Overview</h2>
+          <div class="earnings-details">
+            <h1 id="totalEarnings"></h1>
+          </div>
+        </div>
+        <div class="earnings-chart">
+          <h2>Earnings</h2>
+          <div class="chart-period">
+            <button
+              onclick="updateChart('monthly')"
+              class="active"
+              id="btn-month"
+            >
+              Per Month
+            </button>
+            <button onclick="updateChart('weekly')" id="btn-week">
+              Per Week
+            </button>
+            <button onclick="updateChart('yearly')" id="btn-year">
+              Per Year
+            </button>
+          </div>
+          <div class="chart-container">
+            <canvas id="earningsChart"></canvas>
+          </div>
+        </div>
+        <div class="earnings-chart">
+          <h2>Recommendation</h2>
+          <h3 id="recommendation"></h3>
+        </div>
+      </div>
+    </div>
+    <!-- Earnings Overview End -->
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/lightbox/js/lightbox.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="main.js"></script>
+
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      var earningsChart;
+
+      function decodeJwt(token) {
+        try {
+          const base64Url = token.split(".")[1];
+          const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+          const jsonPayload = decodeURIComponent(
+            atob(base64)
+              .split("")
+              .map(function (c) {
+                return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+              })
+              .join("")
+          );
+          return JSON.parse(jsonPayload);
+        } catch (error) {
+          console.error("Error decoding JWT:", error);
+          return null;
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const sellerToken = localStorage.getItem("sellerToken");
+        const decodedSeller = decodeJwt(sellerToken);
+        const sellerId = decodedSeller ? decodedSeller.SellerID : null;
+
+        if (!sellerId) {
+          console.error("Seller ID not found or invalid.");
+          return;
+        }
+
+        console.log("Seller ID:", sellerId);
+
+        async function fetchData(period) {
+          try {
+            const response = await fetch(
+              `http://localhost:3330/api/sellers/earnings/${sellerId}?period=${period}`
+            );
+
+            if (!response.ok) {
+              throw new Error(`Fetch failed with status ${response.status}`);
+            }
+
+            const data = await response.json();
+            console.log("Raw response data:", data);
+
+            if (
+              !Array.isArray(data) ||
+              data.length === 0 ||
+              !data[0].period ||
+              !data[0].total
+            ) {
+              throw new Error("Invalid data received from the server.");
+            }
+
+            let labels = [];
+            let earningsData = [];
+
+            data.forEach((item) => {
+              labels.push(item.period);
+              earningsData.push(parseFloat(item.total));
+            });
+
+            console.log("Parsed labels and data:", { labels, earningsData });
+
+            return { labels, data: earningsData };
+          } catch (error) {
+            console.error("Fetch error:", error);
+            throw error; // Rethrow the error to be caught further up the chain if needed
+          }
+        }
+
+        function createChart(ctx, data, labels, label) {
+          return new Chart(ctx, {
+            type: "line",
+            data: {
+              labels: labels,
+              datasets: [
+                {
+                  label: label,
+                  data: data,
+                  backgroundColor: "rgba(163, 194, 80, 0.2)",
+                  borderColor: "rgba(163, 194, 80, 1)",
+                  borderWidth: 1,
+                  pointBackgroundColor: "rgba(163, 194, 80, 1)",
+                  pointBorderColor: "#fff",
+                  pointHoverBackgroundColor: "#fff",
+                  pointHoverBorderColor: "rgba(163, 194, 80, 1)",
+                  tension: 0.4,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              scales: {
+                y: {
+                  beginAtZero: true,
+                },
+              },
+            },
+          });
+        }
+
+        async function initializeCharts() {
+          try {
+            const { labels: initialLabels, data: initialEarningsData } =
+              await fetchData("yearly");
+
+            const ctxEarnings = document
+              .getElementById("earningsChart")
+              .getContext("2d");
+            earningsChart = createChart(
+              ctxEarnings,
+              initialEarningsData,
+              initialLabels,
+              "Earnings"
+            );
+          } catch (error) {
+            console.error("Error initializing chart:", error);
+          }
+        }
+
+        initializeCharts();
+
+        window.updateChart = async function (period) {
+          try {
+            const { labels, data } = await fetchData(period);
+            earningsChart.data.labels = labels;
+            earningsChart.data.datasets[0].data = data;
+            earningsChart.update();
+
+            document
+              .querySelectorAll(".chart-period button")
+              .forEach((btn) => btn.classList.remove("active"));
+
+            const periodMap = {
+              monthly: "btn-month",
+              weekly: "btn-week",
+              yearly: "btn-year",
+            };
+
+            document.getElementById(periodMap[period]).classList.add("active");
+          } catch (error) {
+            console.error("Error updating chart:", error);
+          }
+        };
+
+        async function fetchTotalEarnings() {
+          try {
+            const response = await fetch(
+              `http://localhost:3330/api/sellers/total/${sellerId}`
+            );
+            if (!response.ok) {
+              throw new Error(`Fetch failed with status ${response.status}`);
+            }
+            const data = await response.json();
+            console.log(data);
+            return data.totalEarnings; // Assuming your API returns an object with 'total' field
+          } catch (error) {
+            console.error("Fetch error:", error);
+            throw error;
+          }
+        }
+
+        async function displayTotalEarnings() {
+          try {
+            const totalEarnings = await fetchTotalEarnings();
+            const formattedTotalEarnings = new Intl.NumberFormat("id-ID", {
+              style: "currency",
+              currency: "IDR",
+            }).format(totalEarnings);
+            document.getElementById(
+              "totalEarnings"
+            ).textContent = `Total Earnings: ${formattedTotalEarnings}`;
+          } catch (error) {
+            console.error("Error displaying total earnings:", error);
+          }
+        }
+
+        displayTotalEarnings();
+
+        async function fetchRecommendations() {
+          try {
+            const response = await fetch(
+              `http://localhost:3330/api/sellers/recomendations/${sellerId}`
+            );
+            if (!response.ok) {
+              throw new Error(`Fetch failed with status ${response.status}`);
+            }
+            const data = await response.json();
+            console.log("recommendations", data);
+            return data;
+          } catch (error) {
+            console.error("Fetch error:", error);
+            throw error;
+          }
+        }
+
+        async function displayRecommendations() {
+          try {
+            const recommendations = await fetchRecommendations();
+            const recommendationElement =
+              document.getElementById("recommendation");
+            recommendationElement.textContent = recommendations.predictedPrice;
+          } catch (error) {
+            console.error("Error displaying recommendations:", error);
+          }
+        }
+
+        displayRecommendations();
+      });
+    </script>
+  </body>
 </html>

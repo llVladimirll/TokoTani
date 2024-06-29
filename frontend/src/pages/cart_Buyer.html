@@ -1,278 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>TokoTani</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="" name="keywords" />
+    <meta content="" name="description" />
 
-    <head>
-        <meta charset="utf-8">
-        <title>TokoTani</title>
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta content="" name="keywords">
-        <meta content="" name="description">
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap"
+      rel="stylesheet"
+    />
 
-        <!-- Google Web Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet"> 
+    <!-- Icon Font Stylesheet -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
 
-        <!-- Icon Font Stylesheet -->
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Libraries Stylesheet -->
+    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet" />
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
 
-        <!-- Libraries Stylesheet -->
-        <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
-        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-
-       <!-- Customized Bootstrap Stylesheet -->
+    <!-- Customized Bootstrap Stylesheet -->
     <link href="./bootstrap.min.css" rel="stylesheet" />
 
     <!-- Template Stylesheet -->
     <link href="./style.css" rel="stylesheet" />
   </head>
-    </head>
 
-    <body>
+  <body>
+    <!-- Navbar start -->
+    <div class="container-fluid fixed-top">
+      <div class="container px-0">
+        <nav class="navbar navbar-light bg-M navbar-expand-xl">
+          <a href="index.html" class="navbar-brand">
+            <h1 class="text-primary display-6">TokoTani</h1>
+          </a>
+          <div class="modal-body d-flex align-items-center">
+            <div class="input-group w-75 mx-auto d-flex">
+              <input
+                type="search"
+                class="form-control p-3"
+                placeholder="keywords"
+                aria-describedby="search-icon-1"
+                id="search-input"
+              />
+              <span
+                id="search-icon-1"
+                class="input-group-text p-3"
+                onclick="handleSearch('search-input')"
+                ><i class="fa fa-search"></i
+              ></span>
+            </div>
+          </div>
+          <button
+            class="navbar-toggler py-2 px-3"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarCollapse"
+          >
+            <span class="fa fa-bars text-primary"></span>
+          </button>
+          <div class="collapse navbar-collapse bg-M" id="navbarCollapse">
+            <div class="d-flex ms-auto m-3 me-0">
+              <div class="dropdown my-auto" id="profile"></div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <!-- Navbar End -->
 
-       <!-- Spinner Start -->
-    <div
-    id="spinner"
-    class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50 d-flex align-items-center justify-content-center"
-  >
-    <div class="spinner-grow text-primary" role="status"></div>
-  </div>
-  <!-- Spinner End -->
+    <!-- Cart Page Start -->
+    <div class="container-fluid py-5">
+      <div class="container py-5">
+        <div class="table-responsive">
+          <form id="cart-form">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col" class="col">Select</th>
+                  <th scope="col" class="col">Products</th>
+                  <th scope="col" class="col">Name</th>
+                  <th scope="col" class="col">Price</th>
+                  <th scope="col" class="col">Quantity</th>
+                  <th scope="col" class="col">Total</th>
+                  <th scope="col" class="col">Handle</th>
+                </tr>
+              </thead>
+              <tbody id="cart-items">
+                <!-- Cart items will be injected here dynamically -->
+              </tbody>
+            </table>
+          </form>
+        </div>
 
-  <!-- Navbar start -->
-  <div class="container-fluid fixed-top">
-    <div class="container px-0">
-      <nav class="navbar navbar-light bg-M navbar-expand-xl">
-        <a href="index.html" class="navbar-brand"
-          ><h1 class="text-primary display-6">TokoTani</h1></a
-        >
-        <button
-          class="navbar-toggler py-2 px-3"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarCollapse"
-        >
-          <span class="fa fa-bars text-primary"></span>
-        </button>
-        <div class="collapse navbar-collapse bg-M" id="navbarCollapse">
-          <div class="d-flex ms-auto m-3 me-0">
-            <button
-              class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
-              data-bs-toggle="modal"
-              data-bs-target="#searchModal"
-            >
-              <i class="fas fa-search text-primary"></i>
-            </button>
-            <a href="#" class="position-relative me-4 my-auto">
-              <i class="fa fa-shopping-bag fa-2x"></i>
-            
-            </a>
-            <div class="d-flex ms-auto m-3 me-0" id="profile">
-              
+        <div class="row g-4 justify-content-end">
+          <div class="col-8"></div>
+          <div class="col-sm-8 col-md-7 col-lg-6 col-xl-4">
+            <div class="bg-light rounded">
+              <div class="p-4">
+                <h1 class="display-6 mb-4">
+                  Cart <span class="fw-normal">Total</span>
+                </h1>
+                <div class="row">
+                  <div class="col">
+                    <h5 class="mb-0">Subtotal:</h5>
+                  </div>
+                  <div class="col text-end">
+                    <p class="mb-0" id="subtotal">0</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <h5 class="mb-0">Shipping</h5>
+                  </div>
+                  <div class="col text-end">
+                    <p class="mb-0">Flat rate: 10.000</p>
+                  </div>
+                </div>
+                <p class="mb-0 text-end" id="shipping-to">Shipping to :</p>
+              </div>
+              <div
+                class="py-4 mb-4 border-top border-bottom d-flex justify-content-between"
+              >
+                <h5 class="mb-0">Total</h5>
+                <p class="mb-0" id="total">0</p>
+              </div>
+              <button
+                class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4"
+                type="button"
+                id="checkout"
+              >
+                Proceed Checkout
+              </button>
             </div>
           </div>
         </div>
-      </nav>
+      </div>
     </div>
-  </div>
-  <!-- Navbar End -->
+    <!-- Cart Page End -->
 
+    <!-- Back to Top -->
+    <a
+      href="#"
+      class="btn btn-primary border-3 border-primary rounded-circle back-to-top"
+      ><i class="fa fa-arrow-up"></i
+    ></a>
 
-
-<!-- Cart Page Start -->
-<div class="container-fluid py-5">
-    <div class="container py-5">
-        <div class="table-responsive">
-            <form id="cart-form">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col" class="col">Select</th>
-                            <th scope="col" class="col">Products</th>
-                            <th scope="col" class="col">Name</th>
-                            <th scope="col" class="col">Price</th>
-                            <th scope="col" class="col">Quantity</th>
-                            <th scope="col" class="col">Total</th>
-                            <th scope="col" class="col">Handle</th>
-                        </tr>
-                    </thead>
-                    <tbody >
-                        <tr style="width: auto;">
-                            <td>
-                                <input type="checkbox" name="product" value="Big Banana">
-                            </td>
-                            <th scope="row">
-                                <div class="d-flex align-items-center ">
-                                    <img src="../../public/anton-darius-FCrgmqqvl-w-unsplash.jpg" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
-                                </div>
-                            </th>
-                            <td>
-                                <p class="mb-0 mt-4">Big Banana</p>
-                            </td>
-                            <td>
-                                <p class="mb-0 mt-4">200.000</p>
-                            </td>
-                            <td>
-                                <div class="input-group quantity mt-4" style="width: 100px;">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-minus rounded-circle bg-light border">
-                                            <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
-                                    <input type="text" class="form-control form-control-sm text-center border-0" value="1">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-plus rounded-circle bg-light border">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <p class="mb-0 mt-4">200.000</p>
-                            </td>
-                            <td>
-                                <button class="btn btn-md rounded-circle bg-light border mt-4">
-                                    <i class="fa fa-times text-danger"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="checkbox" name="product" value="Potatoes">
-                            </td>
-                            <th scope="row">
-                                <div class="d-flex align-items-center">
-                                    <img src="../../public/anton-darius-FCrgmqqvl-w-unsplash.jpg" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
-                                </div>
-                            </th>
-                            <td>
-                                <p class="mb-0 mt-4">Potatoes</p>
-                            </td>
-                            <td>
-                                <p class="mb-0 mt-4">200.000</p>
-                            </td>
-                            <td>
-                                <div class="input-group quantity mt-4" style="width: 100px;">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-minus rounded-circle bg-light border">
-                                            <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
-                                    <input type="text" class="form-control form-control-sm text-center border-0" value="1">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-plus rounded-circle bg-light border">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <p class="mb-0 mt-4">200.000</p>
-                            </td>
-                            <td>
-                                <button class="btn btn-md rounded-circle bg-light border mt-4">
-                                    <i class="fa fa-times text-danger"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="checkbox" name="product" value="Awesome Broccoli">
-                            </td>
-                            <th scope="row">
-                                <div class="d-flex align-items-center">
-                                    <img src="../../public/husain-akram-IDq81z9wuKc-unsplash.jpg" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
-                                </div>
-                            </th>
-                            <td>
-                                <p class="mb-0 mt-4">Awesome Broccoli</p>
-                            </td>
-                            <td>
-                                <p class="mb-0 mt-4">200.000</p>
-                            </td>
-                            <td>
-                                <div class="input-group quantity mt-4" style="width: 100px;">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-minus rounded-circle bg-light border">
-                                            <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
-                                    <input type="text" class="form-control form-control-sm text-center border-0" value="1">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-plus rounded-circle bg-light border">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <p class="mb-0 mt-4">200.000</p>
-                            </td>
-                            <td>
-                                <button class="btn btn-md rounded-circle bg-light border mt-4">
-                                    <i class="fa fa-times text-danger"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </form>
-        </div>
-
-        
-        <div class="mt-5">
-            <input type="text" class="border-0 border-bottom rounded me-5 py-3 mb-4" placeholder="Coupon Code">
-            <button class="btn border-secondary rounded-pill px-4 py-3 text-primary" type="button">Apply Coupon</button>
-        </div>
-        <div class="row g-4 justify-content-end">
-            <div class="col-8"></div>
-            <div class="col-sm-8 col-md-7 col-lg-6 col-xl-4">
-                <div class="bg-light rounded">
-                    <div class="p-4">
-                        <h1 class="display-6 mb-4">Cart <span class="fw-normal">Total</span></h1>
-                        <div class="row">
-                            <div class="col">
-                                <h5 class="mb-0">Subtotal:</h5>
-                            </div>
-                            <div class="col text-end">
-                                <p class="mb-0">600.000</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <h5 class="mb-0">Shipping</h5>
-                            </div>
-                            <div class="col text-end">
-                                <p class="mb-0">Flat rate: 10.000</p>
-                            </div>
-                        </div>
-                        <p class="mb-0 text-end">Shipping to Ukraine.</p>
-                    </div>
-                    <div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
-                        <h5 class="mb-0">Total</h5>
-                        <p class="mb-0">610.000</p>
-                    </div>
-                    <button class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="button">Proceed Checkout</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Cart Page End -->
-
-
-
-
-
-
-
-
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>   
-
-        
     <!-- JavaScript Libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -283,6 +166,279 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
-    </body>
 
+    <!-- Custom Script to Fetch and Display Cart Data -->
+    <script>
+      function updateCartItemQuantity(itemId, newQuantity) {
+        console.log("Updating quantity for item ID:", itemId);
+        console.log("New quantity:", newQuantity);
+
+        const userToken = localStorage.getItem("userToken");
+        const decodedToken = decodeJwt(userToken);
+
+        if (!decodedToken || !decodedToken.userID) {
+          console.error("User ID not found in decoded token.");
+          return;
+        }
+
+        const apiUrl = `http://localhost:3330/api/products/cart/${decodedToken.userID}/${itemId}`;
+
+        // Prepare data for PUT request
+        const requestData = {
+          quantity: newQuantity,
+        };
+
+        $.ajax({
+          url: apiUrl,
+          method: "PUT",
+          contentType: "application/json",
+          data: JSON.stringify(requestData),
+          success: function (response) {
+            console.log("Quantity updated successfully:", response);
+
+            // Fetch updated cart data after successful update
+            fetchCart();
+          },
+          error: function (error) {
+            console.error("Error updating quantity:", error);
+          },
+        });
+      }
+
+      function postCheckout(selectedItems) {
+        const userToken = localStorage.getItem("userToken");
+        const decodedToken = decodeJwt(userToken);
+
+        if (!decodedToken || !decodedToken.userID) {
+          console.error("User ID not found in decoded token.");
+          return;
+        }
+
+        const userId = decodedToken.userID;
+        const apiUrl = `http://localhost:3330/api/products/checkout/${decodedToken.userID}`;
+
+        // Prepare data for the checkout request
+        const requestData = {
+          userId: userId,
+          selectedItems: selectedItems, // Array of selected item IDs
+        };
+
+        $.ajax({
+          url: apiUrl,
+          method: "POST",
+          contentType: "application/json",
+          data: JSON.stringify(requestData),
+          success: function (response) {
+            console.log("Checkout successful:", response);
+
+            // Optionally, redirect to a success page or update UI
+            window.location.href = "./checkout-success.html";
+          },
+          error: function (error) {
+            console.error("Error during checkout:", error);
+            // Handle error scenario, e.g., display error message
+            alert("Failed to process checkout. Please try again later.");
+          },
+        });
+      }
+
+      function decodeJwt(token) {
+        try {
+          const base64Url = token.split(".")[1];
+          const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+          const jsonPayload = decodeURIComponent(
+            atob(base64)
+              .split("")
+              .map(function (c) {
+                return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+              })
+              .join("")
+          );
+          return JSON.parse(jsonPayload);
+        } catch (error) {
+          console.error("Error decoding JWT:", error);
+          return null;
+        }
+      }
+
+      // Function to format number to Indonesian Rupiah (IDR)
+      function formatToIDR(number) {
+        return new Intl.NumberFormat("id-ID", {
+          style: "currency",
+          currency: "IDR",
+        }).format(number);
+      }
+
+      $(document).ready(function () {
+        const userToken = localStorage.getItem("userToken");
+        const decodedToken = decodeJwt(userToken);
+
+        if (!decodedToken || !decodedToken.userID) {
+          console.error("User ID not found in decoded token.");
+          return;
+        }
+
+        const userId = decodedToken.userID;
+        const apiUrl = `http://localhost:3330/api/products/cart/${userId}`; // Replace with your actual API endpoint
+
+        function fetchCart() {
+          $.ajax({
+            url: apiUrl,
+            method: "GET",
+            success: function (response) {
+              if (response.cartItems) {
+                let cartItemsHtml = "";
+                let subtotal = 0;
+
+                response.cartItems.forEach((item) => {
+                  const total = item.quantity * item.price;
+                  subtotal += total;
+                  cartItemsHtml += `
+                                        <tr data-item-id="${item.product_id}">
+                                            <td><input type="checkbox" name="product" value="${
+                                              item.name
+                                            }"></td>
+                                            <td><img src="${
+                                              item.picture_path
+                                            }" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="${
+                    item.name
+                  }"></td>
+                                            <td><p class="mb-0 mt-4">${
+                                              item.name
+                                            }</p></td>
+                                            <td><p class="mb-0 mt-4">${formatToIDR(
+                                              item.price
+                                            )}</p></td>
+                                            <td>
+                                                <div class="input-group quantity mt-4" style="width: 100px;">
+                                                    <div class="input-group-btn">
+                                                        <button class="btn btn-sm btn-minus rounded-circle bg-light border"><i class="fa fa-minus"></i></button>
+                                                    </div>
+                                                    <input type="text" class="form-control form-control-sm text-center border-0" value="${
+                                                      item.quantity
+                                                    }">
+          <div class="input-group-btn">
+            <button class="btn btn-sm btn-plus rounded-circle bg-light border"><i class="fa fa-plus"></i></button>
+          </div>
+                                                </div>
+                                            </td>
+                                            <td><p class="mb-0 mt-4">${formatToIDR(
+                                              total
+                                            )}</p></td>
+                                            <td><button class="btn btn-md rounded-circle bg-light border mt-4"><i class="fa fa-times text-danger"></i></button></td>
+                                        </tr>
+                                    `;
+                });
+
+                $("#cart-items").html(cartItemsHtml);
+                $("#subtotal").text(formatToIDR(subtotal));
+                $("#total").text(formatToIDR(subtotal + 10000)); // Add flat shipping rate
+                $("#shipping-to").append(response.city);
+              }
+            },
+            error: function (error) {
+              console.error("Error fetching cart data:", error);
+            },
+          });
+        }
+
+        fetchCart();
+
+        // Handle checkout button click
+        $("#checkout").click(function () {
+          const checkedItems = [];
+
+          // Collect IDs of checked items
+          $("input[name='product']:checked").each(function () {
+            checkedItems.push($(this).val());
+          });
+
+          console.log("Checked Items:", checkedItems);
+
+          // Perform checkout process for checked items
+          if (checkedItems.length > 0) {
+            postCheckout(checkedItems); // Call the postCheckout function
+          } else {
+            alert("Please select at least one item to proceed with checkout.");
+          }
+        });
+
+        // Handle quantity increase
+        $(document).on("click", ".btn-plus", function () {
+          const row = $(this).closest("tr");
+          const itemId = row.attr("data-item-id");
+          let currentQuantity = parseInt(row.find(".form-control").val());
+          currentQuantity++;
+          row.find(".form-control").val(currentQuantity);
+
+          // Update quantity in the database
+          updateCartItemQuantity(itemId, currentQuantity);
+        });
+
+        // Handle quantity decrease
+        $(document).on("click", ".btn-minus", function () {
+          const row = $(this).closest("tr");
+          const itemId = row.attr("data-item-id");
+          let currentQuantity = parseInt(row.find(".form-control").val());
+          if (currentQuantity > 1) {
+            currentQuantity--;
+            row.find(".form-control").val(currentQuantity);
+
+            // Update quantity in the database
+            updateCartItemQuantity(itemId, currentQuantity);
+          }
+        });
+      });
+      document.addEventListener("DOMContentLoaded", function () {
+        const userToken = localStorage.getItem("userToken");
+        const profile = document.getElementById("profile");
+        console.log(userToken);
+
+        if (userToken) {
+          profile.innerHTML =
+            '<a href="#" class="my-auto" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">' +
+            '<i class="fas fa-user fa-2x"></i>' +
+            "</a>" +
+            '<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">' +
+            '<li><a class="dropdown-item" href="./profile.html">Profile</a></li>' +
+            '<li><a class="dropdown-item" href="#">Go to Seller</a></li>' +
+            '<li><a class="dropdown-item" href="#" onclick="logout()">Log Out</a></li>' +
+            "</ul>";
+        } else {
+          profile.innerHTML =
+            '<a href="./login.html" class="my-auto">' +
+            '<i class="fas fa-sign-in-alt fa-2x"></i>' +
+            "</a>";
+        }
+
+        document
+          .getElementById("search-input")
+          .addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+              handleSearch("search-input");
+            }
+          });
+      });
+
+      function handleSearch(inputId) {
+        const searchInput = document.getElementById(inputId).value;
+        const params = new URLSearchParams(window.location.search);
+
+        // Replace the search query if it exists, or add a new one
+        if (searchInput) {
+          params.set("search", searchInput);
+        } else {
+          params.delete("search");
+        }
+
+        // Update the URL with the new search query
+        window.location.href = `./product.html?${params.toString()}`;
+      }
+
+      function logout() {
+        localStorage.removeItem("userToken");
+        window.location.reload();
+      }
+    </script>
+  </body>
 </html>

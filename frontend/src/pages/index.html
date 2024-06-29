@@ -68,14 +68,13 @@
           </button>
           <div class="collapse navbar-collapse bg-M" id="navbarCollapse">
             <div class="d-flex ms-auto m-3 me-0">
-              <a href="#" class="position-relative me-4 my-auto">
+              <a
+                href="#"
+                id="shopping-bag-link"
+                class="position-relative me-4 my-auto"
+              >
                 <i class="fa fa-shopping-bag fa-2x"></i>
               </a>
-              <!-- Chat Icon Start -->
-              <a href="#" class="position-relative me-4 my-auto">
-                <i class="fas fa-comments fa-2x"></i>
-              </a>
-              <!-- Chat Icon End -->
               <div class="dropdown my-auto" id="profile"></div>
             </div>
           </div>
@@ -165,14 +164,78 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/lightbox/js/lightbox.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
     <script src="./main.js"></script>
   </body>
 
   <script>
+    function decodeJwt(token) {
+      try {
+        const base64Url = token.split(".")[1];
+        const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+        const jsonPayload = decodeURIComponent(
+          atob(base64)
+            .split("")
+            .map(function (c) {
+              return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+            })
+            .join("")
+        );
+        return JSON.parse(jsonPayload);
+      } catch (error) {
+        console.error("Error decoding JWT:", error);
+        return null;
+      }
+    }
+
+    $(document).ready(function () {
+      const userToken = localStorage.getItem("userToken");
+      const decodedToken = decodeJwt(userToken);
+      const sellerToken = localStorage.getItem("sellerToken");
+
+      console.log(decodedToken);
+
+      const decodedSeller = decodeJwt(sellerToken);
+
+      console.log(decodedSeller);
+
+      const isSeller = decodedToken.isSeller;
+      console.log(isSeller);
+      $("#seller-link").click(function (event) {
+        event.preventDefault();
+
+        const userToken = localStorage.getItem("userToken");
+
+        if (userToken) {
+          const decodedToken = decodeJwt(userToken);
+          console.log(isSeller);
+          // Check if the decoded token indicates user is a seller
+          if (isSeller) {
+            // Redirect to seller dashboard
+            window.location.href = "./dashbord.html";
+          } else {
+            // Redirect to seller registration (assuming this is where non-sellers should go)
+            window.location.href = "./seller_register.html";
+          }
+        } else {
+          // If no userToken is found, redirect to login page
+          window.location.href = "./login.html";
+        }
+      });
+
+      // Handle click event on shopping bag icon
+      $("#shopping-bag-link").click(function (event) {
+        event.preventDefault(); // Prevent default link behavior
+
+        // Check if userToken is available
+        if (userToken) {
+          // Redirect to cart.html
+          window.location.href = "./cart_Buyer.html";
+        } else {
+          // Redirect to login page
+          window.location.href = "./login.html";
+        }
+      });
+    });
     document.addEventListener("DOMContentLoaded", function () {
       const userToken = localStorage.getItem("userToken");
       const profile = document.getElementById("profile");
@@ -185,7 +248,7 @@
           "</a>" +
           '<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">' +
           '<li><a class="dropdown-item" href="./profile.html">Profile</a></li>' +
-          '<li><a class="dropdown-item" href="#">Information</a></li>' +
+          '<li><a class="dropdown-item" id="seller-link" href="#">Go to Seller</a></li>' +
           '<li><a class="dropdown-item" href="#" onclick="logout()">Log Out</a></li>' +
           "</ul>";
       } else {
@@ -193,6 +256,11 @@
           '<a href="./login.html" class="my-auto">' +
           '<i class="fas fa-sign-in-alt fa-2x"></i>' +
           "</a>";
+      }
+
+      function logout() {
+        localStorage.removeItem("userToken");
+        window.location.reload();
       }
 
       document
@@ -203,6 +271,12 @@
           }
         });
     });
+
+    function logout() {
+      localStorage.removeItem("userToken");
+      localStorage.removeItem("sellerToken");
+      window.location.reload();
+    }
 
     function handleSearch(inputId) {
       const searchInput = document.getElementById(inputId).value;
@@ -217,11 +291,6 @@
 
       // Update the URL with the new search query
       window.location.href = `./product.html?${params.toString()}`;
-    }
-
-    function logout() {
-      localStorage.removeItem("userToken");
-      window.location.reload();
     }
   </script>
 </html>
