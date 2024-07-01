@@ -3,411 +3,262 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TokoTani Dashboard</title>
-<style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-}
+    <title>Profile Page</title>
+    <style>
+        body.custom-body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
 
-body {
-    display: flex;
-    height: 100vh;
-    width: 100%;
-}
+        header.custom-header {
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+        }
 
-.container {
-    display: grid;
-    grid-template-areas:
-        "header header"
-        "sidebar main";
-    grid-template-columns: 1fr 3fr;
-    grid-template-rows: auto 1fr;
-    width: 100%;
-}
+        .top-bar.custom-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
 
-.header {
-    grid-area: header;
-    background-color: #A3C250;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-}
+        .logo.custom-logo h1 {
+            color: #2d8fdd;
+            margin: 0;
+        }
 
-.logo h1 {
-    font-size: 1.5em;
-}
+        .search-bar.custom-search-bar input {
+            width: 500px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
 
-.header-icons {
-    display: flex;
-}
+        .user-profile.custom-user-profile {
+            display: flex;
+            align-items: center;
+        }
 
-.icon {
-    margin: 0 10px;
-}
+        .user-profile.custom-user-profile span {
+            margin-right: 10px;
+        }
 
-.profile-pic img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-}
+        .top-profile-pic.custom-top-profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
 
-.sidebar {
-    grid-area: sidebar;
-    background-color: #D8EBC2;
-    padding: 20px;
-}
+        .custom-row {
+            display: flex;
+            min-height: 100vh;
+        }
 
-.sidebar nav ul {
-    list-style-type: none;
-}
+        .sidebar.custom-sidebar {
+            width: 300px;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
-.sidebar nav ul li {
-    margin-bottom: 10px;
-}
+        .sidebar.custom-sidebar .profile.custom-profile {
+            text-align: center;
+        }
 
-.main-content {
-    grid-area: main;
-    padding: 20px;
-    background-color: #F5F5F5;
-}
+        .sidebar.custom-sidebar .profile-pic.custom-profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
 
-.earnings-info {
-    background-color: #fdf8e2;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    font-family: Arial, sans-serif;
-}
+        .sidebar.custom-sidebar h2.custom-sidebar-title {
+            font-size: 24px;
+            margin: 0;
+        }
 
-.earnings-info h2 {
-    margin-bottom: 20px;
-    font-size: 1.5em;
-    color: #4a4a4a;
-}
+        .sidebar-menu.custom-sidebar-menu h3.custom-sidebar-menu-title {
+            margin-top: 20px;
+            font-size: 18px;
+        }
 
-.earnings-details {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 1.2em;
-    color: #4a4a4a;
-}
+        .sidebar-menu.custom-sidebar-menu p,
+        .sidebar-menu.custom-sidebar-menu button.custom-sidebar-menu-button {
+            margin: 5px 0;
+        }
 
-.earnings-details div {
-    text-align: center;
-}
+        .sidebar-menu.custom-sidebar-menu button.custom-sidebar-menu-button {
+            background-color: #ff8c00;
+            border: none;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+        }
 
-.earnings-details .pending {
-    flex: 1;
-}
+        .main-content.custom-main-content {
+            flex-grow: 1;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
-.earnings-details .released {
-    flex: 3;
-    display: flex;
-    justify-content: space-between;
-}
+        .navigation.custom-navigation {
+            background-color: #fff;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
 
-.earnings-details p {
-    margin: 5px 0;
-}
+        .navigation.custom-navigation ul.custom-navigation-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-around;
+        }
 
-.earnings-details .released p {
-    margin-right: 20px;
-}
+        .navigation.custom-navigation ul.custom-navigation-list li.custom-navigation-item {
+            padding: 10px 20px;
+        }
 
-.earnings-details .released div {
-    flex: 1;
-    text-align: center;
-}
+        .navigation.custom-navigation ul.custom-navigation-list li.custom-navigation-item a.custom-navigation-link {
+            text-decoration: none;
+            color: #333;
+        }
 
-.earnings-details .vertical-line {
-    width: 1px;
-    height: 50px;
-    background-color: #4a4a4a;
-    margin: 0 20px;
-    align-self: center;
-}
+        .profile-info.custom-profile-info {
+            max-width: 600px;
+            margin: 0 auto;
+        }
 
-.earnings-chart,
-.sales-volume-chart {
-    background-color: #fdf8e2;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
-    border: 2px solid #A3C250;
-}
+        .profile-info.custom-profile-info h1.custom-profile-info-title {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
 
-.earnings-chart h2,
-.sales-volume-chart h2 {
-    margin-bottom: 20px;
-    font-size: 1.5em;
-    color: #4a4a4a;
-}
+        .info-item.custom-info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
 
-.chart-container {
-    width: 100%;
-    max-width: 500px;
-    margin: 0 auto;
-}
+        .info-item.custom-info-item label.custom-info-label {
+            font-weight: bold;
+        }
 
-.chart-period {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 10px;
-}
+        .info-item.custom-info-item p.custom-info-text {
+            margin: 0;
+        }
 
-.chart-period button {
-    margin-right: 10px;
-    padding: 5px 10px;
-    border: 1px solid #A3C250;
-    background-color: transparent;
-    border-radius: 5px;
-    font-size: 1em;
-    color: #4a4a4a;
-    cursor: pointer;
-}
+        .info-item.custom-info-item a.custom-info-link {
+            color: #ff8c00;
+            text-decoration: none;
+        }
 
-.chart-period .active {
-    background-color: #A3C250;
-    color: white;
-    border: none;
-}
+        .verified.custom-verified {
+            color: green;
+        }
 
-.chart-legend {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 10px;
-}
+        .switch.custom-switch {
+            position: relative;
+            display: inline-block;
+            width: 34px;
+            height: 20px;
+        }
 
-.chart-legend span {
-    margin-right: 20px;
-    font-size: 1em;
-    color: #4a4a4a;
-}
+        .switch.custom-switch input.custom-switch-input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
 
-.legend-color {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    margin-right: 5px;
-}
+        .slider.custom-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+        }
 
-/* Desktop View */
-@media (min-width: 1024px) {
-    .container {
-        grid-template-columns: 1fr 3fr;
-    }
+        .slider.custom-slider:before {
+            position: absolute;
+            content: "";
+            height: 14px;
+            width: 14px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+        }
 
-    .header {
-        padding: 20px;
-    }
+        input.custom-switch-input:checked + .slider.custom-slider {
+            background-color: #ff8c00;
+        }
 
-    .logo h1 {
-        font-size: 2em;
-    }
+        input.custom-switch-input:checked + .slider.custom-slider:before {
+            transform: translateX(14px);
+        }
 
-    .header-icons .icon {
-        margin: 0 15px;
-    }
+        .slider.round.custom-slider-round {
+            border-radius: 34px;
+        }
 
-    .profile-pic img {
-        width: 50px;
-        height: 50px;
-    }
-
-    .sidebar {
-        padding: 30px;
-    }
-
-    .main-content {
-        padding: 30px;
-    }
-
-    .earnings-info, .earnings-chart, .sales-volume-chart {
-        padding: 30px;
-    }
-
-    .chart-period button {
-        margin-right: 15px;
-        padding: 10px 15px;
-    }
-
-    .chart-period .active {
-        padding: 10px 15px;
-    }
-}
-
-/* Phone View */
-@media (max-width: 768px) {
-    .container {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-            "header"
-            "main"
-            "sidebar";
-    }
-
-    .sidebar {
-        display: none;
-    }
-
-    .main-content {
-        padding: 10px;
-    }
-
-    .earnings-details {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .earnings-details .pending, .earnings-details .released {
-        width: 100%;
-        text-align: center;
-        margin-bottom: 10px;
-    }
-
-    .chart-container {
-        max-width: 100%;
-    }
-
-    .header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .header-icons {
-        margin-top: 10px;
-    }
-
-    .header .logo h1 {
-        font-size: 1.2em;
-    }
-
-    .earnings-info, .earnings-chart, .sales-volume-chart {
-        padding: 10px;
-    }
-
-    .chart-period button {
-        margin-right: 5px;
-        padding: 5px;
-    }
-
-    .header .logo h1 {
-        font-size: 1em;
-    }
-
-    .icon {
-        margin: 0 5px;
-    }
-
-    .profile-pic img {
-        width: 30px;
-        height: 30px;
-    }
-}
-
-</style>
+        .slider.round.custom-slider-round:before {
+            border-radius: 50%;
+        }
+    </style>
 </head>
-<body>
-    <div class="container">
-        <div class="header">
-            <div class="logo">
-                <h1>TokoTani</h1>
-                <span>Pesanan Saya</span>
-            </div>
-            <div class="header-icons">
-                <div class="icon">Cart</div>
-                <div class="icon">Chat</div>
-                <div class="icon">Profile</div>
-            </div>
-            <div class="profile-pic">
-                <img src="profile.jpg" alt="Vladimir">
-            </div>
-        </div>
-        <div class="sidebar">
-            <nav>
-                <ul>
-                    <li>Produk</li>
-                    <li>Produk saya</li>
-                    <li>Tambahkan produk baru</li>
-                    <li>Pesanan</li>
-                    <li>Pesanan Saya</li>
-                    <li>Pembatalan</li>
-                    <li>Pengembalian</li>
-                    <li>Keuangan</li>
-                    <li>Penghasilan Saya</li>
-                    <li>Saldo Saya</li>
-                    <li>Rekening Bank</li>
-                    <li>Data</li>
-                    <li>Profil Toko</li>
-                    <li>Performa Toko</li>
-                    <li>Bantul</li>
+<body class="custom-body">
+    
+
+    <div class="custom-row">
+        <main class="main-content custom-main-content">
+            <nav class="navigation custom-navigation">
+                <ul class="custom-navigation-list">
+                    <li class="custom-navigation-item"><a href="#" class="custom-navigation-link">Kategori</a></li>
+                    <li class="custom-navigation-item"><a href="#" class="custom-navigation-link">Tentang Tokopedia</a></li>
+                    <li class="custom-navigation-item"><a href="#" class="custom-navigation-link">Mitra Tokopedia</a></li>
                 </ul>
             </nav>
-        </div>
-        
-        <div class="main-content">
-            <div class="earnings-info">
-                <h2>Informasi Penghasilan</h2>
-                <div class="earnings-details">
-                    <div class="pending">
-                        <p>Pending</p>
-                        <p>Total</p>
-                        <p>Rp 13.540.000</p>
-                    </div>
-                    <div class="vertical-line"></div>
-                    <div class="released">
-                        <div>
-                            <p>Sudah Dilepas</p>
-                            <p>Minggu ini</p>
-                            <p>Rp 32.340.000</p>
-                        </div>
-                        <div>
-                            <p>&nbsp;</p>
-                            <p>Bulan ini</p>
-                            <p>Rp 98.000.000</p>
-                        </div>
-                        <div>
-                            <p>&nbsp;</p>
-                            <p>Total</p>
-                            <p>Rp 130.340.000</p>
-                        </div>
-                    </div>
+            <div class="profile-info custom-profile-info">
+                <h1 class="custom-profile-info-title">Biodata Diri</h1>
+                <div class="info-item custom-info-item">
+                    <label class="custom-info-label">Nama</label>
+                    <p class="custom-info-text">Vladimirrahman Salsabil Abdullah</p>
+                    <a href="#" class="custom-info-link">Ubah</a>
+                </div>
+                <div class="info-item custom-info-item">
+                    <label class="custom-info-label">Tanggal Lahir</label>
+                    <p class="custom-info-text">7 April 2000</p>
+                    <a href="#" class="custom-info-link">Ubah Tanggal Lahir</a>
+                </div>
+                <div class="info-item custom-info-item">
+                    <label class="custom-info-label">Jenis Kelamin</label>
+                    <p class="custom-info-text">Tambah Jenis Kelamin</p>
+                </div>
+                <div class="info-item custom-info-item">
+                    <label class="custom-info-label">Email</label>
+                    <p class="custom-info-text">Tambah Email</p>
+                </div>
+                <div class="info-item custom-info-item">
+                    <label class="custom-info-label">Nomor HP</label>
+                    <p class="custom-info-text">6285729029164 <span class="verified custom-verified">Terverifikasi</span></p>
+                </div>
+                <div class="info-item custom-info-item">
+                    <label class="custom-info-label">Safe Mode</label>
+                    <label class="switch custom-switch">
+                        <input type="checkbox" class="custom-switch-input" checked>
+                        <span class="slider custom-slider"></span>
+                    </label>
                 </div>
             </div>
-            <div class="earnings-chart">
-                <h2>Rincian Penghasilan</h2>
-                <div class="chart-period">
-                    <button>Periode Data</button>
-                    <button class="active">7 hari terakhir</button>
-                </div>
-                <div class="chart-container">
-                    <canvas id="earningsChart"></canvas>
-                </div>
-            </div>
-            <div class="sales-volume-chart">
-                <h2>Sales Volume</h2>
-                <div class="chart-period">
-                    <button>Periode Data</button>
-                    <button class="active">7 hari terakhir</button>
-                </div>
-                <div class="chart-legend">
-                    <span><span class="legend-color" style="background-color: #A3C250;"></span> Pisang Raja</span>
-                    <span><span class="legend-color" style="background-color: #FFD700;"></span> Mangga</span>
-                </div>
-                <div class="chart-container">
-                    <canvas id="salesVolumeChart"></canvas>
-                </div>
-            </div>
-        </div>
+        </main>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="scripts1.js"></script>
 </body>
 </html>

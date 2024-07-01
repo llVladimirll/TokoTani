@@ -184,37 +184,79 @@
     }
 }
 
-/* Phone View */
-@media (max-width: 768px) {
-    .main-content {
-        padding: 10px;
-    }
+  /* New styles for AI Assistant section */
+  .ai-assistant {
+            background-color: #fdf8e2;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-family: Arial, sans-serif;
+            color: #4a4a4a;
+        }
 
-    .earnings-details {
-        flex-direction: column;
-        align-items: center;
-    }
+        .ai-assistant h2 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
 
-    .earnings-details .pending, .earnings-details .released {
-        width: 100%;
-        text-align: center;
-        margin-bottom: 10px;
-    }
+        .ai-assistant ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
 
-    .chart-container {
-        max-width: 100%;
-    }
+        .ai-assistant li {
+            margin-bottom: 10px;
+        }
 
-    .earnings-info, .earnings-chart, .sales-volume-chart {
-        padding: 10px;
-    }
+        .ai-assistant .product-category {
+            font-weight: bold;
+        }
 
-    .chart-period button {
-        margin-right: 5px;
-        padding: 5px;
-    }
-}
+        .ai-assistant .product-info {
+            margin-left: 20px;
+        }
 
+        /* Media Queries */
+        @media (min-width: 1024px) {
+            .main-content {
+                padding: 30px;
+            }
+
+            .earnings-info, .earnings-chart, .sales-volume-chart, .ai-assistant {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 10px;
+            }
+
+            .earnings-details {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .earnings-details .pending, .earnings-details .released {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 10px;
+            }
+
+            .chart-container {
+                max-width: 100%;
+            }
+
+            .earnings-info, .earnings-chart, .sales-volume-chart, .ai-assistant {
+                padding: 10px;
+            }
+
+            .chart-period button {
+                margin-right: 5px;
+                padding: 5px;
+            }
+        }
     </style>
   </head>
 <body>
@@ -471,6 +513,19 @@
                                         <canvas id="salesVolumeChart"></canvas>
                                     </div>
                                 </div>
+
+                                <!-- New AI Assistant Section -->
+                                <div class="ai-assistant">
+                                    <h2>AI Assistant</h2>
+                                    <ul>
+                                        <li class="product-category">Beras (Rice):</li>
+                                        <li class="product-info">• Standard quality rice: IDR 10,000 – 15,000 per kilogram</li>
+                                        <li class="product-info">• Premium quality rice: IDR 15,000 – 20,000 per kilogram</li>
+                                        <li class="product-category">Mangga (Mango):</li>
+                                        <li class="product-info">• Depending on the variety and season, mangoes can cost around IDR 15,000 – 30,000 per kilogram</li>
+                                    </ul>
+                                </div>
+                                
                             </div>
 
 
