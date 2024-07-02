@@ -253,7 +253,7 @@
         const sellerId = decodedSeller.SellerID;
 
         function fetchOrders() {
-          const apiUrl = `http://localhost:3330/api/sellers/orders/${sellerId}`;
+          const apiUrl = `https://toko-tani-server-2.vercel.app/api/sellers/orders/${sellerId}`;
 
           $.get(apiUrl, function (orders) {
             $(".section.orders").empty();
