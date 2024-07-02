@@ -217,6 +217,34 @@
     <script src="./main"></script>
     <script src="./script.js"></script>
     <script>
+      $(document).ready(function () {
+        const userToken = localStorage.getItem("userToken");
+        const decodedToken = decodeJwt(userToken);
+
+        const isSeller = decodedToken.isseller;
+        $("#seller-link").click(function (event) {
+          event.preventDefault();
+
+          const userToken = localStorage.getItem("userToken");
+
+          if (userToken) {
+            const decodedToken = decodeJwt(userToken);
+
+            // Check if the decoded token indicates user is a seller
+            if (decodedToken && isSeller) {
+              // Redirect to seller dashboard
+              window.location.href = "./dashbord.html";
+            } else {
+              // Redirect to seller registration (assuming this is where non-sellers should go)
+              window.location.href = "./seller_register.html";
+            }
+          } else {
+            // If no userToken is found, redirect to login page
+            window.location.href = "./login.html";
+          }
+        });
+      });
+
       document.addEventListener("DOMContentLoaded", function () {
         const userToken = localStorage.getItem("userToken");
         const profile = document.getElementById("profile");
@@ -228,7 +256,7 @@
             "</a>" +
             '<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">' +
             '<li><a class="dropdown-item" href="./profile.html">Profile</a></li>' +
-            '<li><a class="dropdown-item" href="#">Information</a></li>' +
+            '<li><a class="dropdown-item" id="seller-link" href="#">Go to Seller</a></li>' +
             '<li><a class="dropdown-item" href="#" onclick="logout()">Log Out</a></li>' +
             "</ul>";
         } else {

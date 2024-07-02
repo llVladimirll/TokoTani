@@ -71,14 +71,13 @@
           </button>
           <div class="collapse navbar-collapse bg-M" id="navbarCollapse">
             <div class="d-flex ms-auto m-3 me-0">
-              <a href="#" class="position-relative me-4 my-auto">
+              <a
+                href="#"
+                id="shopping-bag-link"
+                class="position-relative me-4 my-auto"
+              >
                 <i class="fa fa-shopping-bag fa-2x"></i>
               </a>
-              <!-- Chat Icon Start -->
-              <a href="#" class="position-relative me-4 my-auto">
-                <i class="fas fa-comments fa-2x"></i>
-              </a>
-              <!-- Chat Icon End -->
               <div class="dropdown my-auto" id="profile"></div>
             </div>
           </div>
@@ -104,6 +103,24 @@
 
     <!-- Script to handle product details rendering -->
     <script>
+      $(document).ready(function () {
+        const userToken = localStorage.getItem("userToken");
+
+        // Handle click event on shopping bag icon
+        $("#shopping-bag-link").click(function (event) {
+          event.preventDefault(); // Prevent default link behavior
+
+          // Check if userToken is available
+          if (userToken) {
+            // Redirect to cart.html
+            window.location.href = "./cart_Buyer.html";
+          } else {
+            // Redirect to login page
+            window.location.href = "./login.html";
+          }
+        });
+      });
+
       function decodeJwt(token) {
         try {
           const base64Url = token.split(".")[1];
@@ -164,6 +181,11 @@
         window.open(whatsappUrl, "_blank");
       }
 
+      function logout() {
+        localStorage.removeItem("userToken");
+        window.location.reload();
+      }
+
       document.addEventListener("DOMContentLoaded", function () {
         const userToken = localStorage.getItem("userToken");
         const profile = document.getElementById("profile");
@@ -176,7 +198,7 @@
             "</a>" +
             '<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">' +
             '<li><a class="dropdown-item" href="./profile.html">Profile</a></li>' +
-            '<li><a class="dropdown-item" href="#">Information</a></li>' +
+            '<li><a class="dropdown-item" href="#">Go to Seller</a></li>' +
             '<li><a class="dropdown-item" href="#" onclick="logout()">Log Out</a></li>' +
             "</ul>";
         } else {
@@ -185,6 +207,10 @@
             '<i class="fas fa-sign-in-alt fa-2x"></i>' +
             "</a>";
         }
+
+        // Function to handle logout
+
+        // Initial render of profile links based on userToken
 
         checkJwtExpiration(userToken);
         document
@@ -542,10 +568,6 @@
               );
             }
           });
-        function logout() {
-          localStorage.removeItem("userToken");
-          window.location.reload();
-        }
       }
     </script>
   </body>
