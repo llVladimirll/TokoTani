@@ -103,6 +103,91 @@
           </form>
         </div>
 
+        <!-- Address Selection and New Address Form -->
+        <div class="row g-4">
+          <div class="col-12">
+            <h5 class="mb-3">Select Shipping Address</h5>
+            <select id="address-select" class="form-select mb-4">
+              <!-- Addresses will be populated dynamically -->
+            </select>
+            <button
+              class="btn btn-secondary mb-4"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#new-address-form"
+            >
+              Add New Address
+            </button>
+            <div id="new-address-form" class="collapse">
+              <form id="address-form">
+                <div class="mb-3">
+                  <label for="address_line1" class="form-label"
+                    >Address Line 1</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="address_line1"
+                    placeholder="Enter address line 1"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="address_line2" class="form-label"
+                    >Address Line 2</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="address_line2"
+                    placeholder="Enter address line 2"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="city" class="form-label">City</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="city"
+                    placeholder="Enter city"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="province" class="form-label">Province</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="province"
+                    placeholder="Enter province"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="postal_code" class="form-label"
+                    >Postal Code</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="postal_code"
+                    placeholder="Enter postal code"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="country" class="form-label">Country</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="country"
+                    placeholder="Enter country"
+                  />
+                </div>
+                <button class="btn btn-primary" type="submit">
+                  Add Address
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+
         <div class="row g-4 justify-content-end">
           <div class="col-8"></div>
           <div class="col-sm-8 col-md-7 col-lg-6 col-xl-4">
@@ -148,6 +233,45 @@
       </div>
     </div>
     <!-- Cart Page End -->
+    <!-- Modal for order processing -->
+    <div
+      class="modal fade"
+      id="orderProcessingModal"
+      tabindex="-1"
+      aria-labelledby="orderProcessingModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="orderProcessingModalLabel">
+              Order Processing
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>
+              Your order has been successfully placed. The seller will now
+              process your order.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Back to Top -->
     <a
@@ -181,22 +305,15 @@
           return;
         }
 
-        const apiUrl = `http://localhost:3330/api/products/cart/${decodedToken.userID}/${itemId}`;
-
-        // Prepare data for PUT request
-        const requestData = {
-          quantity: newQuantity,
-        };
-
+        // Make the AJAX request to update the cart item quantity
         $.ajax({
-          url: apiUrl,
+          url: `http://localhost:3330/api/products/cart/${decodedToken.userID}/${itemId}`,
           method: "PUT",
           contentType: "application/json",
-          data: JSON.stringify(requestData),
+          data: JSON.stringify({ quantity: newQuantity }),
           success: function (response) {
             console.log("Quantity updated successfully:", response);
-
-            // Fetch updated cart data after successful update
+            // Fetch the updated cart data
             fetchCart();
           },
           error: function (error) {
@@ -205,7 +322,11 @@
         });
       }
 
-      function postCheckout(selectedItems) {
+      function postCheckout(selectedItems, addressId) {
+        console.log("Checkout button clicked");
+        console.log("Selected items for checkout:", selectedItems);
+
+        // Decode the JWT token to get the user ID
         const userToken = localStorage.getItem("userToken");
         const decodedToken = decodeJwt(userToken);
 
@@ -214,62 +335,233 @@
           return;
         }
 
-        const userId = decodedToken.userID;
-        const apiUrl = `http://localhost:3330/api/products/checkout/${decodedToken.userID}`;
+        // Define the checkout endpoint URL
+        const checkoutEndpoint = `http://localhost:3330/api/products/checkout/${decodedToken.userID}`;
 
-        // Prepare data for the checkout request
+        // Prepare the request payload
         const requestData = {
-          userId: userId,
-          selectedItems: selectedItems, // Array of selected item IDs
+          items: selectedItems,
+          address_id: addressId, // Include the selected address ID in the payload
         };
 
+        // Send the POST request to the checkout endpoint
         $.ajax({
-          url: apiUrl,
+          url: checkoutEndpoint,
           method: "POST",
           contentType: "application/json",
           data: JSON.stringify(requestData),
           success: function (response) {
             console.log("Checkout successful:", response);
-
-            // Optionally, redirect to a success page or update UI
-            window.location.href = "./checkout-success.html";
+            // Show the order processing modal
+            $("#orderProcessingModal").modal("show");
+            // Optionally, you can redirect to a confirmation page or handle other UI updates here
           },
           error: function (error) {
-            console.error("Error during checkout:", error);
-            // Handle error scenario, e.g., display error message
-            alert("Failed to process checkout. Please try again later.");
+            console.error("Checkout error:", error);
+            // Display error message
           },
         });
       }
 
-      function decodeJwt(token) {
-        try {
-          const base64Url = token.split(".")[1];
-          const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-          const jsonPayload = decodeURIComponent(
-            atob(base64)
-              .split("")
-              .map(function (c) {
-                return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-              })
-              .join("")
-          );
-          return JSON.parse(jsonPayload);
-        } catch (error) {
-          console.error("Error decoding JWT:", error);
-          return null;
+      // Add event listener for checkout button
+      document
+        .getElementById("checkout")
+        .addEventListener("click", function (event) {
+          event.preventDefault(); // Prevent form submission behavior
+          handleCheckout(); // Call your checkout function
+        });
+
+      // Function to handle checkout
+      function handleCheckout() {
+        // Get all the selected checkboxes
+        const selectedCheckboxes = document.querySelectorAll(
+          'input[name="select"]:checked'
+        );
+
+        // Collect the selected item IDs
+        const selectedItems = Array.from(selectedCheckboxes).map(
+          (checkbox) => checkbox.value
+        );
+
+        // Get the selected address ID
+        const addressId = document.getElementById("address-select").value;
+
+        if (selectedItems.length > 0) {
+          console.log("Selected items:", selectedItems);
+          postCheckout(selectedItems, addressId); // Pass the selected address ID to the checkout function
+        } else {
+          console.log("No items selected for checkout.");
         }
       }
 
-      // Function to format number to Indonesian Rupiah (IDR)
+      // Function to handle modal close event
+      $("#orderProcessingModal").on("hidden.bs.modal", function () {
+        // Optionally perform actions when modal is closed
+      });
+
+      function handleCheckout() {
+        // Get all the selected checkboxes
+        const selectedCheckboxes = document.querySelectorAll(
+          'input[name="select"]:checked'
+        );
+
+        // Collect the selected item IDs
+        const selectedItems = Array.from(selectedCheckboxes).map(
+          (checkbox) => checkbox.value
+        );
+
+        // Get the selected address ID
+        const addressId = document.getElementById("address-select").value;
+
+        if (selectedItems.length > 0) {
+          console.log("Selected items:", selectedItems);
+          postCheckout(selectedItems, addressId); // Pass the selected address ID to the checkout function
+        } else {
+          console.log("No items selected for checkout.");
+        }
+      }
+
+      function fetchCart() {
+        const userToken = localStorage.getItem("userToken");
+        const decodedToken = decodeJwt(userToken);
+
+        if (!decodedToken || !decodedToken.userID) {
+          console.error("User ID not found in decoded token.");
+          return;
+        }
+
+        // Fetch cart items
+        $.ajax({
+          url: `http://localhost:3330/api/products/cart/${decodedToken.userID}`,
+          method: "GET",
+          contentType: "application/json",
+          success: function (response) {
+            const cartItems = response.cartItems;
+            const cartItemsContainer = $("#cart-items");
+            cartItemsContainer.empty();
+
+            let subtotal = 0;
+
+            cartItems.forEach((item) => {
+              const total = item.price * item.quantity;
+              subtotal += total;
+
+              // Format price to IDR
+              const formattedPrice = formatToIDR(item.price);
+              const formattedTotal = formatToIDR(total);
+
+              const cartItemHTML = `
+                <tr>
+                  <td class="align-middle">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
+                      name="select"
+                      value="${item.product_id}"
+                    />
+                  </td>
+                  <td class="align-middle"><img src="${item.picture_path}" alt="${item.name}" style="width: 50px;"></td>
+                  <td class="align-middle">${item.name}</td>
+                  <td class="align-middle">${formattedPrice}</td>
+                  <td class="align-middle">
+                    <input
+                      type="number"
+                      class="form-control"
+                      value="${item.quantity}"
+                      min="1"
+                      onchange="updateCartItemQuantity('${item.product_id}', this.value)"
+                    />
+                  </td>
+                  <td class="align-middle">${formattedTotal}</td>
+                  <td class="align-middle">
+                    <button
+                      class="btn btn-sm btn-danger"
+                      onclick="deleteCartItem('${item.product_id}')"
+                    >
+                      <i class="fa fa-times"></i>
+                    </button>
+                  </td>
+                </tr>
+              `;
+              cartItemsContainer.append(cartItemHTML);
+            });
+
+            // Format subtotal and total to IDR
+            const formattedSubtotal = formatToIDR(subtotal);
+            $("#subtotal").text(formattedSubtotal);
+            $("#total").text(formatToIDR(subtotal + 10000)); // Assuming flat rate shipping is 10,000
+          },
+          error: function (error) {
+            console.error("Error fetching cart items:", error);
+          },
+        });
+      }
+
+      // Function to fetch user addresses
+      // Function to fetch user addresses
+      function fetchAddresses() {
+        const userToken = localStorage.getItem("userToken");
+        const decodedToken = decodeJwt(userToken);
+
+        if (!decodedToken || !decodedToken.userID) {
+          console.error("User ID not found in decoded token.");
+          return;
+        }
+
+        // Fetch user addresses
+        $.ajax({
+          url: `http://localhost:3330/api/users/address/${decodedToken.userID}`,
+          method: "GET",
+          contentType: "application/json",
+          success: function (response) {
+            if (response && Array.isArray(response)) {
+              // Ensure response is an array
+              const addressSelect = $("#address-select");
+              addressSelect.empty();
+
+              response.forEach((address) => {
+                const fullAddress = `${address.address_line1}, ${address.address_line2}, ${address.city}, ${address.province}, ${address.country}`;
+                const option = `<option value="${address.id}">${fullAddress}</option>`;
+                addressSelect.append(option);
+              });
+            } else {
+              console.error("Invalid or empty addresses response:", response);
+              // Handle no addresses found scenario (e.g., display a message or handle gracefully)
+            }
+          },
+          error: function (error) {
+            console.error("Error fetching addresses:", error);
+            // Handle error scenario (e.g., display an error message or handle gracefully)
+          },
+        });
+      }
+
+      // Call fetchAddresses() to load addresses initially
+      $(document).ready(function () {
+        fetchAddresses();
+      });
+
+      // Function to format number to IDR
       function formatToIDR(number) {
         return new Intl.NumberFormat("id-ID", {
           style: "currency",
           currency: "IDR",
         }).format(number);
       }
+      // Add event listener for checkout button
+      document
+        .getElementById("checkout")
+        .addEventListener("click", handleCheckout);
 
+      // Fetch cart and addresses on page load
       $(document).ready(function () {
+        fetchCart();
+      });
+
+      // Add new address
+      $("#address-form").on("submit", function (event) {
+        event.preventDefault();
+
         const userToken = localStorage.getItem("userToken");
         const decodedToken = decodeJwt(userToken);
 
@@ -278,166 +570,72 @@
           return;
         }
 
-        const userId = decodedToken.userID;
-        const apiUrl = `http://localhost:3330/api/products/cart/${userId}`; // Replace with your actual API endpoint
+        const address_line1 = $("#address_line1").val();
+        const address_line2 = $("#address_line2").val();
+        const city = $("#city").val();
+        const province = $("#province").val();
+        const postal_code = $("#postal_code").val();
+        const country = $("#country").val();
 
-        function fetchCart() {
-          $.ajax({
-            url: apiUrl,
-            method: "GET",
-            success: function (response) {
-              if (response.cartItems) {
-                let cartItemsHtml = "";
-                let subtotal = 0;
-
-                response.cartItems.forEach((item) => {
-                  const total = item.quantity * item.price;
-                  subtotal += total;
-                  cartItemsHtml += `
-                                        <tr data-item-id="${item.product_id}">
-                                            <td><input type="checkbox" name="product" value="${
-                                              item.name
-                                            }"></td>
-                                            <td><img src="${
-                                              item.picture_path
-                                            }" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="${
-                    item.name
-                  }"></td>
-                                            <td><p class="mb-0 mt-4">${
-                                              item.name
-                                            }</p></td>
-                                            <td><p class="mb-0 mt-4">${formatToIDR(
-                                              item.price
-                                            )}</p></td>
-                                            <td>
-                                                <div class="input-group quantity mt-4" style="width: 100px;">
-                                                    <div class="input-group-btn">
-                                                        <button class="btn btn-sm btn-minus rounded-circle bg-light border"><i class="fa fa-minus"></i></button>
-                                                    </div>
-                                                    <input type="text" class="form-control form-control-sm text-center border-0" value="${
-                                                      item.quantity
-                                                    }">
-          <div class="input-group-btn">
-            <button class="btn btn-sm btn-plus rounded-circle bg-light border"><i class="fa fa-plus"></i></button>
-          </div>
-                                                </div>
-                                            </td>
-                                            <td><p class="mb-0 mt-4">${formatToIDR(
-                                              total
-                                            )}</p></td>
-                                            <td><button class="btn btn-md rounded-circle bg-light border mt-4"><i class="fa fa-times text-danger"></i></button></td>
-                                        </tr>
-                                    `;
-                });
-
-                $("#cart-items").html(cartItemsHtml);
-                $("#subtotal").text(formatToIDR(subtotal));
-                $("#total").text(formatToIDR(subtotal + 10000)); // Add flat shipping rate
-                $("#shipping-to").append(response.city);
-              }
-            },
-            error: function (error) {
-              console.error("Error fetching cart data:", error);
-            },
-          });
-        }
-
-        fetchCart();
-
-        // Handle checkout button click
-        $("#checkout").click(function () {
-          const checkedItems = [];
-
-          // Collect IDs of checked items
-          $("input[name='product']:checked").each(function () {
-            checkedItems.push($(this).val());
-          });
-
-          console.log("Checked Items:", checkedItems);
-
-          // Perform checkout process for checked items
-          if (checkedItems.length > 0) {
-            postCheckout(checkedItems); // Call the postCheckout function
-          } else {
-            alert("Please select at least one item to proceed with checkout.");
-          }
-        });
-
-        // Handle quantity increase
-        $(document).on("click", ".btn-plus", function () {
-          const row = $(this).closest("tr");
-          const itemId = row.attr("data-item-id");
-          let currentQuantity = parseInt(row.find(".form-control").val());
-          currentQuantity++;
-          row.find(".form-control").val(currentQuantity);
-
-          // Update quantity in the database
-          updateCartItemQuantity(itemId, currentQuantity);
-        });
-
-        // Handle quantity decrease
-        $(document).on("click", ".btn-minus", function () {
-          const row = $(this).closest("tr");
-          const itemId = row.attr("data-item-id");
-          let currentQuantity = parseInt(row.find(".form-control").val());
-          if (currentQuantity > 1) {
-            currentQuantity--;
-            row.find(".form-control").val(currentQuantity);
-
-            // Update quantity in the database
-            updateCartItemQuantity(itemId, currentQuantity);
-          }
+        $.ajax({
+          url: `http://localhost:3330/api/users/address/${decodedToken.userID}`,
+          method: "POST",
+          contentType: "application/json",
+          data: JSON.stringify({
+            user_id: decodedToken.userID,
+            address_line1: address_line1,
+            address_line2: address_line2,
+            city: city,
+            province: province,
+            postal_code: postal_code,
+            country: country,
+          }),
+          success: function (response) {
+            console.log("Address added successfully:", response);
+            fetchCart(); // Refresh addresses after adding a new one
+          },
+          error: function (error) {
+            console.error("Error adding address:", error);
+          },
         });
       });
-      document.addEventListener("DOMContentLoaded", function () {
+
+      function deleteCartItem(itemId) {
         const userToken = localStorage.getItem("userToken");
-        const profile = document.getElementById("profile");
-        console.log(userToken);
+        const decodedToken = decodeJwt(userToken);
 
-        if (userToken) {
-          profile.innerHTML =
-            '<a href="#" class="my-auto" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">' +
-            '<i class="fas fa-user fa-2x"></i>' +
-            "</a>" +
-            '<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">' +
-            '<li><a class="dropdown-item" href="./profile.html">Profile</a></li>' +
-            '<li><a class="dropdown-item" href="#">Go to Seller</a></li>' +
-            '<li><a class="dropdown-item" href="#" onclick="logout()">Log Out</a></li>' +
-            "</ul>";
-        } else {
-          profile.innerHTML =
-            '<a href="./login.html" class="my-auto">' +
-            '<i class="fas fa-sign-in-alt fa-2x"></i>' +
-            "</a>";
+        if (!decodedToken || !decodedToken.userID) {
+          console.error("User ID not found in decoded token.");
+          return;
         }
 
-        document
-          .getElementById("search-input")
-          .addEventListener("keydown", function (event) {
-            if (event.key === "Enter") {
-              handleSearch("search-input");
-            }
-          });
-      });
-
-      function handleSearch(inputId) {
-        const searchInput = document.getElementById(inputId).value;
-        const params = new URLSearchParams(window.location.search);
-
-        // Replace the search query if it exists, or add a new one
-        if (searchInput) {
-          params.set("search", searchInput);
-        } else {
-          params.delete("search");
-        }
-
-        // Update the URL with the new search query
-        window.location.href = `./product.html?${params.toString()}`;
+        $.ajax({
+          url: `http://localhost:3330/api/products/cart/${decodedToken.userID}/${itemId}`,
+          method: "DELETE",
+          contentType: "application/json",
+          success: function (response) {
+            console.log("Item deleted successfully:", response);
+            // Refresh the cart or update UI as needed
+          },
+          error: function (error) {
+            console.error("Error deleting item:", error);
+            // Handle error scenarios
+          },
+        });
       }
 
-      function logout() {
-        localStorage.removeItem("userToken");
-        window.location.reload();
+      function decodeJwt(token) {
+        const base64Url = token.split(".")[1];
+        const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+        const jsonPayload = decodeURIComponent(
+          atob(base64)
+            .split("")
+            .map(function (c) {
+              return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+            })
+            .join("")
+        );
+        return JSON.parse(jsonPayload);
       }
     </script>
   </body>
