@@ -1,0 +1,284 @@
+/* Spinner */
+#spinner {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .8s ease-out, visibility 0s linear .5s;
+    z-index: 99999;
+}
+
+#spinner.show {
+    transition: opacity .8s ease-out, visibility 0s linear .0s;
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Navbar */
+.fixed-top {
+    transition: 0.5s;
+    background-color: #7F9F21;
+    border: 0;
+}
+
+.navbar {
+    padding: 20px;
+    border-radius: 230px 100px;
+}
+
+.navbar .navbar-brand h1 {
+    font-size: 24px;
+    color: #01940b;
+}
+
+.navbar-toggler {
+    padding: 10px;
+    border: none;
+    background: none;
+}
+
+.navbar-collapse {
+    background-color: #7F9F21;
+}
+
+/* Offcanvas Sidebar */
+.offcanvas-header {
+    border-bottom: 1px solid #dee2e6;
+}
+
+.offcanvas-body {
+    padding: 1rem;
+}
+
+.offcanvas-body .list-group-item {
+    border: none;
+    padding: 0.75rem 1rem;
+}
+
+.offcanvas-body .list-group-item a {
+    color: #000;
+    text-decoration: none;
+    display: block;
+}
+
+.offcanvas-body .list-group-item a:hover {
+    background-color: #f8f9fa;
+}
+
+/* Fruits Shop */
+.fruite {
+    background: #faf5e2;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+
+.main-content {
+    background-color: #faf5e2;
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+.section.text-address {
+    border: 1px solid #515604;
+    background-color: #e8e3d1;
+    padding: 1rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.section.table-header {
+    border: 1px solid #515604;
+    background-color: #e8e3d1;
+    padding: 1rem;
+    border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+}
+
+.table .order-items img {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #565e64;
+    border-color: #51585e;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+/* General Styles */
+:root {
+    --background-dark: #2d3548;
+    --text-light: rgba(255,255,255,0.6);
+    --text-lighter: rgba(255,255,255,0.9);
+    --spacing-s: 8px;
+    --spacing-m: 16px;
+    --spacing-l: 24px;
+    --spacing-xl: 32px;
+    --spacing-xxl: 64px;
+    --width-container: 1200px;
+}
+
+* {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+}
+
+body {
+    height: 100%;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #000000;
+}
+
+/* Order Section Styles */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 20px;
+}
+
+.section {
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.text-address h2 {
+    margin: 0;
+    color: #6d6d6d;
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    padding: 10px 0;
+    border-bottom: 2px solid #eee;
+    color: #6d6d6d;
+}
+
+.table-header div {
+    flex: 1;
+    text-align: center;
+}
+
+.orders {
+    padding: 0;
+}
+
+.order {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-radius: 18px;
+}
+
+.order .order-info {
+    display: flex;
+    align-items: center;
+    flex: 0;
+}
+
+.order-user-photo {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin: 15px;
+}
+
+.order .order-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.order .product-name {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.order-amount {
+    flex: 2;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+}
+
+.order-status {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.status {
+    color: #4caf50;
+}
+
+.order-action {
+    flex: 1;
+    text-align: center;
+}
+
+.order-link {
+    color: #1e88e5;
+    text-decoration: none;
+}
+
+.order-link:hover {
+    text-decoration: underline;
+}
+
+.order-number {
+    flex: 2;
+    text-align: right;
+    font-size: 12px;
+    color: #666;
+}
+
+/* Media Queries */
+@media (min-width: 992px) {
+    .hero-header,
+    .page-header {
+        margin-top: 0px !important;
+    }
+}
+
+@media (max-width: 992px) {
+    .hero-header,
+    .page-header {
+        margin-top: 97px !important;
+    }
+}
