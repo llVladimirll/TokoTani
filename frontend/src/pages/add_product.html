@@ -28,22 +28,23 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="bootstrap.min.css" rel="stylesheet" />
-    <link href="../styles/add_product.css" rel="stylesheet" />
 
     <!-- Template Stylesheet -->
+    <link href="../styles/add_product.css" rel="stylesheet" />
+
 
     <!-- Libraries Stylesheet -->
     <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet" />
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
-
+  
     <!-- Template Stylesheet -->
+    <style>
+      
+    </style>
   </head>
   <body>
     <!-- Spinner Start -->
-    <div
-      id="spinner"
-      class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50 d-flex align-items-center justify-content-center"
-    >
+    <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
       <div class="spinner-grow text-primary" role="status"></div>
     </div>
     <!-- Spinner End -->
@@ -118,58 +119,36 @@
     </div>
     <!-- Offcanvas Sidebar End -->
 
-    <section class="content" style="background-color: #faf5e2">
+    <!-- Product Form Start-->
+    <section class="content" style="background-color: #FAF5E2;">
       <h2>Informasi Produk</h2>
-      <form class="product-form" id="add-product" enctype="multipart/form-data">
+      <form class="product-form" enctype="multipart/form-data" action="/postProduct" method="POST">
         <div class="product-image">
           <div class="product-image-section">
             <label for="product-image-upload">
-              <img
-                src="product-placeholder.jpg"
-                alt="Product Image"
-                id="product-image-preview"
-              />
+              <img src="product-placeholder.jpg" alt="Product Image" id="product-image-preview">
             </label>
-            <input
-              type="file"
-              id="product-image-upload"
-              name="productImage"
-              accept="image/*"
-              onchange="previewImage(event)"
-            />
+            <input type="file" id="product-image-upload" name="product-image" accept="image/*" onchange="previewImage(event)">
           </div>
         </div>
         <div class="product-details">
           <label for="product-name">Nama Produk</label>
-          <input type="text" id="product-name" name="name" required />
+          <input type="text" id="product-name" name="name">
           <label for="product-category">Kategori</label>
-          <select id="product-category" name="categoryName" required>
-            <option value="fruits">Fruits</option>
-            <option value="vegetables">Vegetables</option>
-            <option value="meat">Meat</option>
-            <option value="fish">Fish</option>
-          </select>
+          <input type="text" id="product-category" name="categoryName">
           <label for="product-price">Harga</label>
-          <input type="text" id="product-price" name="price" required />
+          <input type="text" id="product-price" name="product-price" placeholder="Enter price in IDR">
           <label for="product-description">Deskripsi Produk</label>
-          <textarea
-            id="product-description"
-            name="description"
-            required
-          ></textarea>
-          <input
-            type="hidden"
-            id="product-seller-id"
-            name="sellerID"
-            value="1"
-          />
-          <!-- Replace with actual seller ID -->
+          <textarea id="product-description" name="description"></textarea>
+          <input type="hidden" id="product-seller-id" name="sellerID" value="1"> <!-- Replace with actual seller ID -->
         </div>
         <div class="buttons">
-          <button type="submit" class="save-display">Post Products</button>
+          <button type="submit" class="save-archive">Simpan & Arsipkan</button>
+          <button type="submit" class="save-display">Simpan & Tampilkan</button>
         </div>
       </form>
     </section>
+    <!-- Product Form End-->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -177,103 +156,49 @@
     <script src="lib/waypoints/waypoints.min.js"></script>
     <script src="lib/lightbox/js/lightbox.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-
+    <script src="./main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
     <script>
-      function decodeJwt(token) {
-        try {
-          const base64Url = token.split(".")[1];
-          const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-          const jsonPayload = decodeURIComponent(
-            atob(base64)
-              .split("")
-              .map(function (c) {
-                return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-              })
-              .join("")
-          );
-          return JSON.parse(jsonPayload);
-        } catch (error) {
-          console.error("Error decoding JWT:", error);
-          return null;
-        }
-      }
-
       document.addEventListener("DOMContentLoaded", function () {
-        const sellerToken = localStorage.getItem("sellerToken");
-        const decodedToken = decodeJwt(sellerToken);
-        const sellerId = decodedToken ? decodedToken.SellerID : 1;
+        const userToken = localStorage.getItem("userToken");
+        const profile = document.getElementById("profile");
 
-        const addProductForm = document.getElementById("add-product");
+        if (userToken) {
+          profile.innerHTML =
+            '<a href="./profile.html" class="my-auto">' +
+            '<i class="fas fa-user fa-2x"></i>' +
+            "</a>";
+        } else {
+          profile.innerHTML =
+            '<a href="./login.html" class="my-auto">' +
+            '<i class="fas fa-sign-in-alt fa-2x"></i>' +
+            "</a>";
+        }
+
         const priceInput = document.getElementById("product-price");
-
-        priceInput.addEventListener("input", function () {
-          formatPriceInput(this);
-        });
-
-        addProductForm.addEventListener("submit", function (event) {
-          event.preventDefault(); // Prevent default form submission
-
-          const formData = new FormData(addProductForm);
-          formData.set("price", parsePrice(priceInput.value));
-          formData.set("sellerID", sellerId);
-
-          const apiUrl = `http://localhost:3330/api/products/${sellerId}`;
-
-          fetch(apiUrl, {
-            method: "POST",
-            body: formData,
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              console.log("Success:", data);
-              // Optionally, you can reset the form after successful submission
-              window.location.href = "./dashbord.html";
-            })
-            .catch((error) => {
-              console.error("Error:", error);
-            });
+        priceInput.addEventListener("input", function(event) {
+          let value = event.target.value;
+          value = value.replace(/\D/g, '');
+          const formattedValue = new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR'
+          }).format(value);
+          event.target.value = formattedValue;
         });
       });
 
-      function parsePrice(price) {
-        // Remove any non-numeric characters and convert to a float
-        return parseFloat(price.replace(/[^\d.-]/g, ""));
-      }
-
-      function formatPriceInput(input) {
-        let timeout = null;
-        const delay = 500; // Delay in milliseconds
-
-        input.addEventListener("input", function () {
-          clearTimeout(timeout);
-
-          timeout = setTimeout(() => {
-            let value = input.value.replace(/\D/g, "");
-            if (value) {
-              let formattedValue = parseInt(value, 10).toLocaleString("id-ID", {
-                style: "currency",
-                currency: "IDR",
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0,
-              });
-              input.value = formattedValue.replace("Rp", "").trim();
-            } else {
-              input.value = "";
-            }
-          }, delay);
-        });
+      function logout() {
+        localStorage.removeItem("userToken");
+        localStorage.removeItem("sellerToken");
       }
 
       function previewImage(event) {
-        const preview = document.getElementById("product-image-preview");
-        const file = event.target.files[0];
-        const reader = new FileReader();
-        reader.onload = function () {
-          preview.src = reader.result;
-        };
-        if (file) {
-          reader.readAsDataURL(file);
+        var reader = new FileReader();
+        reader.onload = function(){
+          var output = document.getElementById('product-image-preview');
+          output.src = reader.result;
         }
+        reader.readAsDataURL(event.target.files[0]);
       }
     </script>
   </body>
