@@ -160,21 +160,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        const userToken = localStorage.getItem("userToken");
-        const profile = document.getElementById("profile");
+        const sellerToken = localStorage.getItem("sellerToken");
+        const decodedToken = decodeJwt(sellerToken);
+        const sellerId = decodedToken ? decodedToken.SellerID : 1;
 
-        if (userToken) {
-          profile.innerHTML =
-            '<a href="./profile.html" class="my-auto">' +
-            '<i class="fas fa-user fa-2x"></i>' +
-            "</a>";
-        } else {
-          profile.innerHTML =
-            '<a href="./login.html" class="my-auto">' +
-            '<i class="fas fa-sign-in-alt fa-2x"></i>' +
-            "</a>";
-        }
-
+        const addProductForm = document.getElementById("add-product");
         const priceInput = document.getElementById("product-price");
         priceInput.addEventListener("input", function(event) {
           let value = event.target.value;
@@ -187,9 +177,33 @@
         });
       });
 
-      function logout() {
-        localStorage.removeItem("userToken");
-        localStorage.removeItem("sellerToken");
+      function parsePrice(price) {
+        // Remove any non-numeric characters and convert to a float
+        return parseFloat(price.replace(/[^\d.-]/g, ""));
+      }
+
+      function formatPriceInput(input) {
+        let timeout = null;
+        const delay = 500; // Delay in milliseconds
+
+        input.addEventListener("input", function () {
+          clearTimeout(timeout);
+
+          timeout = setTimeout(() => {
+            let value = input.value.replace(/\D/g, "");
+            if (value) {
+              let formattedValue = parseInt(value, 10).toLocaleString("id-ID", {
+                style: "currency",
+                currency: "IDR",
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+              });
+              input.value = formattedValue.replace("Rp", "").trim();
+            } else {
+              input.value = "";
+            }
+          }, delay);
+        });
       }
 
       function previewImage(event) {
