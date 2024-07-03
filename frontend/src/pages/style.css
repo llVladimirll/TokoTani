@@ -162,8 +162,7 @@
 
 
 .table-container {
-  background-color: #FAF5E2;
-  width: 90%;
+  width: 100%;
   margin: 20px auto;
   border-collapse: collapse;
 
@@ -178,12 +177,14 @@ table {
 }
 
 thead {
-  background-color: #7f9f21;
+  background-color: #469C31;
   color: #fff;
+  width: 100%;
 }
 
 thead th {
-  padding: 15px;
+  padding: 15px ;
+  width: 100%;
   text-align: left;
 }
 

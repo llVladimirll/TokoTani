@@ -3,262 +3,310 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile Page</title>
-    <style>
-        body.custom-body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-        }
+    <title>Shopee Clone</title>
+<style>
+ body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
 
-        header.custom-header {
-            background-color: #fff;
-            border-bottom: 1px solid #ddd;
-        }
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ff5722;
+    padding: 15px 30px;
+    color: white;
+}
 
-        .top-bar.custom-top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-        }
+.header-container .logo img {
+    height: 40px;
+}
 
-        .logo.custom-logo h1 {
-            color: #2d8fdd;
-            margin: 0;
-        }
+.header-container .search-bar {
+    display: flex;
+    flex: 1;
+    margin: 0 20px;
+}
 
-        .search-bar.custom-search-bar input {
-            width: 500px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
+.header-container .search-bar input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+    margin-right: -5px;
+}
 
-        .user-profile.custom-user-profile {
-            display: flex;
-            align-items: center;
-        }
+.header-container .search-bar button {
+    padding: 10px 20px;
+    border: none;
+    background-color: white;
+    color: #ff5722;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
 
-        .user-profile.custom-user-profile span {
-            margin-right: 10px;
-        }
+.header-container .search-bar button:hover {
+    background-color: #e64a19;
+}
 
-        .top-profile-pic.custom-top-profile-pic {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-        }
+.header-container .user-info {
+    display: flex;
+    align-items: center;
+}
 
-        .custom-row {
-            display: flex;
-            min-height: 100vh;
-        }
+.header-container .user-info span {
+    margin-right: 10px;
+}
 
-        .sidebar.custom-sidebar {
-            width: 300px;
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+.header-container .user-info img {
+    height: 30px;
+    border-radius: 50%;
+}
 
-        .sidebar.custom-sidebar .profile.custom-profile {
-            text-align: center;
-        }
+nav {
+    background-color: white;
+    padding: 15px 30px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
 
-        .sidebar.custom-sidebar .profile-pic.custom-profile-pic {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin-bottom: 10px;
-        }
+nav ul {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
 
-        .sidebar.custom-sidebar h2.custom-sidebar-title {
-            font-size: 24px;
-            margin: 0;
-        }
+nav ul li {
+    margin-right: 20px;
+}
 
-        .sidebar-menu.custom-sidebar-menu h3.custom-sidebar-menu-title {
-            margin-top: 20px;
-            font-size: 18px;
-        }
+nav ul li a {
+    text-decoration: none;
+    color: #ff5722;
+    font-weight: bold;
+    transition: color 0.3s;
+}
 
-        .sidebar-menu.custom-sidebar-menu p,
-        .sidebar-menu.custom-sidebar-menu button.custom-sidebar-menu-button {
-            margin: 5px 0;
-        }
+nav ul li a:hover {
+    color: #e64a19;
+}
 
-        .sidebar-menu.custom-sidebar-menu button.custom-sidebar-menu-button {
-            background-color: #ff8c00;
-            border: none;
-            color: white;
-            padding: 10px;
-            cursor: pointer;
-        }
+main {
+    padding: 0 30px;
+}
 
-        .main-content.custom-main-content {
-            flex-grow: 1;
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+.purchase-summary {
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
 
-        .navigation.custom-navigation {
-            background-color: #fff;
-            border-top: 1px solid #ddd;
-            border-bottom: 1px solid #ddd;
-            margin-bottom: 20px;
-        }
+.purchase-item {
+    border-bottom: 1px solid #f5f5f5;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
 
-        .navigation.custom-navigation ul.custom-navigation-list {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: space-around;
-        }
+.item-details {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
 
-        .navigation.custom-navigation ul.custom-navigation-list li.custom-navigation-item {
-            padding: 10px 20px;
-        }
+.item-details img {
+    height: 60px;
+    margin-right: 20px;
+}
 
-        .navigation.custom-navigation ul.custom-navigation-list li.custom-navigation-item a.custom-navigation-link {
-            text-decoration: none;
-            color: #333;
-        }
+.product-info {
+    flex: 1;
+}
 
-        .profile-info.custom-profile-info {
-            max-width: 600px;
-            margin: 0 auto;
-        }
+.product-info h3 {
+    margin: 0;
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
-        .profile-info.custom-profile-info h1.custom-profile-info-title {
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
+.product-info .product-meta {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #555;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
-        .info-item.custom-info-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
+.situation {
+    font-style: italic;
+    color: #888;
+    margin-top: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
-        .info-item.custom-info-item label.custom-info-label {
-            font-weight: bold;
-        }
+.order-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
 
-        .info-item.custom-info-item p.custom-info-text {
-            margin: 0;
-        }
+.order-actions button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: none;
+    background-color: #ff5722;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
 
-        .info-item.custom-info-item a.custom-info-link {
-            color: #ff8c00;
-            text-decoration: none;
-        }
+.order-actions button:hover {
+    background-color: #e64a19;
+}
 
-        .verified.custom-verified {
-            color: green;
-        }
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+    }
 
-        .switch.custom-switch {
-            position: relative;
-            display: inline-block;
-            width: 34px;
-            height: 20px;
-        }
+    .search-bar {
+        margin: 10px 0;
+        width: 100%;
+    }
 
-        .switch.custom-switch input.custom-switch-input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
+    .user-info {
+        justify-content: center;
+    }
 
-        .slider.custom-slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: .4s;
-        }
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
 
-        .slider.custom-slider:before {
-            position: absolute;
-            content: "";
-            height: 14px;
-            width: 14px;
-            left: 3px;
-            bottom: 3px;
-            background-color: white;
-            transition: .4s;
-        }
+    nav ul li {
+        margin-bottom: 10px;
+    }
 
-        input.custom-switch-input:checked + .slider.custom-slider {
-            background-color: #ff8c00;
-        }
+    .purchase-item {
+        flex-direction: column;
+    }
 
-        input.custom-switch-input:checked + .slider.custom-slider:before {
-            transform: translateX(14px);
-        }
+    .order-total {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-        .slider.round.custom-slider-round {
-            border-radius: 34px;
-        }
+    .order-actions {
+        display: flex;
+        flex-direction: column;
+    }
 
-        .slider.round.custom-slider-round:before {
-            border-radius: 50%;
-        }
-    </style>
+    .order-actions button {
+        margin: 10px 0;
+    }
+
+    .product-info h3,
+    .product-info .product-meta,
+    .situation {
+        white-space: normal;
+        overflow: visible;
+        text-overflow: unset;
+    }
+}
+
+
+</style>    
 </head>
-<body class="custom-body">
-    
-
-    <div class="custom-row">
-        <main class="main-content custom-main-content">
-            <nav class="navigation custom-navigation">
-                <ul class="custom-navigation-list">
-                    <li class="custom-navigation-item"><a href="#" class="custom-navigation-link">Kategori</a></li>
-                    <li class="custom-navigation-item"><a href="#" class="custom-navigation-link">Tentang Tokopedia</a></li>
-                    <li class="custom-navigation-item"><a href="#" class="custom-navigation-link">Mitra Tokopedia</a></li>
-                </ul>
-            </nav>
-            <div class="profile-info custom-profile-info">
-                <h1 class="custom-profile-info-title">Biodata Diri</h1>
-                <div class="info-item custom-info-item">
-                    <label class="custom-info-label">Nama</label>
-                    <p class="custom-info-text">Vladimirrahman Salsabil Abdullah</p>
-                    <a href="#" class="custom-info-link">Ubah</a>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="shopee-logo.png" alt="Shopee Logo">
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search">
+                <button>Search</button>
+            </div>
+            <div class="user-info">
+                <span>mohanedhider</span>
+                <img src="user-avatar.png" alt="User Avatar">
+            </div>
+        </div>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#">My Account</a></li>
+            <li><a href="#">My Purchase</a></li>
+            <li><a href="#">Notifications</a></li>
+            <li><a href="#">My Vouchers</a></li>
+            <li><a href="#">My Shopee Coins</a></li>
+        </ul>
+    </nav>
+    <main>
+        <div class="purchase-summary">
+            <div class="purchase-item">
+                <div class="item-details">
+                    <img src="product1.jpg" alt="Lotus Biscoff">
+                    <div class="product-info">
+                        <h3>Lotus Biscoff 250gr - Biskuit Speculoos Caramel Cookies Cinnamon</h3>
+                        <p class="product-meta">Quantity: 1 • Rp32.800</p>
+                        <p class="situation" id="product1-situation">Perfect for enjoying with coffee or as a delicious snack!</p>
+                    </div>
                 </div>
-                <div class="info-item custom-info-item">
-                    <label class="custom-info-label">Tanggal Lahir</label>
-                    <p class="custom-info-text">7 April 2000</p>
-                    <a href="#" class="custom-info-link">Ubah Tanggal Lahir</a>
-                </div>
-                <div class="info-item custom-info-item">
-                    <label class="custom-info-label">Jenis Kelamin</label>
-                    <p class="custom-info-text">Tambah Jenis Kelamin</p>
-                </div>
-                <div class="info-item custom-info-item">
-                    <label class="custom-info-label">Email</label>
-                    <p class="custom-info-text">Tambah Email</p>
-                </div>
-                <div class="info-item custom-info-item">
-                    <label class="custom-info-label">Nomor HP</label>
-                    <p class="custom-info-text">6285729029164 <span class="verified custom-verified">Terverifikasi</span></p>
-                </div>
-                <div class="info-item custom-info-item">
-                    <label class="custom-info-label">Safe Mode</label>
-                    <label class="switch custom-switch">
-                        <input type="checkbox" class="custom-switch-input" checked>
-                        <span class="slider custom-slider"></span>
-                    </label>
+                <div class="item-details">
+                    <img src="product2.jpg" alt="Lotus Spread Smooth">
+                    <div class="product-info">
+                        <h3>Lotus Spread Smooth - Selai Speculoos 400gr - Biscoff Caramel Cookie</h3>
+                        <p class="product-meta">Quantity: 1 • Rp60.900</p>
+                        <p class="situation" id="product2-situation">Ideal for spreading on toast or using in desserts!</p>
+                    </div>
                 </div>
             </div>
-        </main>
-    </div>
+            <div class="order-total">
+                <h3>Order Total: Rp98.200</h3>
+                <div class="order-actions">
+                    <button>Rate</button>
+                    <button>Contact Seller</button>
+                    <button>Buy Again</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
 </body>
+<script>
+    // JavaScript for dynamic situation updates
+
+// Function to change situation text based on completeness
+function updateSituation(product, isComplete) {
+    const situationElement = document.getElementById(`${product}-situation`);
+
+    if (isComplete) {
+        situationElement.textContent = "Product is complete and ready for use!";
+        situationElement.style.color = "#4caf50"; // Green color for completeness
+    } else {
+        situationElement.textContent = "Product is not complete yet.";
+        situationElement.style.color = "#f44336"; // Red color for incompleteness
+    }
+}
+
+// Example: Change situation dynamically based on completeness
+updateSituation("product1", true); // Example of a complete product
+updateSituation("product2", false); // Example of an incomplete product
+
+</script>
 </html>
