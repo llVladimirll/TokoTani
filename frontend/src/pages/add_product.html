@@ -166,14 +166,33 @@
 
         const addProductForm = document.getElementById("add-product");
         const priceInput = document.getElementById("product-price");
-        priceInput.addEventListener("input", function(event) {
-          let value = event.target.value;
-          value = value.replace(/\D/g, '');
-          const formattedValue = new Intl.NumberFormat('id-ID', {
-            style: 'currency',
-            currency: 'IDR'
-          }).format(value);
-          event.target.value = formattedValue;
+
+        priceInput.addEventListener("input", function () {
+          formatPriceInput(this);
+        });
+
+        addProductForm.addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent default form submission
+
+          const formData = new FormData(addProductForm);
+          formData.set("price", parsePrice(priceInput.value));
+          formData.set("sellerID", sellerId);
+
+          const apiUrl = `https://toko-tani-server-2.vercel.app/api/products/${sellerId}`;
+
+          fetch(apiUrl, {
+            method: "POST",
+            body: formData,
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              console.log("Success:", data);
+              // Optionally, you can reset the form after successful submission
+              window.location.href = "./dashbord.html";
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+            });
         });
       });
 

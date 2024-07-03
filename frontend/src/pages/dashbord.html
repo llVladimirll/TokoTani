@@ -421,7 +421,7 @@
         async function fetchData(period) {
           try {
             const response = await fetch(
-              `http://localhost:3330/api/sellers/earnings/${sellerId}?period=${period}`
+              `https://toko-tani-server-2.vercel.app/api/sellers/earnings/${sellerId}?period=${period}`
             );
 
             if (!response.ok) {
@@ -535,7 +535,7 @@
         async function fetchTotalEarnings() {
           try {
             const response = await fetch(
-              `http://localhost:3330/api/sellers/total/${sellerId}`
+              `https://toko-tani-server-2.vercel.app/api/sellers/total/${sellerId}`
             );
             if (!response.ok) {
               throw new Error(`Fetch failed with status ${response.status}`);
@@ -569,7 +569,7 @@
         async function fetchRecommendations() {
           try {
             const response = await fetch(
-              `http://localhost:3330/api/sellers/recomendations/${sellerId}`
+              `https://toko-tani-server-2.vercel.app/api/sellers/recomendations/${sellerId}`
             );
             if (!response.ok) {
               throw new Error(`Fetch failed with status ${response.status}`);

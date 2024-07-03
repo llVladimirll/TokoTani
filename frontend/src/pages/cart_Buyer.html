@@ -308,7 +308,7 @@
 
         // Make the AJAX request to update the cart item quantity
         $.ajax({
-          url: `http://localhost:3330/api/products/cart/${decodedToken.userID}/${itemId}`,
+          url: `https://toko-tani-server-2.vercel.app/api/products/cart/${decodedToken.userID}/${itemId}`,
           method: "PUT",
           contentType: "application/json",
           data: JSON.stringify({ quantity: newQuantity }),
@@ -337,7 +337,7 @@
         }
 
         // Define the checkout endpoint URL
-        const checkoutEndpoint = `http://localhost:3330/api/products/checkout/${decodedToken.userID}`;
+        const checkoutEndpoint = `https://toko-tani-server-2.vercel.app/api/products/checkout/${decodedToken.userID}`;
 
         // Prepare the request payload
         const requestData = {
@@ -433,7 +433,7 @@
 
         // Fetch cart items
         $.ajax({
-          url: `http://localhost:3330/api/products/cart/${decodedToken.userID}`,
+          url: `https://toko-tani-server-2.vercel.app/api/products/cart/${decodedToken.userID}`,
           method: "GET",
           contentType: "application/json",
           success: function (response) {
@@ -511,7 +511,7 @@
 
         // Fetch user addresses
         $.ajax({
-          url: `http://localhost:3330/api/users/address/${decodedToken.userID}`,
+          url: `https://toko-tani-server-2.vercel.app/api/users/address/${decodedToken.userID}`,
           method: "GET",
           contentType: "application/json",
           success: function (response) {
@@ -579,7 +579,7 @@
         const country = $("#country").val();
 
         $.ajax({
-          url: `http://localhost:3330/api/users/address/${decodedToken.userID}`,
+          url: `https://toko-tani-server-2.vercel.app/api/users/address/${decodedToken.userID}`,
           method: "POST",
           contentType: "application/json",
           data: JSON.stringify({
@@ -611,7 +611,7 @@
         }
 
         $.ajax({
-          url: `http://localhost:3330/api/products/cart/${decodedToken.userID}/${itemId}`,
+          url: `https://toko-tani-server-2.vercel.app/api/products/cart/${decodedToken.userID}/${itemId}`,
           method: "DELETE",
           contentType: "application/json",
           success: function (response) {

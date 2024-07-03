@@ -90,7 +90,7 @@
           event.preventDefault(); // Prevent form submission
 
           const formData = new FormData(sellerForm); // Create FormData object
-          const apiUrl = `http://localhost:3330/api/sellers/${decodedToken.userID}`;
+          const apiUrl = `https://toko-tani-server-2.vercel.app/api/sellers/${decodedToken.userID}`;
           formData.forEach((value, key) => {
             console.log(key, value);
           });
