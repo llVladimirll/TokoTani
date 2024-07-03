@@ -368,6 +368,10 @@
           // Add next button
           const nextButton = document.createElement("a");
           nextButton.href = "#";
+          nextButton.classList.add("rounded", "next");
+          nextButton.innerHTML = "&raquo;";
+          paginationContainer.appendChild(nextButton);
+        }
 
         // Function to handle search
         window.handleSearch = function () {
