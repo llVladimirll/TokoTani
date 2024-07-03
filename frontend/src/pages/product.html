@@ -104,84 +104,7 @@
             <div class="row g-4">
               <div class="col-lg-3">
                 <div class="row g-4">
-                  <div class="col-lg-12">
-                    <div class="mb-3">
-                      <h4>Lokasi</h4>
-                      <ul
-                        class="list-unstyled fruite-categorie"
-                        style="
-                          max-height: 150px;
-                          overflow-y: auto;
-                          padding-left: 0;
-                        "
-                      >
-                        <li style="margin-bottom: 5px">
-                          <div
-                            class="d-flex justify-content-between fruite-name"
-                          >
-                            <label style="margin-bottom: 0"
-                              ><input type="checkbox" /> Jakarta</label
-                            >
-                          </div>
-                        </li>
-                        <li style="margin-bottom: 5px">
-                          <div
-                            class="d-flex justify-content-between fruite-name"
-                          >
-                            <label style="margin-bottom: 0"
-                              ><input type="checkbox" /> Bandung</label
-                            >
-                          </div>
-                        </li>
-                        <!-- Add more cities here -->
-                        <li style="margin-bottom: 5px">
-                          <div
-                            class="d-flex justify-content-between fruite-name"
-                          >
-                            <label style="margin-bottom: 0"
-                              ><input type="checkbox" /> Surabaya</label
-                            >
-                          </div>
-                        </li>
-                        <li style="margin-bottom: 5px">
-                          <div
-                            class="d-flex justify-content-between fruite-name"
-                          >
-                            <label style="margin-bottom: 0"
-                              ><input type="checkbox" /> Medan</label
-                            >
-                          </div>
-                        </li>
-                        <li style="margin-bottom: 5px">
-                          <div
-                            class="d-flex justify-content-between fruite-name"
-                          >
-                            <label style="margin-bottom: 0"
-                              ><input type="checkbox" /> Semarang</label
-                            >
-                          </div>
-                        </li>
-                        <li style="margin-bottom: 5px">
-                          <div
-                            class="d-flex justify-content-between fruite-name"
-                          >
-                            <label style="margin-bottom: 0"
-                              ><input type="checkbox" /> Yogyakarta</label
-                            >
-                          </div>
-                        </li>
-                        <!-- End of added cities -->
-                      </ul>
-                      <h4>Price Range</h4>
-                      <div class="custom-wrapper">
-                        <!-- Add price range inputs and sliders -->
-                      </div>
-                      <h4>Data</h4>
-                      <ul class="list-unstyled fruite-categorie">
-                        <!-- Add more data options -->
-                      </ul>
-                    </div>
-                  </div>
+                  <div class="col-lg-12"></div>
                 </div>
               </div>
               <div class="col-lg-9">
@@ -291,7 +214,7 @@
           const params = new URLSearchParams(window.location.search);
           const category = params.get("category");
           const search = params.get("search");
-          const url = `https://toko-tani-server-2.vercel.app/api/products/?page=${page}&limit=${itemsPerPage}`;
+          const url = `http://localhost:3330/api/products/?page=${page}&limit=${itemsPerPage}`;
 
           // Construct the fetch URL with category and search parameters if they exist
           let fetchUrl = url;
@@ -332,7 +255,7 @@
                                 <div class="d-flex justify-content-between flex-lg-wrap">
                                     <p class="text-dark fs-5 fw-bold mb-0">${product.price} / kg</p>
                                 </div>
-                                <div><p>${product.location}</p></div>
+                                <div><p>${product.seller_location}</p></div>
                             </div>
                         </div>
                     </a>
