@@ -209,7 +209,7 @@
           const params = new URLSearchParams(window.location.search);
           const category = params.get("category");
           const search = params.get("search");
-          const url = `http://localhost:3330/api/products/?page=${page}&limit=${itemsPerPage}`;
+          const url = `https://toko-tani-server-2.vercel.app/api/products/?page=${page}&limit=${itemsPerPage}`;
 
           // Construct the fetch URL with category and search parameters if they exist
           let fetchUrl = url;

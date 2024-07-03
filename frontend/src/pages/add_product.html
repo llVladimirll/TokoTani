@@ -221,7 +221,7 @@
           formData.set("price", parsePrice(priceInput.value));
           formData.set("sellerID", sellerId);
 
-          const apiUrl = `http://localhost:3330/api/products/${sellerId}`;
+          const apiUrl = `https://toko-tani-server-2.vercel.app/api/products/${sellerId}`;
 
           fetch(apiUrl, {
             method: "POST",
